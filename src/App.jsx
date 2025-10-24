@@ -7,6 +7,8 @@ import Estatisticas from './pages/Estatisticas'
 import Educacao from './pages/Educacao'
 import Perfil from './pages/Perfil'
 import Instalar from './pages/Instalar'
+import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
 import NotFound from './pages/NotFound'
 import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
@@ -24,6 +26,8 @@ function App() {
               <Route path="/educacao" element={<Educacao />} />
               <Route path="/perfil" element={<Perfil />} />
               <Route path="/instalar" element={<Instalar />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
