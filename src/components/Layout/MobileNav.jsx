@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Home, AlertTriangle, BarChart3, BookOpen, User } from 'lucide-react'
+import { Home, AlertTriangle, BarChart3, BookOpen, User, Download } from 'lucide-react'
 
 const MobileNav = () => {
   const navigation = [
@@ -7,11 +7,12 @@ const MobileNav = () => {
     { name: 'Stats', href: '/estatisticas', icon: BarChart3 },
     { name: 'Educação', href: '/educacao', icon: BookOpen },
     { name: 'Perfil', href: '/perfil', icon: User },
+    { name: 'Instalar', href: '/instalar', icon: Download },
   ]
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-[1001] bg-white dark:bg-[#141414] border-t border-gray-200 dark:border-[#1f1f1f] backdrop-blur-sm bg-opacity-90 dark:bg-opacity-95">
-      <div className="grid grid-cols-4">
+      <div className="grid grid-cols-5">
         {navigation.map((item) => (
           <NavLink
             key={item.name}

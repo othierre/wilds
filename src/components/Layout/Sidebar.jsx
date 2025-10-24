@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Home, AlertTriangle, BarChart3, BookOpen, User, X } from 'lucide-react'
+import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X } from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext'
 
 const Sidebar = ({ onClose }) => {
@@ -9,6 +9,7 @@ const Sidebar = ({ onClose }) => {
     { name: 'Estatísticas', href: '/estatisticas', icon: BarChart3 },
     { name: 'Educação', href: '/educacao', icon: BookOpen },
     { name: 'Perfil', href: '/perfil', icon: User },
+    { name: 'Instalar App', href: '/instalar', icon: Download },
   ]
 
   return (
