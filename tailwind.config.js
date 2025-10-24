@@ -31,6 +31,15 @@ export default {
           700: '#c2410c',
           800: '#9a3412',
           900: '#7c2d12',
+        },
+        // Cores dark mode customizadas (preto sólido com baixa saturação)
+        dark: {
+          bg: '#0a0a0a',        // Fundo principal - quase preto
+          card: '#141414',       // Cards e elementos
+          border: '#1f1f1f',     // Bordas
+          hover: '#1a1a1a',      // Hover states
+          text: '#e5e5e5',       // Texto principal
+          'text-secondary': '#a3a3a3', // Texto secundário
         }
       },
       fontFamily: {

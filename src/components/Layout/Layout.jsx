@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import MobileNav from './MobileNav'
+import FloatingReportButton from '../FloatingReportButton'
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -40,6 +41,9 @@ const Layout = ({ children }) => {
       <div className="lg:hidden z-[1001]">
         <MobileNav />
       </div>
+
+      {/* Floating Report Button */}
+      <FloatingReportButton />
     </div>
   )
 }

@@ -7,20 +7,20 @@ const Header = ({ onMenuClick }) => {
   const { user, loginWithGoogle, logout } = useAuth()
 
   return (
-    <header className="sticky top-0 z-[1001] bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90">
+    <header className="sticky top-0 z-[1001] bg-white dark:bg-dark-card border-b border-gray-200 dark:border-dark-border backdrop-blur-sm bg-opacity-90 dark:bg-opacity-95">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-4">
             <button
               type="button"
-              className="lg:hidden p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="lg:hidden p-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-gray-100 dark:hover:bg-dark-hover"
               onClick={onMenuClick}
             >
               <Menu className="h-6 w-6" />
             </button>
 
             <div className="hidden lg:block">
-              <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+              <h1 className="text-xl font-semibold text-gray-900 dark:text-dark-text">
                 Monitoramento de Queimadas
               </h1>
             </div>
@@ -28,7 +28,7 @@ const Header = ({ onMenuClick }) => {
 
           <div className="flex items-center gap-2">
             {/* Botão de Notificações */}
-            <button className="relative p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <button className="relative p-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-gray-100 dark:hover:bg-dark-hover transition-colors">
               <Bell className="h-5 w-5" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-alert-500 rounded-full"></span>
             </button>
@@ -36,14 +36,14 @@ const Header = ({ onMenuClick }) => {
             {/* Botão de Tema */}
             <button 
               onClick={toggleTheme}
-              className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="p-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-gray-100 dark:hover:bg-dark-hover transition-colors"
             >
               {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
 
             {/* Login/Perfil */}
             {user ? (
-              <div className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-gray-700">
+              <div className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-dark-border">
                 <img 
                   src={user.photo || 'https://ui-avatars.com/api/?name=' + user.name + '&background=16a34a&color=fff'} 
                   alt={user.name}
@@ -51,7 +51,7 @@ const Header = ({ onMenuClick }) => {
                 />
                 <button
                   onClick={logout}
-                  className="hidden sm:flex items-center gap-2 px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                  className="hidden sm:flex items-center gap-2 px-3 py-1.5 text-sm text-gray-700 dark:text-dark-text hover:bg-gray-100 dark:hover:bg-dark-hover rounded-lg transition-colors"
                 >
                   <LogOut className="h-4 w-4" />
                   <span className="hidden md:inline">Sair</span>
