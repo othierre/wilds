@@ -6,6 +6,7 @@ import Reportar from './pages/Reportar'
 import Estatisticas from './pages/Estatisticas'
 import Educacao from './pages/Educacao'
 import Perfil from './pages/Perfil'
+import NotFound from './pages/NotFound'
 import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
 
@@ -21,6 +22,7 @@ function App() {
               <Route path="/estatisticas" element={<Estatisticas />} />
               <Route path="/educacao" element={<Educacao />} />
               <Route path="/perfil" element={<Perfil />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
         </Router>
