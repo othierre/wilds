@@ -243,6 +243,11 @@ body {
   animation: slideOutLeft 0.3s ease-in forwards;
 }
 
+/* Mobile Sidebar Overlay Override */
+.bg-gray-900\/80 {
+  background-color: rgb(0 0 0 / 0%) !important;
+}
+
 /* Blog Post Styles */
 .prose {
   color: inherit;
