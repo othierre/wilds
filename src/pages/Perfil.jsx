@@ -120,11 +120,11 @@ const Perfil = () => {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-gray-200 dark:border-gray-700">
-        <nav className="flex gap-8">
+      <div className="border-b border-gray-200 dark:border-gray-700 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+        <nav className="flex gap-4 sm:gap-8 min-w-max sm:min-w-0">
           <button
             onClick={() => setActiveTab('info')}
-            className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+            className={`py-4 px-2 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
               activeTab === 'info'
                 ? 'border-primary-500 text-primary-600 dark:text-primary-400'
                 : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
@@ -134,7 +134,7 @@ const Perfil = () => {
           </button>
           <button
             onClick={() => setActiveTab('reports')}
-            className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+            className={`py-4 px-2 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
               activeTab === 'reports'
                 ? 'border-primary-500 text-primary-600 dark:text-primary-400'
                 : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
@@ -144,7 +144,7 @@ const Perfil = () => {
           </button>
           <button
             onClick={() => setActiveTab('alerts')}
-            className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+            className={`py-4 px-2 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
               activeTab === 'alerts'
                 ? 'border-primary-500 text-primary-600 dark:text-primary-400'
                 : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
@@ -154,7 +154,7 @@ const Perfil = () => {
           </button>
           <button
             onClick={() => setActiveTab('achievements')}
-            className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+            className={`py-4 px-2 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
               activeTab === 'achievements'
                 ? 'border-primary-500 text-primary-600 dark:text-primary-400'
                 : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
