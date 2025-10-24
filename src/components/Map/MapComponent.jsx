@@ -224,6 +224,19 @@ const MapComponent = ({ onFireSelect }) => {
   const [isFullscreen, setIsFullscreen] = useState(false)
   const mapContainerRef = useRef(null)
 
+  // Fazer links das atribuições abrirem em nova guia
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const attributionLinks = document.querySelectorAll('.leaflet-control-attribution a')
+      attributionLinks.forEach(link => {
+        link.setAttribute('target', '_blank')
+        link.setAttribute('rel', 'noopener noreferrer')
+      })
+    }, 100)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   const handleMarkerClick = (fire) => {
     setSelectedFire(fire)
     if (onFireSelect) {
@@ -428,10 +441,13 @@ const MapComponent = ({ onFireSelect }) => {
       
       {/* Dark mode styles */}
       <style>{`
+        /* Map Legend */
         .dark .map-legend {
           background-color: rgba(0, 0, 0, 0.7) !important;
           border-color: rgba(31, 31, 31, 0.6) !important;
         }
+
+        /* GPS Button */
         .dark .gps-button {
           background-color: rgba(0, 0, 0, 0.7) !important;
           color: #ffffff !important;
@@ -442,6 +458,8 @@ const MapComponent = ({ onFireSelect }) => {
           background-color: rgba(26, 26, 26, 0.8) !important;
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
         }
+
+        /* Fullscreen Button */
         .dark .fullscreen-button {
           background-color: rgba(0, 0, 0, 0.7) !important;
           color: #ffffff !important;
@@ -451,6 +469,44 @@ const MapComponent = ({ onFireSelect }) => {
         .dark .fullscreen-button:hover {
           background-color: rgba(26, 26, 26, 0.8) !important;
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        /* Attribution - Light Mode */
+        .leaflet-control-attribution {
+          background-color: rgba(255, 255, 255, 0.8) !important;
+          backdrop-filter: blur(8px) !important;
+          -webkit-backdrop-filter: blur(8px) !important;
+          color: #000000 !important;
+          border: 1px solid rgba(229, 231, 235, 0.5) !important;
+          border-radius: 4px !important;
+          padding: 2px 6px !important;
+          font-size: 11px !important;
+        }
+
+        .leaflet-control-attribution a {
+          color: #16a34a !important;
+          text-decoration: none !important;
+          font-weight: 500 !important;
+        }
+
+        .leaflet-control-attribution a:hover {
+          color: #15803d !important;
+          text-decoration: underline !important;
+        }
+
+        /* Attribution - Dark Mode */
+        .dark .leaflet-control-attribution {
+          background-color: rgba(0, 0, 0, 0.7) !important;
+          color: #e5e5e5 !important;
+          border: 1px solid rgba(31, 31, 31, 0.6) !important;
+        }
+
+        .dark .leaflet-control-attribution a {
+          color: #4ade80 !important;
+        }
+
+        .dark .leaflet-control-attribution a:hover {
+          color: #22c55e !important;
         }
       `}</style>
     </div>
