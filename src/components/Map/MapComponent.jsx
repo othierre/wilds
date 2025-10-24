@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-le
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Flame, Wind, Droplets, ThermometerSun, Navigation, Maximize, Minimize } from 'lucide-react'
+import { useTheme } from '../../context/ThemeContext'
 
 // Fix para ícones do Leaflet
 delete L.Icon.Default.prototype._getIconUrl
@@ -100,6 +101,45 @@ const mockFireData = [
     confidence: 91
   }
 ]
+
+// Componente para trocar o tema do mapa
+const MapThemeController = () => {
+  const map = useMap()
+  const { isDark } = useTheme()
+  const [currentLayer, setCurrentLayer] = useState(null)
+
+  useEffect(() => {
+    // Remove a camada anterior se existir
+    if (currentLayer) {
+      map.removeLayer(currentLayer)
+    }
+
+    // Adiciona a nova camada baseada no tema
+    const tileUrl = isDark
+      ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+      : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+
+    const attribution = isDark
+      ? '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+      : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+
+    const newLayer = L.tileLayer(tileUrl, {
+      attribution: attribution,
+      maxZoom: 19
+    })
+
+    newLayer.addTo(map)
+    setCurrentLayer(newLayer)
+
+    return () => {
+      if (newLayer) {
+        map.removeLayer(newLayer)
+      }
+    }
+  }, [isDark, map])
+
+  return null
+}
 
 // Componente para controlar a localização
 const LocationButton = () => {
@@ -283,10 +323,8 @@ const MapComponent = ({ onFireSelect }) => {
         className="h-full w-full"
         zoomControl={true}
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        {/* Controlador de tema do mapa */}
+        <MapThemeController />
 
         {mockFireData.map((fire) => (
           <div key={fire.id}>
