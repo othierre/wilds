@@ -10,7 +10,7 @@ const MobileNav = () => {
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-[1001] bg-white dark:bg-dark-card border-t border-gray-200 dark:border-dark-border backdrop-blur-sm bg-opacity-90 dark:bg-opacity-95">
+    <nav className="fixed bottom-0 left-0 right-0 z-[1001] bg-white dark:bg-[#141414] border-t border-gray-200 dark:border-[#1f1f1f] backdrop-blur-sm bg-opacity-90 dark:bg-opacity-95">
       <div className="grid grid-cols-4">
         {navigation.map((item) => (
           <NavLink

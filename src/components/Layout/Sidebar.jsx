@@ -12,7 +12,7 @@ const Sidebar = ({ onClose }) => {
   ]
 
   return (
-    <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white dark:bg-dark-card border-r border-gray-200 dark:border-dark-border px-6 pb-4">
+    <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white dark:bg-[#141414] border-r border-gray-200 dark:border-[#1f1f1f] px-6 pb-4">
       <div className="flex h-16 shrink-0 items-center justify-between">
         <div className="flex items-center gap-3">
           <img 
@@ -24,7 +24,7 @@ const Sidebar = ({ onClose }) => {
         {onClose && (
           <button 
             onClick={onClose}
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-hover"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#1a1a1a]"
           >
             <X className="w-5 h-5" />
           </button>
@@ -44,7 +44,7 @@ const Sidebar = ({ onClose }) => {
                       `group flex gap-x-3 rounded-lg p-3 text-sm leading-6 font-semibold transition-colors ${
                         isActive
                           ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
-                          : 'text-gray-700 dark:text-dark-text-secondary hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-dark-hover'
+                          : 'text-gray-700 dark:text-[#a3a3a3] hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-[#1a1a1a]'
                       }`
                     }
                   >
