@@ -1,11 +1,52 @@
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Calendar, Clock, User, Tag, ArrowLeft, Share2, Facebook, Twitter, Linkedin } from 'lucide-react'
+import { getBlogPostBySlug, markdownToHtml } from '../utils/blogPosts'
 
 const BlogPost = () => {
   const { slug } = useParams()
+  const [post, setPost] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  // Simulação de carregamento do post
-  const post = {
+  useEffect(() => {
+    const loadPost = async () => {
+      try {
+        const blogPost = await getBlogPostBySlug(slug)
+        if (blogPost) {
+          setPost(blogPost)
+        }
+      } catch (error) {
+        console.error('Erro ao carregar post:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadPost()
+  }, [slug])
+
+  if (loading) {
+    return (
+      <div className="max-w-4xl mx-auto text-center py-20">
+        <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 dark:border-primary-400"></div>
+        <p className="mt-4 text-gray-500 dark:text-gray-400">Carregando post...</p>
+      </div>
+    )
+  }
+
+  if (!post) {
+    return (
+      <div className="max-w-4xl mx-auto text-center py-20">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">Post não encontrado</h1>
+        <Link to="/blog" className="text-primary-600 dark:text-primary-400 hover:underline">
+          Voltar para o blog
+        </Link>
+      </div>
+    )
+  }
+
+  // Fallback para simulação (caso não carregue)
+  const postData = post || {
     slug: slug,
     title: 'Bem-vindo ao Blog Wilds',
     date: '2025-01-15T10:00:00.000Z',
@@ -84,8 +125,8 @@ Faça parte dessa comunidade que luta pela preservação ambiental. Instale noss
       {/* Hero Image */}
       <div className="aspect-video rounded-xl overflow-hidden">
         <img
-          src={post.image}
-          alt={post.title}
+          src={postData.image}
+          alt={postData.title}
           className="w-full h-full object-cover"
         />
       </div>
@@ -93,32 +134,32 @@ Faça parte dessa comunidade que luta pela preservação ambiental. Instale noss
       {/* Post Header */}
       <div className="space-y-4">
         <div className="flex flex-wrap items-center gap-3">
-          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryColor(post.category)}`}>
-            {post.category}
+          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryColor(postData.category)}`}>
+            {postData.category}
           </span>
           <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
             <Clock className="w-4 h-4" />
-            {post.readTime} min de leitura
+            {postData.readTime} min de leitura
           </span>
         </div>
 
         <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-gray-100">
-          {post.title}
+          {postData.title}
         </h1>
 
         <p className="text-xl text-gray-600 dark:text-gray-400">
-          {post.description}
+          {postData.description}
         </p>
 
         <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-200 dark:border-[#1f1f1f]">
           <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
             <div className="flex items-center gap-2">
               <User className="w-4 h-4" />
-              {post.author}
+              {postData.author}
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
-              {formatDate(post.date)}
+              {formatDate(postData.date)}
             </div>
           </div>
 
@@ -137,7 +178,7 @@ Faça parte dessa comunidade que luta pela preservação ambiental. Instale noss
               <Facebook className="w-4 h-4" />
             </a>
             <a
-              href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${post.title}`}
+              href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${postData.title}`}
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -158,7 +199,7 @@ Faça parte dessa comunidade que luta pela preservação ambiental. Instale noss
 
       {/* Post Content */}
       <article className="card prose prose-lg dark:prose-invert max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        <div dangerouslySetInnerHTML={{ __html: markdownToHtml(postData.content) }} />
       </article>
 
       {/* Tags */}
@@ -166,7 +207,7 @@ Faça parte dessa comunidade que luta pela preservação ambiental. Instale noss
         <div className="flex flex-wrap items-center gap-2">
           <Tag className="w-5 h-5 text-gray-400" />
           <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Tags:</span>
-          {post.tags.map(tag => (
+          {postData.tags.map(tag => (
             <span
               key={tag}
               className="px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-[#1a1a1a] text-gray-700 dark:text-gray-300"

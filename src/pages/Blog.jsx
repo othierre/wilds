@@ -1,18 +1,28 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Calendar, Clock, User, Tag, TrendingUp, Search, Filter } from 'lucide-react'
+import { getBlogPosts } from '../utils/blogPosts'
 
 const Blog = () => {
   const [posts, setPosts] = useState([])
   const [filteredPosts, setFilteredPosts] = useState([])
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')
+  const [loading, setLoading] = useState(true)
 
   const categories = ['all', 'Queimadas', 'Prevenção', 'Tecnologia', 'Meio Ambiente', 'Notícias']
 
   useEffect(() => {
-    // Carregar posts do markdown (simulado por enquanto)
-    const mockPosts = [
+    // Carregar posts reais do Netlify CMS
+    const loadPosts = async () => {
+      try {
+        const blogPosts = await getBlogPosts()
+        setPosts(blogPosts)
+        setFilteredPosts(blogPosts)
+      } catch (error) {
+        console.error('Erro ao carregar posts:', error)
+        // Fallback para posts mockados se houver erro
+        const mockPosts = [
       {
         slug: '2025-01-15-bem-vindo-ao-blog-wilds',
         title: 'Bem-vindo ao Blog Wilds',
@@ -74,9 +84,14 @@ const Blog = () => {
         readTime: 7
       }
     ]
+        setPosts(mockPosts)
+        setFilteredPosts(mockPosts)
+      } finally {
+        setLoading(false)
+      }
+    }
 
-    setPosts(mockPosts)
-    setFilteredPosts(mockPosts)
+    loadPosts()
   }, [])
 
   useEffect(() => {
@@ -230,7 +245,12 @@ const Blog = () => {
           {selectedCategory !== 'all' ? selectedCategory : searchTerm ? 'Resultados da Busca' : 'Todos os Artigos'}
         </h2>
         
-        {filteredPosts.length === 0 ? (
+        {loading ? (
+          <div className="card text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 dark:border-primary-400"></div>
+            <p className="mt-4 text-gray-500 dark:text-gray-400">Carregando posts...</p>
+          </div>
+        ) : filteredPosts.length === 0 ? (
           <div className="card text-center py-12">
             <p className="text-gray-500 dark:text-gray-400">
               Nenhum artigo encontrado. Tente ajustar os filtros.
