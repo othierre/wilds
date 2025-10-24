@@ -213,7 +213,7 @@ const MapComponent = ({ onFireSelect }) => {
       </MapContainer>
 
       {/* Legenda */}
-      <div className="absolute bottom-4 left-4 z-[1000] bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 max-w-[200px]">
+      <div className="absolute bottom-4 left-4 z-[1000] bg-white dark:bg-[#000000] rounded-lg shadow-lg p-4 max-w-[200px]">
         <h4 className="font-semibold text-sm mb-2 text-gray-900 dark:text-gray-100">Legenda</h4>
         <div className="space-y-2 text-xs">
           <div className="flex items-center gap-2">
