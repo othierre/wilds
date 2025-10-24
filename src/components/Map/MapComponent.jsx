@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { Flame, Wind, Droplets, ThermometerSun } from 'lucide-react'
+import { Flame, Wind, Droplets, ThermometerSun, Navigation, Maximize, Minimize } from 'lucide-react'
 
 // Fix para ícones do Leaflet
 delete L.Icon.Default.prototype._getIconUrl
@@ -101,8 +101,88 @@ const mockFireData = [
   }
 ]
 
+// Componente para controlar a localização
+const LocationButton = () => {
+  const map = useMap()
+  const [isLocating, setIsLocating] = useState(false)
+
+  const handleLocationClick = () => {
+    setIsLocating(true)
+    
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords
+          map.setView([latitude, longitude], 15, {
+            animate: true,
+            duration: 1
+          })
+          setIsLocating(false)
+        },
+        (error) => {
+          console.error('Erro ao obter localização:', error)
+          alert('Não foi possível obter sua localização. Verifique as permissões do navegador.')
+          setIsLocating(false)
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        }
+      )
+    } else {
+      alert('Geolocalização não é suportada pelo seu navegador.')
+      setIsLocating(false)
+    }
+  }
+
+  return (
+    <button
+      onClick={handleLocationClick}
+      disabled={isLocating}
+      className="gps-button"
+      style={{
+        position: 'absolute',
+        bottom: '16px',
+        right: '16px',
+        zIndex: 1000,
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        color: '#000000',
+        border: '1px solid rgba(229, 231, 235, 0.5)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: isLocating ? 'wait' : 'pointer',
+        transition: 'all 0.2s ease',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+      }}
+      onMouseEnter={(e) => {
+        if (!isLocating) {
+          e.currentTarget.style.transform = 'scale(1.05)'
+        }
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'scale(1)'
+      }}
+      aria-label="Minha localização"
+    >
+      <Navigation 
+        className={`w-5 h-5 ${isLocating ? 'animate-spin' : ''}`}
+        strokeWidth={2.5}
+      />
+    </button>
+  )
+}
+
 const MapComponent = ({ onFireSelect }) => {
   const [selectedFire, setSelectedFire] = useState(null)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  const mapContainerRef = useRef(null)
 
   const handleMarkerClick = (fire) => {
     setSelectedFire(fire)
@@ -110,6 +190,33 @@ const MapComponent = ({ onFireSelect }) => {
       onFireSelect(fire)
     }
   }
+
+  const toggleFullscreen = () => {
+    const elem = mapContainerRef.current
+
+    if (!document.fullscreenElement) {
+      elem.requestFullscreen().then(() => {
+        setIsFullscreen(true)
+      }).catch(err => {
+        console.error('Erro ao entrar em tela cheia:', err)
+      })
+    } else {
+      document.exitFullscreen().then(() => {
+        setIsFullscreen(false)
+      })
+    }
+  }
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement)
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+    }
+  }, [])
 
   const getStatusLabel = (status) => {
     const labels = {
@@ -130,7 +237,46 @@ const MapComponent = ({ onFireSelect }) => {
   }
 
   return (
-    <div className="h-full w-full relative">
+    <div ref={mapContainerRef} className="h-full w-full relative">
+      {/* Botão Fullscreen */}
+      <button
+        onClick={toggleFullscreen}
+        className="fullscreen-button"
+        style={{
+          position: 'absolute',
+          top: '16px',
+          right: '16px',
+          zIndex: 1000,
+          width: '40px',
+          height: '40px',
+          borderRadius: '50%',
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          color: '#000000',
+          border: '1px solid rgba(229, 231, 235, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+          backdropFilter: 'blur(12px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'scale(1.05)'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'scale(1)'
+        }}
+        aria-label={isFullscreen ? 'Sair da tela cheia' : 'Expandir para tela cheia'}
+      >
+        {isFullscreen ? (
+          <Minimize className="w-5 h-5" strokeWidth={2.5} />
+        ) : (
+          <Maximize className="w-5 h-5" strokeWidth={2.5} />
+        )}
+      </button>
+
       <MapContainer
         center={[-15.7942, -47.8822]}
         zoom={11}
@@ -210,10 +356,21 @@ const MapComponent = ({ onFireSelect }) => {
             )}
           </div>
         ))}
+        
+        {/* Botão de GPS */}
+        <LocationButton />
       </MapContainer>
 
       {/* Legenda */}
-      <div className="absolute bottom-4 left-4 z-[1000] bg-white dark:bg-[#000000] rounded-lg shadow-lg p-4 max-w-[200px]">
+      <div 
+        className="map-legend absolute bottom-4 left-4 z-[1000] rounded-lg shadow-lg p-4 max-w-[200px] border"
+        style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(12px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+          borderColor: 'rgba(229, 231, 235, 0.5)'
+        }}
+      >
         <h4 className="font-semibold text-sm mb-2 text-gray-900 dark:text-gray-100">Legenda</h4>
         <div className="space-y-2 text-xs">
           <div className="flex items-center gap-2">
@@ -230,6 +387,34 @@ const MapComponent = ({ onFireSelect }) => {
           </div>
         </div>
       </div>
+      
+      {/* Dark mode styles */}
+      <style>{`
+        .dark .map-legend {
+          background-color: rgba(0, 0, 0, 0.7) !important;
+          border-color: rgba(31, 31, 31, 0.6) !important;
+        }
+        .dark .gps-button {
+          background-color: rgba(0, 0, 0, 0.7) !important;
+          color: #ffffff !important;
+          border-color: rgba(31, 31, 31, 0.6) !important;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+        }
+        .dark .gps-button:hover:not(:disabled) {
+          background-color: rgba(26, 26, 26, 0.8) !important;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+        }
+        .dark .fullscreen-button {
+          background-color: rgba(0, 0, 0, 0.7) !important;
+          color: #ffffff !important;
+          border-color: rgba(31, 31, 31, 0.6) !important;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+        }
+        .dark .fullscreen-button:hover {
+          background-color: rgba(26, 26, 26, 0.8) !important;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+        }
+      `}</style>
     </div>
   )
 }

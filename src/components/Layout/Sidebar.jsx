@@ -13,12 +13,12 @@ const Sidebar = ({ onClose }) => {
 
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white dark:bg-[#141414] border-r border-gray-200 dark:border-[#1f1f1f] px-6 pb-4">
-      <div className="flex h-16 shrink-0 items-center justify-between">
+      <div className="flex h-16 shrink-0 items-center justify-between pt-2">
         <div className="flex items-center gap-3">
           <img 
             src={isDark ? '/white.png' : '/dark.png'} 
             alt="Wilds Logo" 
-            className="h-10 w-auto object-contain"
+            className="h-7 w-auto object-contain"
           />
         </div>
         {onClose && (

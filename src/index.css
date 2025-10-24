@@ -12,6 +12,7 @@
   - MobileNav: 1001
   - Sidebar mobile overlay: 1100
   - Sidebar mobile: 1101
+  - Floating Report Button: 1200 (sempre visível no topo)
 */
 
 * {
@@ -44,6 +45,63 @@ body {
   height: 100%;
   width: 100%;
   border-radius: 0.75rem;
+}
+
+/* Custom Zoom Controls - Botões Redondos com Blur */
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 8px;
+  background: transparent !important;
+}
+
+.leaflet-control-zoom a {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: #000000 !important;
+  border: 1px solid rgba(229, 231, 235, 0.5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(12px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: rgba(249, 250, 251, 0.9) !important;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.leaflet-control-zoom a:active {
+  transform: scale(0.95);
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  margin: 0 !important;
+}
+
+/* Dark mode - preto translúcido com símbolos brancos */
+.dark .leaflet-control-zoom a {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(31, 31, 31, 0.6) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark .leaflet-control-zoom a:hover {
+  background-color: rgba(26, 26, 26, 0.8) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
 }
 
 /* Custom Scrollbar */
@@ -157,18 +215,3 @@ body {
 .dark .textarea:focus {
   @apply ring-primary-400;
 }
-
-/* Floating Action Button */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.floating-button:hover {
-  animation: float 1s ease-in-out infinite;
-}
-
