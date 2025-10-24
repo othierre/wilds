@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#000000]">
       {/* Desktop Sidebar */}
       <div className="hidden lg:flex lg:fixed lg:inset-y-0 lg:z-[1000] lg:w-64">
         <Sidebar />
