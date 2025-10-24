@@ -349,7 +349,7 @@ const MapComponent = ({ onFireSelect }) => {
               }}
             >
               <Popup>
-                <div className="p-2 min-w-[250px]">
+                <div className="p-4 min-w-[250px]">
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100">Queimada #{fire.id}</h3>
                     <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
@@ -517,11 +517,11 @@ const MapComponent = ({ onFireSelect }) => {
           border: 1px solid rgba(229, 231, 235, 0.5) !important;
           border-radius: 12px !important;
           box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
-          padding: 0 !important;
+          padding: 4px !important;
         }
 
         .leaflet-popup-content {
-          margin: 0 !important;
+          margin: 8px !important;
           color: #111827 !important;
         }
 
@@ -534,14 +534,21 @@ const MapComponent = ({ onFireSelect }) => {
 
         .leaflet-popup-close-button {
           color: #6b7280 !important;
-          font-size: 22px !important;
-          padding: 4px 8px !important;
+          font-size: 20px !important;
+          padding: 6px 10px !important;
+          top: 6px !important;
+          right: 6px !important;
+          width: 28px !important;
+          height: 28px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
         }
 
         .leaflet-popup-close-button:hover {
           color: #111827 !important;
-          background-color: rgba(0, 0, 0, 0.05) !important;
-          border-radius: 4px !important;
+          background-color: rgba(0, 0, 0, 0.08) !important;
+          border-radius: 6px !important;
         }
 
         /* Popup - Dark Mode */
@@ -567,6 +574,7 @@ const MapComponent = ({ onFireSelect }) => {
         .dark .leaflet-popup-close-button:hover {
           color: #e5e5e5 !important;
           background-color: rgba(255, 255, 255, 0.1) !important;
+          border-radius: 6px !important;
         }
       `}</style>
     </div>
