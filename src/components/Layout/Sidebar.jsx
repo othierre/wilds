@@ -14,8 +14,8 @@ const Sidebar = ({ onClose }) => {
   ]
 
   return (
-    <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white dark:bg-[#141414] border-r border-gray-200 dark:border-[#1f1f1f] px-6 pb-4">
-      <div className="flex h-16 shrink-0 items-center justify-between pt-2">
+    <div className="flex h-full flex-col gap-y-5 overflow-y-auto bg-white dark:bg-[#141414] border-r border-gray-200 dark:border-[#1f1f1f] px-6 pb-24">
+      <div className="flex h-16 shrink-0 items-center justify-between pt-4">
         <div className="flex items-center gap-3">
           <img 
             src={isDark ? '/white.png' : '/dark.png'} 
@@ -26,9 +26,10 @@ const Sidebar = ({ onClose }) => {
         {onClose && (
           <button 
             onClick={onClose}
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#1a1a1a]"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#1a1a1a] transition-colors"
+            aria-label="Fechar menu"
           >
-            <X className="w-5 h-5" />
+            <X className="w-6 h-6 text-gray-700 dark:text-gray-300" />
           </button>
         )}
       </div>

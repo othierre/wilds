@@ -16,17 +16,24 @@ const Layout = ({ children }) => {
       </div>
 
       {/* Mobile Sidebar */}
-      {sidebarOpen && (
-        <div className="lg:hidden">
-          <div 
-            className="fixed inset-0 bg-gray-900/80 z-[1100]"
-            onClick={() => setSidebarOpen(false)}
-          />
-          <div className="fixed inset-y-0 left-0 z-[1101] w-64 transform transition-transform">
-            <Sidebar onClose={() => setSidebarOpen(false)} />
-          </div>
+      <div className="lg:hidden">
+        {/* Overlay */}
+        <div 
+          className={`fixed inset-0 bg-gray-900/80 backdrop-blur-sm z-[1100] transition-opacity duration-300 ${
+            sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
+          onClick={() => setSidebarOpen(false)}
+        />
+        
+        {/* Sidebar */}
+        <div 
+          className={`fixed inset-y-0 left-0 z-[1101] w-72 transform transition-transform duration-300 ease-in-out shadow-2xl ${
+            sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          <Sidebar onClose={() => setSidebarOpen(false)} />
         </div>
-      )}
+      </div>
 
       {/* Main Content */}
       <div className="lg:pl-64">
