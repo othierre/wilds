@@ -351,11 +351,11 @@ const MapComponent = ({ onFireSelect }) => {
               <Popup>
                 <div className="p-2 min-w-[250px]">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-bold text-lg text-gray-900">Queimada #{fire.id}</h3>
+                    <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100">Queimada #{fire.id}</h3>
                     <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                      fire.status === 'active' ? 'bg-red-100 text-red-800' :
-                      fire.status === 'controlled' ? 'bg-orange-100 text-orange-800' :
-                      'bg-gray-100 text-gray-800'
+                      fire.status === 'active' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400' :
+                      fire.status === 'controlled' ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400' :
+                      'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
                     }`}>
                       {getStatusLabel(fire.status)}
                     </span>
@@ -363,28 +363,28 @@ const MapComponent = ({ onFireSelect }) => {
 
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center gap-2">
-                      <Flame className="w-4 h-4 text-red-500" />
-                      <span className="text-gray-700">Área: {fire.area} hectares</span>
+                      <Flame className="w-4 h-4 text-red-500 dark:text-red-400" />
+                      <span className="text-gray-700 dark:text-gray-300">Área: {fire.area} hectares</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <ThermometerSun className="w-4 h-4 text-orange-500" />
-                      <span className="text-gray-700">Temperatura: {fire.temp}°C</span>
+                      <ThermometerSun className="w-4 h-4 text-orange-500 dark:text-orange-400" />
+                      <span className="text-gray-700 dark:text-gray-300">Temperatura: {fire.temp}°C</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Droplets className="w-4 h-4 text-blue-500" />
-                      <span className="text-gray-700">Umidade: {fire.humidity}%</span>
+                      <Droplets className="w-4 h-4 text-blue-500 dark:text-blue-400" />
+                      <span className="text-gray-700 dark:text-gray-300">Umidade: {fire.humidity}%</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Wind className="w-4 h-4 text-gray-500" />
-                      <span className="text-gray-700">Vento: {fire.windSpeed} km/h</span>
+                      <Wind className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                      <span className="text-gray-700 dark:text-gray-300">Vento: {fire.windSpeed} km/h</span>
                     </div>
                   </div>
 
-                  <div className="mt-3 pt-3 border-t border-gray-200">
-                    <p className="text-xs text-gray-500">
+                  <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       Confiança: {fire.confidence}%
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       Detectado em: {new Date(fire.detected).toLocaleString('pt-BR')}
                     </p>
                   </div>
@@ -507,6 +507,66 @@ const MapComponent = ({ onFireSelect }) => {
 
         .dark .leaflet-control-attribution a:hover {
           color: #22c55e !important;
+        }
+
+        /* Popup - Light Mode */
+        .leaflet-popup-content-wrapper {
+          background-color: rgba(255, 255, 255, 0.85) !important;
+          backdrop-filter: blur(12px) saturate(180%) !important;
+          -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+          border: 1px solid rgba(229, 231, 235, 0.5) !important;
+          border-radius: 12px !important;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+          padding: 0 !important;
+        }
+
+        .leaflet-popup-content {
+          margin: 0 !important;
+          color: #111827 !important;
+        }
+
+        .leaflet-popup-tip {
+          background-color: rgba(255, 255, 255, 0.85) !important;
+          backdrop-filter: blur(12px) saturate(180%) !important;
+          -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .leaflet-popup-close-button {
+          color: #6b7280 !important;
+          font-size: 22px !important;
+          padding: 4px 8px !important;
+        }
+
+        .leaflet-popup-close-button:hover {
+          color: #111827 !important;
+          background-color: rgba(0, 0, 0, 0.05) !important;
+          border-radius: 4px !important;
+        }
+
+        /* Popup - Dark Mode */
+        .dark .leaflet-popup-content-wrapper {
+          background-color: rgba(0, 0, 0, 0.85) !important;
+          border: 1px solid rgba(31, 31, 31, 0.6) !important;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .dark .leaflet-popup-content {
+          color: #e5e5e5 !important;
+        }
+
+        .dark .leaflet-popup-tip {
+          background-color: rgba(0, 0, 0, 0.85) !important;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .dark .leaflet-popup-close-button {
+          color: #9ca3af !important;
+        }
+
+        .dark .leaflet-popup-close-button:hover {
+          color: #e5e5e5 !important;
+          background-color: rgba(255, 255, 255, 0.1) !important;
         }
       `}</style>
     </div>
