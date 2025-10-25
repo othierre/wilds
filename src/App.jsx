@@ -13,6 +13,11 @@ import NotFound from './pages/NotFound'
 import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
 
+// Páginas de guias (não aparecem na navegação)
+import PrevencaoQueimadas from './pages/guias/PrevencaoQueimadas'
+import ImpactosAmbientais from './pages/guias/ImpactosAmbientais'
+import RecuperacaoFlorestal from './pages/guias/RecuperacaoFlorestal'
+
 function App() {
   return (
     <ThemeProvider>
@@ -26,6 +31,12 @@ function App() {
               <Route path="/educacao" element={<Educacao />} />
               <Route path="/perfil" element={<Perfil />} />
               <Route path="/instalar" element={<Instalar />} />
+              
+              {/* Guias educativos (rotas ocultas - não aparecem na navegação) */}
+              <Route path="/guias/prevencao-queimadas" element={<PrevencaoQueimadas />} />
+              <Route path="/guias/impactos-ambientais" element={<ImpactosAmbientais />} />
+              <Route path="/guias/recuperacao-florestal" element={<RecuperacaoFlorestal />} />
+              
               {/* Blog desativado temporariamente - Admin ainda acessível em /admin */}
               {/* <Route path="/blog" element={<Blog />} /> */}
               {/* <Route path="/blog/:slug" element={<BlogPost />} /> */}

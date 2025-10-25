@@ -1,4 +1,5 @@
-import { BookOpen, Shield, AlertTriangle, Leaf, Users, Phone } from 'lucide-react'
+import { BookOpen, Shield, AlertTriangle, Leaf, Users, Phone, ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const Educacao = () => {
   const topics = [
@@ -178,30 +179,53 @@ const Educacao = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="aspect-video bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-transform">
-            <div className="text-center">
-              <BookOpen className="w-12 h-12 mx-auto mb-2 text-primary-600 dark:text-primary-400" />
-              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+          <Link 
+            to="/guias/prevencao-queimadas"
+            className="group aspect-video bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-all hover:shadow-xl"
+          >
+            <div className="text-center p-4">
+              <Shield className="w-12 h-12 mx-auto mb-2 text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform" />
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
                 Como Prevenir Queimadas
               </p>
+              <div className="flex items-center justify-center gap-1 text-xs text-primary-600 dark:text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>Ver guia completo</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
             </div>
-          </div>
-          <div className="aspect-video bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-transform">
-            <div className="text-center">
-              <BookOpen className="w-12 h-12 mx-auto mb-2 text-orange-600 dark:text-orange-400" />
-              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+          </Link>
+          
+          <Link 
+            to="/guias/impactos-ambientais"
+            className="group aspect-video bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-all hover:shadow-xl"
+          >
+            <div className="text-center p-4">
+              <Leaf className="w-12 h-12 mx-auto mb-2 text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform" />
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
                 Impactos Ambientais
               </p>
+              <div className="flex items-center justify-center gap-1 text-xs text-orange-600 dark:text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>Ver guia completo</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
             </div>
-          </div>
-          <div className="aspect-video bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-transform">
-            <div className="text-center">
-              <BookOpen className="w-12 h-12 mx-auto mb-2 text-green-600 dark:text-green-400" />
-              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+          </Link>
+          
+          <Link 
+            to="/guias/recuperacao-florestal"
+            className="group aspect-video bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-all hover:shadow-xl"
+          >
+            <div className="text-center p-4">
+              <BookOpen className="w-12 h-12 mx-auto mb-2 text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform" />
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
                 Recuperação Florestal
               </p>
+              <div className="flex items-center justify-center gap-1 text-xs text-green-600 dark:text-green-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>Ver guia completo</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
