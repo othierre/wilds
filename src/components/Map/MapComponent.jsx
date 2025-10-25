@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, Circle, useMap, useMapEvents } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Flame, Wind, Droplets, ThermometerSun, Navigation, Maximize, Minimize } from 'lucide-react'
@@ -30,6 +30,35 @@ const createCustomIcon = (status) => {
     </div>`,
     iconSize: [24, 24],
     iconAnchor: [12, 12],
+  })
+}
+
+// Ícone azul para localização do usuário
+const createUserLocationIcon = () => {
+  return L.divIcon({
+    className: 'custom-user-marker',
+    html: `<div style="position: relative; width: 20px; height: 20px;">
+      <div style="background: #3b82f6; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 8px rgba(59, 130, 246, 0.5); position: absolute; top: 0; left: 0; animation: pulse-blue 2s infinite;"></div>
+      <div style="background: #3b82f6; width: 12px; height: 12px; border-radius: 50%; position: absolute; top: 4px; left: 4px;"></div>
+    </div>
+    <style>
+      @keyframes pulse-blue {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.3);
+          opacity: 0.5;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>`,
+    iconSize: [20, 20],
+    iconAnchor: [10, 10],
   })
 }
 
@@ -139,6 +168,85 @@ const MapThemeController = () => {
   }, [isDark, map])
 
   return null
+}
+
+// Componente para mostrar marcador de localização do usuário
+const UserLocationMarker = ({ onLocationFound }) => {
+  const [position, setPosition] = useState(null)
+  const [accuracy, setAccuracy] = useState(null)
+
+  useEffect(() => {
+    if ('geolocation' in navigator) {
+      const watchId = navigator.geolocation.watchPosition(
+        (pos) => {
+          const { latitude, longitude, accuracy: acc } = pos.coords
+          const newPos = [latitude, longitude]
+          setPosition(newPos)
+          setAccuracy(acc)
+          
+          if (onLocationFound) {
+            onLocationFound(newPos, acc)
+          }
+        },
+        (error) => {
+          console.error('Erro ao rastrear localização:', error)
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
+      )
+
+      return () => {
+        navigator.geolocation.clearWatch(watchId)
+      }
+    }
+  }, [onLocationFound])
+
+  if (!position) return null
+
+  return (
+    <>
+      {/* Círculo de precisão */}
+      {accuracy && (
+        <Circle
+          center={position}
+          radius={accuracy}
+          pathOptions={{
+            color: '#3b82f6',
+            fillColor: '#3b82f6',
+            fillOpacity: 0.1,
+            weight: 1,
+            opacity: 0.5
+          }}
+        />
+      )}
+      
+      {/* Marcador azul da localização */}
+      <Marker
+        position={position}
+        icon={createUserLocationIcon()}
+      >
+        <Popup>
+          <div className="p-2 min-w-[200px]">
+            <h3 className="font-bold text-sm text-gray-900 dark:text-gray-100 mb-2">
+              📍 Você está aqui
+            </h3>
+            <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+              <p>Lat: {position[0].toFixed(6)}</p>
+              <p>Lng: {position[1].toFixed(6)}</p>
+              {accuracy && (
+                <p className="text-blue-600 dark:text-blue-400 font-medium mt-2">
+                  Precisão: ±{Math.round(accuracy)}m
+                </p>
+              )}
+            </div>
+          </div>
+        </Popup>
+      </Marker>
+    </>
+  )
 }
 
 // Componente para controlar a localização
@@ -339,6 +447,9 @@ const MapComponent = ({ onFireSelect }) => {
         {/* Controlador de tema do mapa */}
         <MapThemeController />
 
+        {/* Marcador de localização do usuário */}
+        <UserLocationMarker />
+
         {mockFireData.map((fire) => (
           <div key={fire.id}>
             <Marker
@@ -435,6 +546,10 @@ const MapComponent = ({ onFireSelect }) => {
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded-full bg-gray-500 border-2 border-white shadow"></div>
             <span className="text-gray-700 dark:text-gray-300">Extinto</span>
+          </div>
+          <div className="flex items-center gap-2 pt-2 border-t border-gray-300 dark:border-gray-600">
+            <div className="w-4 h-4 rounded-full bg-blue-500 border-2 border-white shadow animate-pulse"></div>
+            <span className="text-gray-700 dark:text-gray-300 font-medium">Você</span>
           </div>
         </div>
       </div>
