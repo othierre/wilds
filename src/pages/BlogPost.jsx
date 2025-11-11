@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Calendar, Clock, User, Tag, ArrowLeft, Share2, Facebook, Twitter, Linkedin } from 'lucide-react'
-import { getBlogPostBySlug, markdownToHtml } from '../utils/blogPosts'
+import { getBlogPostBySlug, markdownToHtml } from '../utils/blogPosts.jsx'
 
 const BlogPost = () => {
   const { slug } = useParams()

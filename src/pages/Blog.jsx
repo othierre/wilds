@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Calendar, Clock, User, Tag, TrendingUp, Search, Filter } from 'lucide-react'
-import { getBlogPosts } from '../utils/blogPosts'
+import { getBlogPosts } from '../utils/blogPosts.jsx'
 
 const Blog = () => {
   const [posts, setPosts] = useState([])

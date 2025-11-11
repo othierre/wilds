@@ -7,5 +7,13 @@ export default defineConfig({
     port: 3000,
     open: true
   }
+  define: {
+    // Polyfill for Buffer and process in browser environment
+    'global': 'window', // Define global as window
+    'global.Buffer': 'buffer.Buffer', // Map global.Buffer to buffer.Buffer
+    'process': { // Define process object
+      env: {} // Empty env object
+    }
+  }
 })
 
