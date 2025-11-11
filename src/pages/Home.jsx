@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Flame, Map, BarChart2, BookOpen, Facebook, Instagram, Twitter } from 'lucide-react';
 import { useTheme } from "../context/ThemeContext";
+import WildsLogo from '../components/WildsLogo';
+
 
 const Home = () => {
   const { isDark } = useTheme();
@@ -129,9 +131,8 @@ const Home = () => {
         <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo and Description */}
           <div className="space-y-4">
-            <img 
-              src={isDark ? '/white.png' : '/dark.png'} 
-              alt="Wilds Logo" 
+            <WildsLogo 
+              color={isDark ? 'white' : 'black'} 
               className="h-10 w-auto object-contain"
             />
             <p className="text-sm leading-relaxed">
