@@ -43,7 +43,9 @@ function App() {
               
               {/* Blog desativado temporariamente - Admin ainda acessível em /admin */}
               <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />              <Route path="*" element={<NotFound />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/admin/*" element={null} /> {/* Exclude /admin from React Router */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
         </Router>
