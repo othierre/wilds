@@ -1,16 +1,18 @@
 import { NavLink } from 'react-router-dom'
-import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X } from 'lucide-react'
+import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X, Flame, Sparkles } from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext'
 
 const Sidebar = ({ onClose }) => {
   const { isDark } = useTheme()
   const navigation = [
-    { name: 'Início', href: '/', icon: Home },
+    { name: 'Wilds (Início)', href: '/', icon: Home },
+    { name: 'Fire Horizon', href: '/fire-horizon', icon: Flame },
     { name: 'Estatísticas', href: '/estatisticas', icon: BarChart3 },
     // { name: 'Blog', href: '/blog', icon: FileText }, // Desativado temporariamente
     { name: 'Educação', href: '/educacao', icon: BookOpen },
     { name: 'Perfil', href: '/perfil', icon: User },
     { name: 'Instalar App', href: '/instalar', icon: Download },
+    { name: 'Guma', href: '/guma', icon: Sparkles },
   ]
 
   return (

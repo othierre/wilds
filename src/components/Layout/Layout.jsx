@@ -3,7 +3,6 @@ import Sidebar from './Sidebar'
 import Header from './Header'
 import MobileNav from './MobileNav'
 import FloatingReportButton from '../FloatingReportButton'
-import DevelopmentBanner from '../DevelopmentBanner'
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -38,7 +37,6 @@ const Layout = ({ children }) => {
       {/* Main Content */}
       <div className="lg:pl-64">
         <Header onMenuClick={() => setSidebarOpen(true)} />
-        <DevelopmentBanner />
         <main className="py-6 px-4 sm:px-6 lg:px-8 pb-20 lg:pb-6">
           <div className="animate-fadeIn">
             {children}

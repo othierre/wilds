@@ -84,13 +84,13 @@ const Perfil = () => {
       <div className="card">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
           <img
-            src={user.photo || `https://ui-avatars.com/api/?name=${user.name}&background=16a34a&color=fff&size=128`}
-            alt={user.name}
+            src={user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName || user.email}&background=16a34a&color=fff&size=128`}
+            alt={user.displayName || user.email}
             className="w-24 h-24 rounded-full border-4 border-primary-500"
           />
           <div className="flex-1">
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-              {user.name}
+              {user.displayName || 'Usuário Wilds'}
             </h1>
             <p className="text-gray-600 dark:text-gray-400 mb-3">
               {user.email}

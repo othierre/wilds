@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom'
-import { Home, AlertTriangle, BarChart3, BookOpen, User } from 'lucide-react'
+import { Home, AlertTriangle, BarChart3, BookOpen, User, Flame, Sparkles } from 'lucide-react'
 
 const MobileNav = () => {
   const navigation = [
-    { name: 'Início', href: '/', icon: Home },
-    { name: 'Stats', href: '/estatisticas', icon: BarChart3 },
+    { name: 'Wilds', href: '/', icon: Home },
     { name: 'Educação', href: '/educacao', icon: BookOpen },
+    { name: 'Fire Horizon', href: '/fire-horizon', icon: Flame },
     { name: 'Perfil', href: '/perfil', icon: User },
   ]
 

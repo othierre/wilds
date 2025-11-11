@@ -91,6 +91,68 @@ const Educacao = () => {
         </p>
       </div>
 
+      {/* Video Section (Placeholder) */}
+      <div className="card">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="bg-primary-100 dark:bg-primary-900/30 p-3 rounded-lg">
+            <BookOpen className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+            Materiais Educativos
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Link 
+            to="/guias/prevencao-queimadas"
+            className="group aspect-video bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-all hover:shadow-xl"
+          >
+            <div className="text-center p-4">
+              <Shield className="w-12 h-12 mx-auto mb-2 text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform" />
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
+                Como Prevenir Queimadas
+              </p>
+              <div className="flex items-center justify-center gap-1 text-xs text-primary-600 dark:text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>Ver guia completo</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
+            </div>
+          </Link>
+          
+          <Link 
+            to="/guias/impactos-ambientais"
+            className="group aspect-video bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-all hover:shadow-xl"
+          >
+            <div className="text-center p-4">
+              <Leaf className="w-12 h-12 mx-auto mb-2 text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform" />
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
+                Impactos Ambientais
+              </p>
+              <div className="flex items-center justify-center gap-1 text-xs text-orange-600 dark:text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>Ver guia completo</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
+            </div>
+          </Link>
+          
+          <Link 
+            to="/guias/recuperacao-florestal"
+            className="group aspect-video bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-all hover:shadow-xl"
+          >
+            <div className="text-center p-4">
+              <BookOpen className="w-12 h-12 mx-auto mb-2 text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform" />
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
+                Recuperação Florestal
+              </p>
+              <div className="flex items-center justify-center gap-1 text-xs text-green-600 dark:text-green-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>Ver guia completo</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
+            </div>
+          </Link>
+        </div>
+      </div>
+
       {/* Facts Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {facts.map((fact, index) => (
@@ -164,68 +226,6 @@ const Educacao = () => {
               </p>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Video Section (Placeholder) */}
-      <div className="card">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="bg-primary-100 dark:bg-primary-900/30 p-3 rounded-lg">
-            <BookOpen className="w-6 h-6 text-primary-600 dark:text-primary-400" />
-          </div>
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-            Materiais Educativos
-          </h3>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Link 
-            to="/guias/prevencao-queimadas"
-            className="group aspect-video bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-all hover:shadow-xl"
-          >
-            <div className="text-center p-4">
-              <Shield className="w-12 h-12 mx-auto mb-2 text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform" />
-              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
-                Como Prevenir Queimadas
-              </p>
-              <div className="flex items-center justify-center gap-1 text-xs text-primary-600 dark:text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                <span>Ver guia completo</span>
-                <ArrowRight className="w-3 h-3" />
-              </div>
-            </div>
-          </Link>
-          
-          <Link 
-            to="/guias/impactos-ambientais"
-            className="group aspect-video bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-all hover:shadow-xl"
-          >
-            <div className="text-center p-4">
-              <Leaf className="w-12 h-12 mx-auto mb-2 text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform" />
-              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
-                Impactos Ambientais
-              </p>
-              <div className="flex items-center justify-center gap-1 text-xs text-orange-600 dark:text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                <span>Ver guia completo</span>
-                <ArrowRight className="w-3 h-3" />
-              </div>
-            </div>
-          </Link>
-          
-          <Link 
-            to="/guias/recuperacao-florestal"
-            className="group aspect-video bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-all hover:shadow-xl"
-          >
-            <div className="text-center p-4">
-              <BookOpen className="w-12 h-12 mx-auto mb-2 text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform" />
-              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
-                Recuperação Florestal
-              </p>
-              <div className="flex items-center justify-center gap-1 text-xs text-green-600 dark:text-green-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                <span>Ver guia completo</span>
-                <ArrowRight className="w-3 h-3" />
-              </div>
-            </div>
-          </Link>
         </div>
       </div>
     </div>

@@ -1,0 +1,81 @@
+[
+  {
+    "id": 1,
+    "lat": -15.7942,
+    "lng": -47.8822,
+    "status": "active",
+    "intensity": "high",
+    "area": 152,
+    "detected": "2024-10-24T08:30:00",
+    "temp": 42,
+    "humidity": 15,
+    "windSpeed": 25,
+    "confidence": 95
+  },
+  {
+    "id": 2,
+    "lat": -15.8267,
+    "lng": -48.0527,
+    "status": "controlled",
+    "intensity": "medium",
+    "area": 89,
+    "detected": "2024-10-23T14:20:00",
+    "temp": 38,
+    "humidity": 22,
+    "windSpeed": 18,
+    "confidence": 87
+  },
+  {
+    "id": 3,
+    "lat": -15.72,
+    "lng": -47.93,
+    "status": "active",
+    "intensity": "high",
+    "area": 203,
+    "detected": "2024-10-24T06:15:00",
+    "temp": 45,
+    "humidity": 12,
+    "windSpeed": 32,
+    "confidence": 98
+  },
+  {
+    "id": 4,
+    "lat": -15.85,
+    "lng": -47.78,
+    "status": "extinct",
+    "intensity": "low",
+    "area": 45,
+    "detected": "2024-10-22T10:00:00",
+    "temp": 32,
+    "humidity": 35,
+    "windSpeed": 10,
+    "confidence": 75
+  },
+  {
+    "id": 5,
+    "lat": -15.76,
+    "lng": -48.12,
+    "status": "active",
+    "intensity": "medium",
+    "area": 98,
+    "detected": "2024-10-24T09:45:00",
+    "temp": 40,
+    "humidity": 18,
+    "windSpeed": 22,
+    "confidence": 91
+  },
+  {
+    "id": 6,
+    "lat": -22.449357,
+    "lng": -45.160858,
+    "status": "active",
+    "intensity": "medium",
+    "area": 98,
+    "detected": "2024-10-24T09:45:00",
+    "temp": 40,
+    "humidity": 18,
+    "windSpeed": 22,
+    "confidence": 91
+  }
+
+]

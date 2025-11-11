@@ -1,200 +1,182 @@
-import { useState } from 'react'
-import MapComponent from '../components/Map/MapComponent'
-import { AlertTriangle, Flame, TrendingUp, Wind, Droplets, ThermometerSun, MapPin } from 'lucide-react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Flame, Map, BarChart2, BookOpen, Facebook, Instagram, Twitter } from 'lucide-react';
+import { useTheme } from "../context/ThemeContext";
 
 const Home = () => {
-  const [selectedFire, setSelectedFire] = useState(null)
-
-  const stats = [
-    { 
-      label: 'Queimadas Ativas', 
-      value: '127', 
-      change: '+12%',
-      trend: 'up',
-      icon: Flame,
-      color: 'text-red-600 dark:text-red-400',
-      bgColor: 'bg-red-100 dark:bg-red-900/30'
-    },
-    { 
-      label: 'Área Afetada', 
-      value: '3.2k ha', 
-      change: '+8%',
-      trend: 'up',
-      icon: MapPin,
-      color: 'text-orange-600 dark:text-orange-400',
-      bgColor: 'bg-orange-100 dark:bg-orange-900/30'
-    },
-    { 
-      label: 'Alertas Hoje', 
-      value: '43', 
-      change: '-5%',
-      trend: 'down',
-      icon: AlertTriangle,
-      color: 'text-yellow-600 dark:text-yellow-400',
-      bgColor: 'bg-yellow-100 dark:bg-yellow-900/30'
-    },
-    { 
-      label: 'Risco Atual', 
-      value: 'Alto', 
-      change: 'Crítico',
-      trend: 'up',
-      icon: TrendingUp,
-      color: 'text-red-600 dark:text-red-400',
-      bgColor: 'bg-red-100 dark:bg-red-900/30'
-    },
-  ]
-
-  const recentAlerts = [
-    {
-      id: 1,
-      location: 'Brasília - DF',
-      time: '5 min atrás',
-      severity: 'high',
-      area: 152
-    },
-    {
-      id: 2,
-      location: 'Palmas - TO',
-      time: '23 min atrás',
-      severity: 'medium',
-      area: 89
-    },
-    {
-      id: 3,
-      location: 'Goiânia - GO',
-      time: '1 hora atrás',
-      severity: 'high',
-      area: 203
-    }
-  ]
-
+  const { isDark } = useTheme();
   return (
-    <div className="space-y-6">
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat, index) => (
-          <div key={index} className="card">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                  {stat.label}
-                </p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">
-                  {stat.value}
-                </p>
-                <p className={`text-sm mt-1 ${
-                  stat.trend === 'up' ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'
-                }`}>
-                  {stat.change}
-                </p>
-              </div>
-              <div className={`${stat.bgColor} p-3 rounded-lg`}>
-                <stat.icon className={`w-6 h-6 ${stat.color}`} />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Main Content - Map and Sidebar */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Map Container */}
-        <div className="lg:col-span-2">
-          <div className="card p-0 overflow-hidden h-[600px]">
-            <MapComponent onFireSelect={setSelectedFire} />
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-green-600 to-green-800 text-white py-20 md:py-32 overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="/background-51-.png" 
+            alt="Background" 
+            className="w-full h-full object-cover opacity-30"
+          />
+          <div className="absolute inset-0 bg-black opacity-40"></div>
+        </div>
+        <div className="relative container mx-auto px-6 text-center">
+          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down">
+            Wilds: Monitoramento Inteligente de Queimadas
+          </h1>
+          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto animate-fade-in-up">
+            Utilizando inteligência artificial e dados de satélite para proteger nossas florestas e comunidades.
+          </p>
+          <div className="flex justify-center space-x-4 animate-fade-in-up delay-200">
+            <Link 
+              to="/fire-horizon" 
+              className="btn-primary bg-yellow-500 hover:bg-yellow-600 text-gray-900"
+            >
+              Ver Mapa de Queimadas
+            </Link>
+            <Link 
+              to="/reportar" 
+              className="btn-secondary bg-transparent border-2 border-white hover:bg-white hover:text-green-700"
+            >
+              Denunciar Queimada
+            </Link>
           </div>
         </div>
+      </section>
 
-        {/* Right Sidebar - Info Panel */}
-        <div className="space-y-4">
-          {/* Weather Info */}
-          <div className="card">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-              Condições Climáticas
-            </h3>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <ThermometerSun className="w-5 h-5 text-orange-500" />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Temperatura</span>
-                </div>
-                <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">42°C</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Droplets className="w-5 h-5 text-blue-500" />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Umidade</span>
-                </div>
-                <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">15%</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Wind className="w-5 h-5 text-gray-500" />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Vento</span>
-                </div>
-                <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">25 km/h</span>
-              </div>
+      {/* Features Section */}
+      <section className="py-16 md:py-24 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            Como a Wilds Ajuda
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="feature-card">
+              <Flame className="w-12 h-12 text-green-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Detecção Precoce</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Nossa IA analisa dados de satélite para identificar focos de incêndio em seus estágios iniciais, permitindo uma resposta rápida.
+              </p>
             </div>
-
-            <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 rounded">
-              <p className="text-sm text-red-800 dark:text-red-300 font-medium">
-                ⚠️ Condições críticas para propagação de incêndios
+            <div className="feature-card">
+              <Map className="w-12 h-12 text-green-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Mapa Interativo</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Visualize queimadas ativas, áreas de risco e informações climáticas em tempo real em um mapa intuitivo.
+              </p>
+            </div>
+            <div className="feature-card">
+              <BarChart2 className="w-12 h-12 text-green-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Análises e Estatísticas</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Acompanhe tendências, áreas afetadas e o impacto das queimadas com dashboards detalhados.
               </p>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Recent Alerts */}
-          <div className="card">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-              Alertas Recentes
-            </h3>
-            <div className="space-y-3">
-              {recentAlerts.map((alert) => (
-                <div 
-                  key={alert.id}
-                  className="p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className={`w-2 h-2 rounded-full mt-2 ${
-                      alert.severity === 'high' ? 'bg-red-500' : 'bg-orange-500'
-                    }`}></div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                        {alert.location}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        {alert.area} hectares • {alert.time}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
+      {/* Call to Action Section */}
+      <section className="py-16 md:py-24 bg-gray-100 dark:bg-gray-900 text-center">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Faça Parte da Solução
+          </h2>
+          <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-gray-700 dark:text-gray-300">
+            Sua participação é crucial. Denuncie focos de incêndio e ajude a proteger o meio ambiente.
+          </p>
+          <Link 
+            to="/reportar" 
+            className="btn-primary bg-green-600 hover:bg-green-700 text-white text-lg px-8 py-3"
+          >
+            Denunciar Agora
+          </Link>
+        </div>
+      </section>
+
+      {/* Educational Content Section */}
+      <section className="py-16 md:py-24 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            Educação e Prevenção
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="text-content">
+              <h3 className="text-2xl font-semibold mb-4">
+                Aprenda sobre Prevenção e Impactos
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                Oferecemos guias e artigos para conscientizar sobre os perigos das queimadas e como todos podem contribuir para a prevenção.
+              </p>
+              <Link 
+                to="/educacao" 
+                className="btn-secondary bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900 dark:text-green-300 dark:hover:bg-green-800"
+              >
+                <BookOpen className="inline-block w-5 h-5 mr-2" />
+                Acessar Guias Educativos
+              </Link>
             </div>
+            <div className="image-content">
+              <img 
+                src="https://via.placeholder.com/600x400/4CAF50/ffffff?text=Prevenção+de+Queimadas" 
+                alt="Prevenção de Queimadas" 
+                className="rounded-lg shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <button className="w-full mt-4 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
-              Ver todos os alertas →
-            </button>
+      {/* Footer */}
+      <footer className="bg-gray-800 dark:bg-gray-950 text-gray-300 py-12">
+        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Logo and Description */}
+          <div className="space-y-4">
+            <img 
+              src={isDark ? '/white.png' : '/dark.png'} 
+              alt="Wilds Logo" 
+              className="h-10 w-auto object-contain"
+            />
+            <p className="text-sm leading-relaxed">
+              Wilds é um sistema de monitoramento inteligente de queimadas, utilizando IA e dados de satélite para proteger o meio ambiente.
+            </p>
+            <div className="flex space-x-4">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Facebook className="h-6 w-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Twitter className="h-6 w-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Instagram className="h-6 w-6" />
+              </a>
+            </div>
           </div>
 
-          {/* Quick Report Button */}
-          <a href="/reportar" className="block">
-            <div className="card bg-gradient-to-r from-alert-500 to-alert-600 hover:from-alert-600 hover:to-alert-700 transition-all cursor-pointer border-0">
-              <div className="flex items-center gap-3 text-white">
-                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                  <AlertTriangle className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="font-semibold">Reportar Queimada</h4>
-                  <p className="text-sm text-white/90">Faça uma denúncia agora</p>
-                </div>
-              </div>
-            </div>
-          </a>
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Navegação Rápida</h3>
+            <ul className="space-y-2">
+              <li><Link to="/" className="text-sm hover:text-white transition-colors">Início</Link></li>
+              <li><Link to="/fire-horizon" className="text-sm hover:text-white transition-colors">Fire Horizon</Link></li>
+              <li><Link to="/educacao" className="text-sm hover:text-white transition-colors">Educação</Link></li>
+              <li><Link to="/reportar" className="text-sm hover:text-white transition-colors">Reportar</Link></li>
+              <li><Link to="/perfil" className="text-sm hover:text-white transition-colors">Perfil</Link></li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Contato</h3>
+            <p className="text-sm">Email: contato@wilds.app</p>
+            <p className="text-sm">Telefone: (XX) XXXX-XXXX</p>
+            <p className="text-sm mt-4">Endereço: Rua da Natureza, 123, Floresta Verde - BR</p>
+          </div>
         </div>
-      </div>
+
+        <div className="border-t border-gray-700 dark:border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+          &copy; {new Date().getFullYear()} Wilds. Todos os direitos reservados.
+        </div>
+      </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
-
+export default Home;

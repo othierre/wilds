@@ -76,8 +76,8 @@ const Header = ({ onMenuClick }) => {
                   className="flex items-center gap-2 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-[#1a1a1a] transition-colors"
                 >
                   <img 
-                    src={user.photo || 'https://ui-avatars.com/api/?name=' + user.name + '&background=16a34a&color=fff'} 
-                    alt={user.name}
+                    src={user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName || user.email}&background=16a34a&color=fff`} 
+                    alt={user.displayName || user.email}
                     className="w-8 h-8 rounded-full ring-2 ring-gray-200 dark:ring-[#1f1f1f] hover:ring-primary-500 dark:hover:ring-primary-400 transition-all"
                   />
                 </button>
@@ -92,7 +92,7 @@ const Header = ({ onMenuClick }) => {
                     {/* Header do Dropdown */}
                     <div className="px-4 py-3 border-b border-gray-200 dark:border-[#1f1f1f]">
                       <p className="text-sm font-medium text-gray-900 dark:text-[#e5e5e5] truncate">
-                        {user.name}
+                        {user.displayName || 'Usuário Wilds'}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-[#a3a3a3] truncate">
                         {user.email}

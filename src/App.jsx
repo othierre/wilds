@@ -2,11 +2,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Layout from './components/Layout/Layout'
 import Home from './pages/Home'
+import FireHorizon from './pages/FireHorizon'
 import Reportar from './pages/Reportar'
 import Estatisticas from './pages/Estatisticas'
 import Educacao from './pages/Educacao'
 import Perfil from './pages/Perfil'
 import Instalar from './pages/Instalar'
+import Guma from './pages/Guma'
 // import Blog from './pages/Blog'
 // import BlogPost from './pages/BlogPost'
 import NotFound from './pages/NotFound'
@@ -26,11 +28,13 @@ function App() {
           <Layout>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/fire-horizon" element={<FireHorizon />} />
               <Route path="/reportar" element={<Reportar />} />
               <Route path="/estatisticas" element={<Estatisticas />} />
               <Route path="/educacao" element={<Educacao />} />
               <Route path="/perfil" element={<Perfil />} />
               <Route path="/instalar" element={<Instalar />} />
+              <Route path="/guma" element={<Guma />} />
               
               {/* Guias educativos (rotas ocultas - não aparecem na navegação) */}
               <Route path="/guias/prevencao-queimadas" element={<PrevencaoQueimadas />} />

@@ -62,74 +62,7 @@ const createUserLocationIcon = () => {
   })
 }
 
-// Mock data de queimadas (em produção, viriam de API real)
-const mockFireData = [
-  {
-    id: 1,
-    lat: -15.7942,
-    lng: -47.8822,
-    status: 'active',
-    intensity: 'high',
-    area: 152,
-    detected: '2024-10-24T08:30:00',
-    temp: 42,
-    humidity: 15,
-    windSpeed: 25,
-    confidence: 95
-  },
-  {
-    id: 2,
-    lat: -15.8267,
-    lng: -48.0527,
-    status: 'controlled',
-    intensity: 'medium',
-    area: 89,
-    detected: '2024-10-23T14:20:00',
-    temp: 38,
-    humidity: 22,
-    windSpeed: 18,
-    confidence: 87
-  },
-  {
-    id: 3,
-    lat: -15.7200,
-    lng: -47.9300,
-    status: 'active',
-    intensity: 'high',
-    area: 203,
-    detected: '2024-10-24T06:15:00',
-    temp: 45,
-    humidity: 12,
-    windSpeed: 32,
-    confidence: 98
-  },
-  {
-    id: 4,
-    lat: -15.8500,
-    lng: -47.7800,
-    status: 'extinct',
-    intensity: 'low',
-    area: 45,
-    detected: '2024-10-22T10:00:00',
-    temp: 32,
-    humidity: 35,
-    windSpeed: 10,
-    confidence: 75
-  },
-  {
-    id: 5,
-    lat: -15.7600,
-    lng: -48.1200,
-    status: 'active',
-    intensity: 'medium',
-    area: 98,
-    detected: '2024-10-24T09:45:00',
-    temp: 40,
-    humidity: 18,
-    windSpeed: 22,
-    confidence: 91
-  }
-]
+
 
 // Componente para trocar o tema do mapa
 const MapThemeController = () => {
@@ -327,10 +260,53 @@ const LocationButton = () => {
   )
 }
 
-const MapComponent = ({ onFireSelect }) => {
+// Componente para controlar o foco do mapa
+const MapFocusController = ({ fireToFocus }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (fireToFocus && fireToFocus.lat && fireToFocus.lng) {
+      map.flyTo([fireToFocus.lat, fireToFocus.lng], 14, {
+        animate: true,
+        duration: 1.5
+      });
+    }
+  }, [fireToFocus, map]);
+
+  return null;
+};
+
+const MapComponent = ({ onFireSelect, fireToFocus }) => {
   const [selectedFire, setSelectedFire] = useState(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const mapContainerRef = useRef(null)
+
+  // O estado para armazenar os dados de queimadas virá da API
+  const [fireData, setFireData] = useState([]);
+  // Estado de carregamento para feedback do usuário
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFireData = async () => {
+      try {
+        // Busca os dados da API
+        const response = await fetch('http://localhost:3001/api/fires');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        setFireData(data);
+      } catch (error) {
+        console.error("Falha ao buscar dados de queimadas:", error);
+        // Em um app real, você poderia mostrar uma notificação para o usuário
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFireData();
+  }, []); // O array vazio garante que o efeito rode apenas uma vez
 
   // Fazer links das atribuições abrirem em nova guia
   useEffect(() => {
@@ -438,19 +414,33 @@ const MapComponent = ({ onFireSelect }) => {
         )}
       </button>
 
+      {/* Indicador de Carregamento */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-black/50 z-[2000]">
+          <div className="text-center">
+            <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">Carregando mapa...</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Buscando dados de queimadas.</p>
+          </div>
+        </div>
+      )}
+
       <MapContainer
-        center={[-15.7942, -47.8822]}
-        zoom={11}
+        center={[-14.2350, -51.9253]}
+        zoom={4}
         className="h-full w-full"
         zoomControl={true}
       >
         {/* Controlador de tema do mapa */}
         <MapThemeController />
 
+        {/* Controlador de foco do mapa */}
+        <MapFocusController fireToFocus={fireToFocus} />
+
         {/* Marcador de localização do usuário */}
         <UserLocationMarker />
 
-        {mockFireData.map((fire) => (
+        {/* Mostra os marcadores de queimadas baseados nos dados da API */}
+        {!isLoading && fireData.map((fire) => (
           <div key={fire.id}>
             <Marker
               position={[fire.lat, fire.lng]}
