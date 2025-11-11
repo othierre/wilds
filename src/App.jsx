@@ -9,8 +9,8 @@ import Educacao from './pages/Educacao'
 import Perfil from './pages/Perfil'
 import Instalar from './pages/Instalar'
 import Guma from './pages/Guma'
-// import Blog from './pages/Blog'
-// import BlogPost from './pages/BlogPost'
+import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
 import NotFound from './pages/NotFound'
 import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
@@ -42,9 +42,8 @@ function App() {
               <Route path="/guias/recuperacao-florestal" element={<RecuperacaoFlorestal />} />
               
               {/* Blog desativado temporariamente - Admin ainda acessível em /admin */}
-              {/* <Route path="/blog" element={<Blog />} /> */}
-              {/* <Route path="/blog/:slug" element={<BlogPost />} /> */}
-              <Route path="*" element={<NotFound />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />              <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
         </Router>

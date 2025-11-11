@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X, Flame, Sparkles } from 'lucide-react'
+import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X, Flame, FileText } from 'lucide-react'
+import GumaIcon from '../GumaIcon'
 import { useTheme } from '../../context/ThemeContext'
 import WildsLogo from '../WildsLogo'
 
@@ -9,11 +10,11 @@ const Sidebar = ({ onClose }) => {
     { name: 'Wilds (Início)', href: '/', icon: Home },
     { name: 'Fire Horizon', href: '/fire-horizon', icon: Flame },
     { name: 'Estatísticas', href: '/estatisticas', icon: BarChart3 },
-    // { name: 'Blog', href: '/blog', icon: FileText }, // Desativado temporariamente
+    { name: 'Blog', href: '/blog', icon: FileText },
     { name: 'Educação', href: '/educacao', icon: BookOpen },
     { name: 'Perfil', href: '/perfil', icon: User },
+    { name: 'Guma IA', href: '/guma', icon: GumaIcon },
     { name: 'Instalar App', href: '/instalar', icon: Download },
-    { name: 'Guma', href: '/guma', icon: Sparkles },
   ]
 
   return (
@@ -50,7 +51,11 @@ const Sidebar = ({ onClose }) => {
                       }`
                     }
                   >
-                    <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
+                    <item.icon className={`h-6 w-6 shrink-0 ${
+                      item.name === 'Guma IA'
+                        ? 'text-[#58616e] dark:text-[#909090] group-hover:text-primary-600 dark:group-hover:text-primary-400'
+                        : ''
+                    }`} aria-hidden="true" />
                     {item.name}
                   </NavLink>
                 </li>

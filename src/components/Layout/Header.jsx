@@ -48,7 +48,7 @@ const Header = ({ onMenuClick }) => {
 
             <div className="hidden lg:block">
               <h1 className="text-xl font-semibold text-gray-900 dark:text-[#e5e5e5]">
-                Monitoramento de Queimadas
+                Bem-vindo ao the Wilds
               </h1>
             </div>
           </div>
