@@ -21,71 +21,9 @@ const Blog = () => {
         setFilteredPosts(blogPosts)
       } catch (error) {
         console.error('Erro ao carregar posts:', error)
-        // Fallback para posts mockados se houver erro
-        const mockPosts = [
-      {
-        slug: '2025-01-15-bem-vindo-ao-blog-wilds',
-        title: 'Bem-vindo ao Blog Wilds',
-        date: '2025-01-15T10:00:00.000Z',
-        description: 'Apresentamos o novo blog do Wilds, seu portal de informações sobre monitoramento e prevenção de queimadas.',
-        image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=800&q=80',
-        category: 'Notícias',
-        tags: ['bem-vindo', 'novidades', 'wilds'],
-        author: 'Equipe Wilds',
-        featured: true,
-        readTime: 5
-      },
-      {
-        slug: '2025-01-10-tecnologia-satelite-monitoramento',
-        title: 'Como a Tecnologia de Satélite Revoluciona o Monitoramento de Queimadas',
-        date: '2025-01-10T14:30:00.000Z',
-        description: 'Descubra como satélites e IA trabalham juntos para detectar queimadas em tempo real.',
-        image: 'https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=800&q=80',
-        category: 'Tecnologia',
-        tags: ['satélite', 'tecnologia', 'monitoramento', 'IA'],
-        author: 'Equipe Wilds',
-        featured: true,
-        readTime: 8
-      },
-      {
-        slug: '2025-01-08-prevencao-queimadas-verao',
-        title: 'Dicas Essenciais para Prevenção de Queimadas no Verão',
-        date: '2025-01-08T09:00:00.000Z',
-        description: 'Aprenda como prevenir queimadas durante o período mais crítico do ano.',
-        image: 'https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?w=800&q=80',
-        category: 'Prevenção',
-        tags: ['prevenção', 'verão', 'segurança'],
-        author: 'Equipe Wilds',
-        featured: false,
-        readTime: 6
-      },
-      {
-        slug: '2025-01-05-impacto-queimadas-amazonia',
-        title: 'O Impacto das Queimadas na Amazônia',
-        date: '2025-01-05T16:00:00.000Z',
-        description: 'Análise profunda sobre as consequências ambientais das queimadas na maior floresta tropical do mundo.',
-        image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800&q=80',
-        category: 'Meio Ambiente',
-        tags: ['amazônia', 'meio ambiente', 'impacto'],
-        author: 'Equipe Wilds',
-        featured: false,
-        readTime: 10
-      },
-      {
-        slug: '2025-01-01-estatisticas-queimadas-2024',
-        title: 'Estatísticas de Queimadas em 2024: Um Panorama Completo',
-        date: '2025-01-01T12:00:00.000Z',
-        description: 'Análise detalhada dos dados de queimadas registrados ao longo de 2024.',
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
-        category: 'Queimadas',
-        tags: ['estatísticas', '2024', 'dados'],
-        author: 'Equipe Wilds',
-        featured: false,
-        readTime: 7
-      }
-    ]
-        setPosts(mockPosts)
-        setFilteredPosts(mockPosts)
+        // Se houver um erro ao carregar posts, defina-os como vazios
+        setPosts([])
+        setFilteredPosts([])
       } finally {
         setLoading(false)
       }
