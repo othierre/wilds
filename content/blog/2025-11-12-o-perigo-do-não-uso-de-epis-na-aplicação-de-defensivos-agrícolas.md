@@ -1,21 +1,14 @@
 ---
 title: O perigo do não uso de EPIs na aplicação de defensivos agrícolas
 date: 2025-11-12T02:30:00.000-03:00
-description: "O perigo do não uso de EPIs na aplicação de defensivos
-  agrícolas  Aplicar defensivos agrícolas sem o uso adequado de Equipamentos de
-  Proteção Individual (EPIs) expõe os trabalhadores rurais a graves riscos —
-  desde irritações de pele e olhos, náusea, tontura e vômitos em casos agudos,
-  até doenças neurológicas, problemas respiratórios e alterações renais em longo
-  prazo. Estudos apontam que a falta de EPIs eleva significativamente o risco de
-  intoxicação. Além disso, essa negligência pode contaminar o ambiente de
-  trabalho, o lar do trabalhador e a comunidade próxima.  Fatores como
-  desconforto térmico, custo dos EPIs, falta de treinamento e baixa percepção de
-  risco contribuem para a precariedade da proteção. A adoção de boas práticas —
-  como escolher EPIs adequados, treinar aplicadores, armazenar defensivos
-  corretamente, lavar roupas de trabalho separadamente e descartar embalagens
-  conforme normas — pode evitar acidentes e preservar vidas.  Em suma: o avanço
-  da agricultura moderna não pode ter como custo a saúde dos trabalhadores. O
-  uso dos EPIs não é opcional — é essencial."
+description: O uso incorreto ou a ausência de Equipamentos de Proteção
+  Individual (EPIs) na aplicação de defensivos agrícolas expõe os trabalhadores
+  a graves riscos de intoxicação e doenças crônicas, além de contaminar o meio
+  ambiente e suas famílias. Estudos mostram que a falta de luvas, máscaras e
+  roupas de proteção aumenta significativamente a absorção de substâncias
+  tóxicas, podendo causar desde irritações e tonturas até danos neurológicos e
+  hormonais. O uso adequado dos EPIs é, portanto, essencial para garantir a
+  segurança, a saúde e a sustentabilidade no campo.
 image: /uploads/gere_uma_imagem_daquelas_roupas_amarelas_famosas_epis_em_um_lugar_contaminado_tipo_plantao_no_meio__6gpyycsq9zrv5ybcf7ui_1.png
 category: Meio Ambiente
 tags:
