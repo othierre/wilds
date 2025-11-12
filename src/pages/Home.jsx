@@ -164,13 +164,13 @@ const Home = () => {
       </section>
 
       {/* Guma AI Section */}
-      <section className="py-20 md:py-28 relative overflow-hidden">
+      <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] py-20 md:py-28 mx-2 sm:mx-8 lg:mx-auto max-w-7xl mb-8">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 right-10 w-64 h-64 bg-purple-500 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 left-10 w-64 h-64 bg-pink-500 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto max-w-7xl relative">
+        <div className="container mx-auto px-4 sm:px-8 max-w-7xl relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <div className="inline-flex items-center gap-2 bg-[#e66439]/10 dark:bg-[#e66439]/30 px-5 py-2 rounded-full mb-6">
