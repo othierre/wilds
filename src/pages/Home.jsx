@@ -57,7 +57,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50 dark:bg-black">
       {/* Hero Section */}
       <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] pb-24 md:pb-32 overflow-hidden mx-2 sm:mx-8 lg:mx-auto max-w-7xl">
         <div className="relative container mx-auto px-4 sm:px-8 text-center z-10 max-w-6xl pt-8">
@@ -125,8 +125,7 @@ const Home = () => {
 
       </section>
 
-      {/* Features Grid */}
-      <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-950">
+<section className="py-20 md:py-28 bg-gray-50 dark:bg-black">
         <div className="container mx-auto px-2 sm:px-8 max-w-7xl">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-5 py-2 rounded-full mb-6">
@@ -236,7 +235,7 @@ const Home = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-950">
+      <section className="py-20 md:py-28 bg-gray-50 dark:bg-black">
         <div className="container mx-auto px-2 sm:px-8 max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-4">
