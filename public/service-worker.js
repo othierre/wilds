@@ -25,7 +25,7 @@ self.addEventListener('fetch', (event) => {
     fetch(event.request)
       .then((response) => {
         // Se a requisição foi bem sucedida, clone e armazene no cache
-        if (response && response.status === 200) {
+        if (event.request.method === 'GET' && response && response.status === 200) {
           const responseClone = response.clone()
           caches.open(CACHE_NAME)
             .then((cache) => {

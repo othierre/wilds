@@ -1,49 +1,33 @@
-import fm from 'front-matter'
+import matter from 'gray-matter';
+import { marked } from 'marked';
 
-// Função para carregar posts do blog
 export async function getBlogPosts() {
-  // Importar todos os arquivos markdown da pasta content/blog
-  const postFiles = import.meta.glob('/content/blog/*.md', { as: 'raw', eager: true })
-  
-  const posts = Object.entries(postFiles).map(([filepath, content]) => {
-    // Processar frontmatter do markdown
-    const { attributes: data, body: markdownContent } = fm(content)    
-    // Extrair o slug do caminho do arquivo
-    const slug = filepath.split('/').pop().replace('.md', '')
-    
-    // Calcular tempo de leitura (aproximado)
-    const words = markdownContent.split(/\s+/).length
-    const readTime = Math.ceil(words / 200) // ~200 palavras por minuto
-    
-    return {
+  const posts = [];
+  const modules = import.meta.glob('../../content/blog/*.md', { as: 'raw', eager: true });
+
+  for (const path in modules) {
+    const fileContent = modules[path];
+    const { data, content } = matter(fileContent);
+    const slug = path.split('/').pop().replace('.md', '');
+
+    posts.push({
       slug,
-      title: data.title || 'Sem título',
-      date: data.date || new Date().toISOString(),
-      description: data.description || '',
-      image: data.image || 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=800&q=80',
-      category: data.category || 'Geral',
-      tags: data.tags || [],
-      author: data.author || 'Equipe Wilds',
-      featured: data.featured || false,
-      readTime,
-      content: markdownContent
-    }
-  })
-  
-  // Ordenar por data (mais recente primeiro)
-  return posts.sort((a, b) => new Date(b.date) - new Date(a.date))
+      ...data,
+      content: marked(content), // Convert markdown to HTML
+    });
+  }
+
+  // Sort posts by date in descending order
+  posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  return posts;
 }
 
-// Função para buscar um post específico
 export async function getBlogPostBySlug(slug) {
-  const posts = await getBlogPosts()
-  return posts.find(post => post.slug === slug)
+  const posts = await getBlogPosts();
+  return posts.find(post => post.slug === slug);
 }
 
-// Importar marked para converter markdown para HTML. Certifique-se de instalar: npm install marked
-import { marked } from 'marked'
-
-// Função para converter markdown para HTML
 export function markdownToHtml(markdown) {
-  return marked.parse(markdown)
+  return marked(markdown);
 }

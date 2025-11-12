@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Calendar, Clock, User, Tag, ArrowLeft, Share2, Facebook, Twitter, Linkedin } from 'lucide-react'
-import { getBlogPostBySlug, markdownToHtml } from '../utils/blogPosts.jsx'
+import { getBlogPostBySlug } from '../utils/blogPosts.jsx'
 
 const BlogPost = () => {
   const { slug } = useParams()
@@ -83,8 +83,8 @@ const BlogPost = () => {
       {/* Hero Image */}
       <div className="aspect-video rounded-xl overflow-hidden">
         <img
-          src={postData.image}
-          alt={postData.title}
+          src={post.image}
+          alt={post.title}
           className="w-full h-full object-cover"
         />
       </div>
@@ -92,32 +92,32 @@ const BlogPost = () => {
       {/* Post Header */}
       <div className="space-y-4">
         <div className="flex flex-wrap items-center gap-3">
-          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryColor(postData.category)}`}>
-            {postData.category}
+          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryColor(post.category)}`}>
+            {post.category}
           </span>
           <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
             <Clock className="w-4 h-4" />
-            {postData.readTime} min de leitura
+            {post.readTime} min de leitura
           </span>
         </div>
 
         <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-gray-100">
-          {postData.title}
+          {post.title}
         </h1>
 
         <p className="text-xl text-gray-600 dark:text-gray-400">
-          {postData.description}
+          {post.description}
         </p>
 
         <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-200 dark:border-[#1f1f1f]">
           <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
             <div className="flex items-center gap-2">
               <User className="w-4 h-4" />
-              {postData.author}
+              {post.author}
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
-              {formatDate(postData.date)}
+              {formatDate(post.date)}
             </div>
           </div>
 
@@ -136,7 +136,7 @@ const BlogPost = () => {
               <Facebook className="w-4 h-4" />
             </a>
             <a
-              href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${postData.title}`}
+              href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${post.title}`}
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -157,7 +157,7 @@ const BlogPost = () => {
 
       {/* Post Content */}
       <article className="card prose prose-lg dark:prose-invert max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: markdownToHtml(postData.content) }} />
+        <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </article>
 
       {/* Tags */}
@@ -165,7 +165,7 @@ const BlogPost = () => {
         <div className="flex flex-wrap items-center gap-2">
           <Tag className="w-5 h-5 text-gray-400" />
           <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Tags:</span>
-          {postData.tags.map(tag => (
+          {post.tags.map(tag => (
             <span
               key={tag}
               className="px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-[#1a1a1a] text-gray-700 dark:text-gray-300"
