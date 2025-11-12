@@ -4,7 +4,7 @@
   "description": "Sistema de Monitoramento de Queimadas com IA e Satélite",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
+  "background_color": "#131414",
   "theme_color": "#131414",
   "orientation": "portrait-primary",
   "icons": [

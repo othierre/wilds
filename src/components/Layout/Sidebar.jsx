@@ -8,7 +8,7 @@ const Sidebar = ({ onClose }) => {
   const { isDark } = useTheme()
   const navigation = [
     { name: 'Wilds (Início)', href: '/', icon: Home },
-    { name: 'Fire Horizon', href: '/fire-horizon', icon: Flame },
+    // { name: 'Fire Horizon', href: '/fire-horizon', icon: Flame },
     { name: 'Estatísticas', href: '/estatisticas', icon: BarChart3 },
     { name: 'Blog', href: '/blog', icon: FileText },
     { name: 'Educação', href: '/educacao', icon: BookOpen },

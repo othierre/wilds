@@ -1,11 +1,13 @@
 import { NavLink } from 'react-router-dom'
-import { Home, AlertTriangle, BarChart3, BookOpen, User, Flame, Sparkles } from 'lucide-react'
+import { Home, AlertTriangle, BarChart3, BookOpen, User, Flame } from 'lucide-react'
+import GumaIcon from '../GumaIcon'
 
 const MobileNav = () => {
   const navigation = [
     { name: 'Wilds', href: '/', icon: Home },
     { name: 'Educação', href: '/educacao', icon: BookOpen },
-    { name: 'Fire Horizon', href: '/fire-horizon', icon: Flame },
+    { name: 'Guma IA', href: '/guma', icon: GumaIcon },
+    // { name: 'Fire Horizon', href: '/fire-horizon', icon: Flame },
     { name: 'Perfil', href: '/perfil', icon: User },
   ]
 
