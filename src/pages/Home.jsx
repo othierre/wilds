@@ -59,7 +59,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Hero Section */}
-      <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] pb-24 md:pb-32 overflow-hidden mx-4 sm:mx-8 lg:mx-auto max-w-7xl">
+      <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] pb-24 md:pb-32 overflow-hidden mx-2 sm:mx-8 lg:mx-auto max-w-7xl">
         <div className="relative container mx-auto px-4 sm:px-8 text-center z-10 max-w-6xl pt-8">
           {/* Badge superior */}
           <div className="inline-flex items-center gap-3 bg-green-100 dark:bg-green-900/30 px-6 py-3 rounded-full mb-8 shadow-sm border border-green-200 dark:border-green-800">
@@ -127,7 +127,7 @@ const Home = () => {
 
       {/* Features Grid */}
       <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-950">
-        <div className="container mx-auto px-4 sm:px-8 max-w-7xl">
+        <div className="container mx-auto px-2 sm:px-8 max-w-7xl">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-5 py-2 rounded-full mb-6">
               <Heart className="w-4 h-4 text-green-600 dark:text-green-400" />
@@ -165,13 +165,13 @@ const Home = () => {
       </section>
 
       {/* Guma AI Section */}
-      <section className="py-20 md:py-28 bg-white dark:bg-[#1c1b1a] relative overflow-hidden">
+      <section className="py-20 md:py-28 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 right-10 w-64 h-64 bg-purple-500 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 left-10 w-64 h-64 bg-pink-500 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto px-4 sm:px-8 max-w-7xl relative">
+        <div className="container mx-auto max-w-7xl relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <div className="inline-flex items-center gap-2 bg-[#e66439]/10 dark:bg-[#e66439]/30 px-5 py-2 rounded-full mb-6">
@@ -218,13 +218,12 @@ const Home = () => {
 
             <div className="order-1 lg:order-2">
               <div className="relative">
-                <div className="absolute -inset-4 bg-[#e66439] dark:bg-gray-900 dark:opacity-50 rounded-3xl transform rotate-3 opacity-20 blur-xl"></div>
-                <div className="relative bg-[#e66439] rounded-3xl shadow-2xl">
+                <div className="relative bg-[#e66439] rounded-3xl">
                   <img src="/BackgroundGuma.png" alt="Guma AI" className="w-full h-full object-cover rounded-3xl" />
                 </div>
                 
                 {/* Floating elements */}
-                <div className="absolute -bottom-6 -left-6 bg-white dark:bg-[#1f1f1f] p-4 rounded-2xl shadow-xl">
+                <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-white dark:bg-[#1f1f1f] p-4 rounded-2xl shadow-xl">
                   <div className="flex items-center gap-3">
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                     <span className="font-bold text-gray-900 dark:text-white">Online 24/7</span>
@@ -238,7 +237,7 @@ const Home = () => {
 
       {/* Benefits Section */}
       <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-950">
-        <div className="container mx-auto px-4 sm:px-8 max-w-7xl">
+        <div className="container mx-auto px-2 sm:px-8 max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-4">
               <span className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
@@ -273,7 +272,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] py-20 md:py-28 overflow-hidden mx-4 sm:mx-8 lg:mx-auto max-w-7xl mb-8">
+      <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] py-20 md:py-28 overflow-hidden mx-2 sm:mx-8 lg:mx-auto max-w-7xl mb-8">
         <div className="container mx-auto px-4 sm:px-8 relative z-10 max-w-5xl text-center">
           <div className="inline-flex items-center gap-3 bg-green-100 dark:bg-green-900/30 px-6 py-3 rounded-full mb-8 shadow-sm border border-green-200 dark:border-green-800">
             <Sprout className="w-5 h-5 text-green-600 dark:text-green-400" />
