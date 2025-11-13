@@ -7,6 +7,8 @@ description: A gestante tem direitos no trabalho que garantem segurança, saúde
   sua saúde ou a do bebê.
 image: /uploads/img.webp
 category: Geral
+tags:
+  - CLT
 author: Mirelle Marins
 featured: false
 ---
