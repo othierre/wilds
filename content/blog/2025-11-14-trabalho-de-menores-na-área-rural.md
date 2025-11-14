@@ -1,10 +1,10 @@
 ---
 title: Trabalho de Menores na Área Rural
 date: 2025-11-13T21:14:00.000-03:00
-description: "Aqui está uma versão ainda menor:  O trabalho rural é proibido
-  para menores de 16 anos, exceto como aprendiz aos 14. A partir dos 16, é
-  permitido com restrições, vedando atividades perigosas ou prejudiciais. A lei
-  protege o adolescente contra riscos e garante seu desenvolvimento e educação."
+description: O trabalho rural é proibido para menores de 16 anos, exceto como
+  aprendiz aos 14. A partir dos 16, é permitido com restrições, vedando
+  atividades perigosas ou prejudiciais. A lei protege o adolescente contra
+  riscos e garante seu desenvolvimento e educação.
 image: /uploads/faa_uma_imagem_sobre_o_trabalho_do_menor_na_rea_rural_vbbx5geqv7i8cdhk9g9o_1.png
 category: Geral
 tags:
