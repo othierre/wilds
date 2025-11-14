@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { Shield, Leaf, Sprout, Users, BookOpen, Bot, FlaskConical, Heart, ArrowRight, CheckCircle2, Instagram, Twitter, Facebook, Linkedin } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
+import { Shield, Leaf, Sprout, Users, BookOpen, FlaskConical, Heart, ArrowRight, CheckCircle2, Instagram, Twitter, Facebook, Linkedin, Clock } from 'lucide-react'; 
+import SpireIcon from './SpireIcon'; 
+import FaqItem from './FaqItem';
+import { getBlogPosts } from '../utils/blogPosts';
 
 const Footer = () => {
+  const { isDark } = useTheme();
   const navLinks = [
     { name: 'Início', path: '/' },
     { name: 'Educação', path: '/educacao' },
@@ -19,12 +24,12 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white dark:bg-[#141414] border-t border-gray-200 dark:border-[#1f1f1f] mt-16">
+    <footer className="bg-transparent dark:bg-transparent border-t border-gray-200 dark:border-[#1f1f1f] mt-16">
       <div className="container mx-auto px-4 sm:px-8 max-w-7xl py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           {/* Logo e Descrição */}
           <div className="flex flex-col items-center md:items-start">
-            <img src="/logo.svg" alt="Wilds Logo" className="w-32 mb-3" />
+            <img src="/logo.svg" alt="Wilds Logo" className={`w-32 mb-3 ${!isDark ? 'filter invert' : ''}`} />
             <p className="text-gray-600 dark:text-gray-400 max-w-xs">
               Tecnologia e segurança para um campo mais sustentável e produtivo.
             </p>
@@ -67,6 +72,7 @@ const Footer = () => {
 };
 
 const Home = () => {
+  const [latestPosts, setLatestPosts] = useState([]);
   const features = [
     {
       icon: Shield,
@@ -96,8 +102,8 @@ const Home = () => {
       iconBg: 'bg-gradient-to-br from-green-500 to-emerald-600'
     },
     {
-      icon: Bot,
-      title: 'IA Guma',
+      icon: SpireIcon,
+      title: 'Guma IA',
       description: 'Assistente virtual inteligente para tirar dúvidas em tempo real sobre o campo',
       color: 'from-purple-500 to-pink-600',
       bgColor: 'from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20',
@@ -116,9 +122,43 @@ const Home = () => {
   const stats = [
     { number: '500+', label: 'Produtores Atendidos', icon: Users },
     { number: '95%', label: 'Segurança Aumentada', icon: Shield },
-    { number: '24/7', label: 'Suporte Disponível', icon: Bot },
+    { number: '24/7', label: 'Suporte Disponível', icon: SpireIcon },
     { number: '100%', label: 'Sustentável', icon: Leaf }
   ];
+
+  const faqs = [
+    {
+      question: 'O que é a Wilds?',
+      answer: 'A Wilds é uma plataforma digital que oferece soluções de tecnologia e educação para agricultores familiares, com foco no uso seguro de agrotóxicos e Equipamentos de Proteção Individual (EPIs). Nosso objetivo é aumentar a segurança, a produtividade e a sustentabilidade no campo.'
+    },
+    {
+      question: 'Como o Guma IA pode me ajudar?',
+      answer: 'O Guma é seu assistente virtual inteligente. Você pode fazer perguntas a qualquer hora sobre quais EPIs usar, como manusear produtos químicos com segurança, dosagens corretas, descarte de embalagens e práticas agrícolas sustentáveis. Ele foi treinado para fornecer respostas rápidas e confiáveis.'
+    },
+    {
+      question: 'Os conteúdos educativos são gratuitos?',
+      answer: 'Sim, nosso pilar educacional oferece acesso gratuito a uma variedade de materiais, como artigos, guias e vídeos, que ensinam as melhores práticas para um trabalho seguro e produtivo no campo. Acreditamos que o conhecimento deve ser acessível a todos.'
+    },
+    {
+      question: 'A plataforma é adequada para pequenos produtores?',
+      answer: 'Com certeza. Nossas soluções foram pensadas especialmente para a realidade do agricultor familiar. São ferramentas fáceis de usar, acessíveis e que resolvem problemas práticos do dia a dia, desde a segurança pessoal até a gestão sustentável da propriedade.'
+    }
+  ];
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        const allPosts = await getBlogPosts();
+        // Ordena os posts por data, do mais recente para o mais antigo
+        const sortedPosts = allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setLatestPosts(sortedPosts.slice(0, 3));
+      } catch (error) {
+        console.error('Erro ao carregar os posts do blog na home:', error);
+      }
+    };
+
+    loadPosts();
+  }, []);
 
   return (
     <>
@@ -129,7 +169,7 @@ const Home = () => {
       </Helmet>
       <div className="min-h-screen bg-gray-50 dark:bg-black">
         {/* Hero Section */}
-        <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] pb-24 md:pb-32 overflow-hidden">
+        <section className="relative bg-white dark:bg-transparent rounded-xl shadow-sm border border-transparent dark:border-transparent pb-24 md:pb-32 overflow-hidden">
           <div className="relative container mx-auto px-4 sm:px-8 text-center z-10 max-w-6xl pt-8">
             {/* Badge superior */}
             <div className="inline-flex items-center gap-3 bg-green-100 dark:bg-green-900/30 px-6 py-3 rounded-full mb-8 shadow-sm border border-green-200 dark:border-green-800">
@@ -159,8 +199,8 @@ const Home = () => {
               </div>
               <div className="bg-green-100 dark:bg-green-900/30 px-6 py-3 rounded-xl border border-green-200 dark:border-green-800">
                 <div className="flex items-center gap-2">
-                  <Bot className="w-5 h-5 text-green-600 dark:text-green-400" />
-                  <span className="font-bold text-gray-900 dark:text-gray-100">IA Guma</span>
+                  <SpireIcon className="w-5 h-5 text-green-600 dark:text-green-400" />
+                  <span className="font-bold text-gray-900 dark:text-gray-100">Guma IA</span>
                 </div>
               </div>
               <div className="bg-green-100 dark:bg-green-900/30 px-6 py-3 rounded-xl border border-green-200 dark:border-green-800">
@@ -186,7 +226,7 @@ const Home = () => {
                 className="group relative btn-secondary bg-gray-200 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 text-lg px-10 py-5 rounded-2xl font-bold shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300"
               >
                 <span className="flex items-center justify-center gap-3">
-                  <Bot className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                  <SpireIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
                   <span>Falar com Guma</span>
                 </span>
               </Link>
@@ -244,7 +284,7 @@ const Home = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="order-2 lg:order-1">
                 <div className="inline-flex items-center gap-2 bg-[#e66439]/10 dark:bg-[#e66439]/30 px-5 py-2 rounded-full mb-6">
-                  <Bot className="w-4 h-4 text-[#e66439]" />
+                  <SpireIcon className="w-4 h-4 text-[#e66439]" />
                   <span className="text-sm font-bold text-[#e66439] uppercase tracking-wider">Inteligência Artificial</span>
                 </div>
 
@@ -279,7 +319,7 @@ const Home = () => {
                   to="/guma"
                   className="group inline-flex items-center gap-3 bg-[#e66439] text-white hover:bg-[#cf5a32] px-8 py-4 rounded-2xl font-bold text-lg shadow-2xl hover:shadow-[#e66439]/50 transform hover:-translate-y-2 hover:scale-105 transition-all duration-300"
                 >
-                  <Bot className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                  <SpireIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
                   <span>Conversar com a Guma</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                 </Link>
@@ -340,6 +380,65 @@ const Home = () => {
           </div>
         </section>
 
+        {/* Blog Section */}
+        <section className="py-20 md:py-28 bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] mb-8">
+          <div className="container mx-auto px-4 sm:px-8 max-w-7xl">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-black mb-4">
+                <span className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                  Fique por Dentro: Nosso Blog
+                </span>
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                Artigos, dicas e novidades para manter você sempre atualizado.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {latestPosts.map((post) => (
+                <Link to={`/blog/${post.slug}`} key={post.id} className="group block bg-gray-50 dark:bg-black rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-200 dark:border-[#1f1f1f]">
+                  <div className="relative">
+                    <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
+                    <div className="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold uppercase px-3 py-1 rounded-full">{post.category}</div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-gray-100 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                      {post.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                      {post.excerpt}
+                    </p>
+                    <div className="text-green-600 dark:text-green-400 font-bold flex items-center gap-2">
+                      Ler mais
+                      <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-20 md:py-28 bg-gray-50 dark:bg-black">
+          <div className="container mx-auto px-4 sm:px-8 max-w-4xl">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-black mb-4">
+                <span className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                  Dúvidas Frequentes
+                </span>
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                Encontre aqui as respostas para as perguntas mais comuns sobre nossas soluções.
+              </p>
+            </div>
+            <div className="space-y-4">
+              {faqs.map((faq, index) => (
+                <FaqItem key={index} question={faq.question} answer={faq.answer} />
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] py-20 md:py-28 overflow-hidden mb-8">
           <div className="container mx-auto px-4 sm:px-8 relative z-10 max-w-5xl text-center">
@@ -370,7 +469,7 @@ const Home = () => {
                 to="/guma"
                 className="group inline-flex items-center gap-4 bg-gray-200 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 text-xl px-10 py-5 rounded-2xl font-bold shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300"
               >
-                <Bot className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <SpireIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
                 <span>Falar com Guma</span>
               </Link>
             </div>
