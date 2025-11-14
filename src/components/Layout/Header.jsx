@@ -4,12 +4,16 @@ import { useNavigate } from 'react-router-dom'
 import { useTheme } from '../../context/ThemeContext'
 import { useAuth } from '../../context/AuthContext'
 import WildsLogo from '../WildsLogo'
+import NotificationPopup from '../NotificationPopup'
 
 const Header = ({ onMenuClick }) => {
   const { isDark, toggleTheme } = useTheme()
   const { user, loginWithGoogle, logout } = useAuth()
   const [isProfileOpen, setIsProfileOpen] = useState(false)
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false)
+  const [unreadNotificationCount, setUnreadNotificationCount] = useState(0)
   const dropdownRef = useRef(null)
+  const notificationDropdownRef = useRef(null)
   const navigate = useNavigate()
 
   // Fechar dropdown quando clicar fora
@@ -17,6 +21,9 @@ const Header = ({ onMenuClick }) => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsProfileOpen(false)
+      }
+      if (notificationDropdownRef.current && !notificationDropdownRef.current.contains(event.target)) {
+        setIsNotificationsOpen(false)
       }
     }
 
@@ -53,10 +60,22 @@ const Header = ({ onMenuClick }) => {
 
           <div className="flex items-center gap-2">
             {/* Botão de Notificações */}
-            <button className="relative p-2 rounded-lg text-gray-700 dark:text-[#e5e5e5] hover:bg-gray-100 dark:hover:bg-[#1a1a1a] transition-colors">
-              <Bell className="h-5 w-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-alert-500 rounded-full"></span>
-            </button>
+            <div className="relative" ref={notificationDropdownRef}>
+              <button
+                onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+                className="relative p-2 rounded-lg text-gray-700 dark:text-[#e5e5e5] hover:bg-gray-100 dark:hover:bg-[#1a1a1a] transition-colors"
+              >
+                                <Bell className="h-5 w-5" />
+                                {unreadNotificationCount > 0 && (
+                                  <span className="absolute top-1 right-1 w-2 h-2 bg-alert-500 rounded-full"></span>
+                                )}
+                              </button>
+                              <NotificationPopup
+                                isOpen={isNotificationsOpen}
+                                onClose={() => setIsNotificationsOpen(false)}
+                                setUnreadCount={setUnreadNotificationCount}
+                              />
+            </div>
 
             {/* Botão de Tema */}
             <button 
