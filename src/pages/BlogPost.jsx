@@ -161,20 +161,22 @@ const BlogPost = () => {
       </article>
 
       {/* Tags */}
-      <div className="card">
-        <div className="flex flex-wrap items-center gap-2">
-          <Tag className="w-5 h-5 text-gray-400" />
-          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Tags:</span>
-          {post.tags.map(tag => (
-            <span
-              key={tag}
-              className="px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-[#1a1a1a] text-gray-700 dark:text-gray-300"
-            >
-              #{tag}
-            </span>
-          ))}
+      {post.tags && post.tags.length > 0 && (
+        <div className="card">
+          <div className="flex flex-wrap items-center gap-2">
+            <Tag className="w-5 h-5 text-gray-400" />
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Tags:</span>
+            {post.tags.map(tag => (
+              <span
+                key={tag}
+                className="px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-[#1a1a1a] text-gray-700 dark:text-gray-300"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* CTA */}
       <div className="card bg-gradient-to-br from-primary-50 to-green-50 dark:from-primary-900/20 dark:to-green-900/20 border-primary-200 dark:border-primary-800 text-center">
