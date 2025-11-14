@@ -8,7 +8,7 @@ image: /uploads/ética-e-meio-ambiente/gere_uma_imagem_sobre_etica_sociedade_e_m
 category: Meio Ambiente
 tags:
   - Filosofia
-author: Brayan Willian, Lucas Marins & Daniel Samuel
+author: Brayan Willian, Lucas Marins, Gabriel, Otávio & Daniel Samuel
 featured: true
 ---
 # Ética e Meio Ambiente
