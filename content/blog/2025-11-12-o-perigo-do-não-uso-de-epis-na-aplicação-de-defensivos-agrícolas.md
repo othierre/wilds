@@ -16,7 +16,7 @@ tags:
   - Agricultura
   - EPI
 author: Thierre Fernandes
-featured: true
+featured: false
 ---
 A aplicação de defensivos agrícolas é uma das atividades mais delicadas e arriscadas no campo. Esses produtos — também chamados de agrotóxicos ou pesticidas — são essenciais para proteger lavouras contra pragas e doenças, mas, quando manuseados sem segurança, podem colocar em risco a saúde dos trabalhadores, contaminar o meio ambiente e comprometer até a segurança alimentar.  
 
