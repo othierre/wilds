@@ -6,7 +6,7 @@ description: A resistência de pragas ocorre quando insetos, fungos ou plantas
   os produtos menos eficazes e aumentando os danos e custos na lavoura.```
 image: /uploads/resistência-de-pragas/captura-de-tela-2025-11-14-192539.png
 category: Meio Ambiente
-author: Stephany
+author: Stephany, Alana, Paula & Larissa
 featured: true
 ---
 A resistência de pragas é a habilidade herdada por insetos, ácaros, plantas daninhas ou fungos de sobreviver e se reproduzir mesmo após a aplicação de um agrotóxico que normalmente seria letal.
