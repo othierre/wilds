@@ -11,8 +11,6 @@ tags:
 author: Clarice Marins
 featured: true
 ---
-# Aposentadoria Rural
-
 A **aposentadoria rural** é um benefício previdenciário destinado a trabalhadores do campo que exercem atividades agrícolas, pecuárias ou extrativistas. Ela reconhece as condições mais duras do trabalho rural e garante renda a quem dedicou a vida à produção no campo.
 
 ## Quem Tem Direito?
