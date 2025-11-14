@@ -3,11 +3,11 @@ import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X, Flame, Fil
 import GumaIcon from '../GumaIcon'
 import { useTheme } from '../../context/ThemeContext'
 import WildsLogo from '../WildsLogo'
-import { useAuth } from '../../context/AuthContext'
+import { useNetlifyAuth } from '../../context/NetlifyAuthContext'
 
 const Sidebar = ({ onClose }) => {
   const { isDark } = useTheme()
-  const { user } = useAuth()
+  const { user } = useNetlifyAuth()
 
   const navigation = [
     { name: 'Wilds (Início)', href: '/', icon: Home },
