@@ -7,6 +7,7 @@ const BlogPost = () => {
   const { slug } = useParams()
   const [post, setPost] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [readTime, setReadTime] = useState(0)
 
   useEffect(() => {
     const loadPost = async () => {
@@ -14,6 +15,7 @@ const BlogPost = () => {
         const blogPost = await getBlogPostBySlug(slug)
         if (blogPost) {
           setPost(blogPost)
+          calculateReadTime(blogPost.content)
         }
       } catch (error) {
         console.error('Erro ao carregar post:', error)
@@ -24,6 +26,13 @@ const BlogPost = () => {
 
     loadPost()
   }, [slug])
+
+  const calculateReadTime = (content) => {
+    const wordsPerMinute = 200
+    const textLength = content.split(' ').length
+    const time = Math.ceil(textLength / wordsPerMinute)
+    setReadTime(time)
+  }
 
   if (loading) {
     return (
@@ -44,9 +53,6 @@ const BlogPost = () => {
       </div>
     )
   }
-
-  // Não há necessidade de fallback para simulação, pois o post será carregado ou não encontrado
-  // const postData = post || { ... }
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('pt-BR', {
@@ -97,7 +103,7 @@ const BlogPost = () => {
           </span>
           <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
             <Clock className="w-4 h-4" />
-            {post.readTime} min de leitura
+            {readTime} min de leitura
           </span>
         </div>
 
