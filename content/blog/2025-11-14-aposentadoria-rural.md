@@ -4,7 +4,7 @@ date: 2025-11-13T20:58:00.000-03:00
 description: A aposentadoria rural é um benefício para quem trabalhou no campo,
   garantindo renda na velhice. Para receber, é preciso comprovar 15 anos de
   atividade rural e ter 55 anos (mulheres) ou 60 anos (homens).
-image: /uploads/gemini_generated_image_j932zoj932zoj932.png
+image: /uploads/a_serene_rural_scene_representing_the_concept_of_rural_retirement_in_brazil_an_elderly_farmer_coupl_5vc9dfb5shp17gx2y68c_0.png
 category: Geral
 tags:
   - CLT
