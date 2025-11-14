@@ -15,6 +15,8 @@ import NotFound from './pages/NotFound'
 import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
 
+import { HelmetProvider } from 'react-helmet-async'
+
 // Páginas de guias (não aparecem na navegação)
 import PrevencaoQueimadas from './pages/guias/PrevencaoQueimadas'
 import ImpactosAmbientais from './pages/guias/ImpactosAmbientais'
@@ -22,35 +24,36 @@ import RecuperacaoFlorestal from './pages/guias/RecuperacaoFlorestal'
 
 function App() {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <Router>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/fire-horizon" element={<FireHorizon />} />
-              <Route path="/reportar" element={<Reportar />} />
-              <Route path="/estatisticas" element={<Estatisticas />} />
-              <Route path="/educacao" element={<Educacao />} />
-              <Route path="/perfil" element={<Perfil />} />
-              <Route path="/instalar" element={<Instalar />} />
-              <Route path="/guma" element={<Guma />} />
-              
-              {/* Guias educativos (rotas ocultas - não aparecem na navegação) */}
-              <Route path="/guias/prevencao-queimadas" element={<PrevencaoQueimadas />} />
-              <Route path="/guias/impactos-ambientais" element={<ImpactosAmbientais />} />
-              <Route path="/guias/recuperacao-florestal" element={<RecuperacaoFlorestal />} />
-              
-              {/* Blog desativado temporariamente - Admin ainda acessível em /admin */}
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/admin/*" element={null} /> {/* Exclude /admin from React Router */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Layout>
-        </Router>
-      </AuthProvider>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <Router>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/reportar" element={<Reportar />} />
+                <Route path="/estatisticas" element={<Estatisticas />} />
+                <Route path="/educacao" element={<Educacao />} />
+                <Route path="/perfil" element={<Perfil />} />
+                <Route path="/instalar" element={<Instalar />} />
+                <Route path="/guma" element={<Guma />} />
+                
+                {/* Guias educativos (rotas ocultas - não aparecem na navegação) */}
+                <Route path="/guias/prevencao-queimadas" element={<PrevencaoQueimadas />} />
+                <Route path="/guias/impactos-ambientais" element={<ImpactosAmbientais />} />
+                <Route path="/guias/recuperacao-florestal" element={<RecuperacaoFlorestal />} />
+                
+                {/* Blog desativado temporariamente - Admin ainda acessível em /admin */}
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route path="/admin/*" element={null} /> {/* Exclude /admin from React Router */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Layout>
+          </Router>
+        </AuthProvider>
+      </ThemeProvider>
+    </HelmetProvider>
   )
 }
 
