@@ -5,7 +5,7 @@ description: A gestante tem direitos no trabalho que garantem segurança, saúde
   estabilidade. Ela não pode ser demitida sem justa causa, pode fazer exames
   médicos durante o expediente e deve trabalhar em condições que não prejudiquem
   sua saúde ou a do bebê.
-image: /uploads/img.webp
+image: /uploads/mirelle.webp
 category: Geral
 tags:
   - CLT
