@@ -1,7 +1,70 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { Shield, Leaf, AlertTriangle, Sprout, Users, BookOpen, Bot, FlaskConical, Heart, ArrowRight, CheckCircle2, Droplets, Wind, Sun } from 'lucide-react';
+import { Shield, Leaf, Sprout, Users, BookOpen, Bot, FlaskConical, Heart, ArrowRight, CheckCircle2, Instagram, Twitter, Facebook, Linkedin } from 'lucide-react';
+
+const Footer = () => {
+  const navLinks = [
+    { name: 'Início', path: '/' },
+    { name: 'Educação', path: '/educacao' },
+    { name: 'Guma', path: '/guma' },
+    { name: 'Blog', path: '/blog' },
+  ];
+
+  const socialLinks = [
+    { icon: Instagram, path: 'https://instagram.com/wilds.app' },
+    { icon: Twitter, path: 'https://twitter.com/wilds_app' },
+    { icon: Facebook, path: 'https://facebook.com/wilds.app' },
+    { icon: Linkedin, path: 'https://linkedin.com/company/wilds-app' },
+  ];
+
+  return (
+    <footer className="bg-white dark:bg-[#141414] border-t border-gray-200 dark:border-[#1f1f1f] mt-16">
+      <div className="container mx-auto px-4 sm:px-8 max-w-7xl py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+          {/* Logo e Descrição */}
+          <div className="flex flex-col items-center md:items-start">
+            <img src="/logo.svg" alt="Wilds Logo" className="w-32 mb-3" />
+            <p className="text-gray-600 dark:text-gray-400 max-w-xs">
+              Tecnologia e segurança para um campo mais sustentável e produtivo.
+            </p>
+          </div>
+
+          {/* Links de Navegação */}
+          <div>
+            <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-4">Navegação</h3>
+            <ul className="space-y-2">
+              {navLinks.map(link => (
+                <li key={link.name}>
+                  <Link to={link.path} className="text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Redes Sociais */}
+          <div>
+            <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-4">Siga-nos</h3>
+            <div className="flex justify-center md:justify-start gap-4">
+              {socialLinks.map((social, index) => (
+                <a key={index} href={social.path} target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transform hover:scale-110 transition-all">
+                  <social.icon className="w-6 h-6" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-[#1f1f1f] text-center text-gray-500 dark:text-gray-400 text-sm">
+          <p>&copy; {new Date().getFullYear()} Wilds. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  );
+};
 
 const Home = () => {
   const features = [
@@ -313,6 +376,7 @@ const Home = () => {
             </div>
           </div>
         </section>
+        <Footer />
       </div>
     </>
   );
