@@ -129,7 +129,7 @@ const Home = () => {
       </Helmet>
       <div className="min-h-screen bg-gray-50 dark:bg-black">
         {/* Hero Section */}
-        <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] pb-24 md:pb-32 overflow-hidden mx-2 sm:mx-8 lg:mx-auto max-w-7xl">
+        <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] pb-24 md:pb-32 overflow-hidden">
           <div className="relative container mx-auto px-4 sm:px-8 text-center z-10 max-w-6xl pt-8">
             {/* Badge superior */}
             <div className="inline-flex items-center gap-3 bg-green-100 dark:bg-green-900/30 px-6 py-3 rounded-full mb-8 shadow-sm border border-green-200 dark:border-green-800">
@@ -234,7 +234,7 @@ const Home = () => {
         </section>
 
         {/* Guma AI Section */}
-        <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] py-20 md:py-28 mx-2 sm:mx-8 lg:mx-auto max-w-7xl mb-8">
+        <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] py-20 md:py-28 mb-8">
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-20 right-10 w-64 h-64 bg-purple-500 rounded-full blur-3xl"></div>
             <div className="absolute bottom-20 left-10 w-64 h-64 bg-pink-500 rounded-full blur-3xl"></div>
@@ -341,7 +341,7 @@ const Home = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] py-20 md:py-28 overflow-hidden mx-2 sm:mx-8 lg:mx-auto max-w-7xl mb-8">
+        <section className="relative bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] py-20 md:py-28 overflow-hidden mb-8">
           <div className="container mx-auto px-4 sm:px-8 relative z-10 max-w-5xl text-center">
             <div className="inline-flex items-center gap-3 bg-green-100 dark:bg-green-900/30 px-6 py-3 rounded-full mb-8 shadow-sm border border-green-200 dark:border-green-800">
               <Sprout className="w-5 h-5 text-green-600 dark:text-green-400" />

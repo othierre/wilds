@@ -6,12 +6,17 @@ import FloatingReportButton from '../FloatingReportButton'
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [isMinimized, setIsMinimized] = useState(true)
+
+  const toggleMinimized = () => {
+    setIsMinimized(!isMinimized)
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#000000]">
       {/* Desktop Sidebar */}
-      <div className="hidden lg:flex lg:fixed lg:inset-y-0 lg:z-[1000] lg:w-64">
-        <Sidebar />
+      <div className={`hidden lg:flex lg:fixed lg:inset-y-0 lg:z-[1000] ${isMinimized ? 'lg:w-16' : 'lg:w-64'}`}>
+        <Sidebar isMinimized={isMinimized} toggleMinimized={toggleMinimized} />
       </div>
 
       {/* Mobile Sidebar */}
@@ -35,7 +40,7 @@ const Layout = ({ children }) => {
       </div>
 
       {/* Main Content */}
-      <div className="lg:pl-64">
+      <div className={`${isMinimized ? 'lg:pl-16' : 'lg:pl-64'}`}>
         <Header onMenuClick={() => setSidebarOpen(true)} />
         <main className="py-6 px-4 sm:px-6 lg:px-8 pb-20 lg:pb-6">
           <div className="animate-fadeIn">

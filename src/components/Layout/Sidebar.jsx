@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router-dom'
-import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X, Flame, FileText, UserCog } from 'lucide-react'
+import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X, Flame, FileText, UserCog, PanelLeftClose, PanelLeftOpen } from 'lucide-react'
 import GumaIcon from '../GumaIcon'
 import { useTheme } from '../../context/ThemeContext'
 import WildsLogo from '../WildsLogo'
 import { useNetlifyAuth } from '../../context/NetlifyAuthContext'
+import { Tooltip } from 'react-tooltip'
 
-const Sidebar = ({ onClose }) => {
+const Sidebar = ({ onClose, isMinimized, toggleMinimized }) => {
   const { isDark } = useTheme()
   const { user } = useNetlifyAuth()
 
@@ -21,10 +22,21 @@ const Sidebar = ({ onClose }) => {
   ]
 
   return (
-    <div className="flex h-full flex-col gap-y-5 overflow-y-auto bg-white dark:bg-[#141414] border-r border-gray-200 dark:border-[#1f1f1f] px-6 pb-24">
+    <div className={`flex h-full flex-col gap-y-5 overflow-y-auto bg-white dark:bg-[#141414] border-r border-gray-200 dark:border-[#1f1f1f] pb-24 ${isMinimized ? 'px-2' : 'px-6'}`}>
       <div className="flex h-16 shrink-0 items-center justify-between pt-4">
         <div className="flex items-center gap-3">
-          <WildsLogo color={isDark ? 'white' : 'black'} className="h-7 w-auto object-contain" />
+          {!isMinimized && <WildsLogo color={isDark ? 'white' : 'black'} className="h-7 w-auto object-contain" />}
+          <button 
+            onClick={toggleMinimized}
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#1a1a1a] transition-colors hidden lg:block"
+            aria-label={isMinimized ? "Expandir menu" : "Minimizar menu"}
+          >
+            {isMinimized ? (
+              <PanelLeftOpen strokeWidth={1.5} className="h-6 w-6" />
+            ) : (
+              <PanelLeftClose strokeWidth={1.5} className="h-6 w-6" />
+            )}
+          </button>
         </div>
         {onClose && (
           <button 
@@ -47,19 +59,24 @@ const Sidebar = ({ onClose }) => {
                     to={item.href}
                     onClick={onClose}
                     className={({ isActive }) =>
-                      `group flex gap-x-3 rounded-lg p-3 text-sm leading-6 font-semibold transition-colors ${
+                      `group flex rounded-lg p-3 text-sm leading-6 font-semibold transition-colors ${isMinimized ? 'justify-center' : 'gap-x-3'} ${
                         isActive
                           ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
                           : 'text-gray-700 dark:text-[#a3a3a3] hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-[#1a1a1a]'
                       }`
                     }
+                    {...(isMinimized && {
+                      'data-tooltip-id': 'my-tooltip',
+                      'data-tooltip-content': item.name,
+                      'data-tooltip-place': 'right',
+                    })}
                   >
                     <item.icon className={`h-6 w-6 shrink-0 ${
                       item.name === 'Guma IA'
                         ? 'text-[#58616e] dark:text-[#909090] group-hover:text-primary-600 dark:group-hover:text-primary-400'
                         : ''
                     }`} aria-hidden="true" />
-                    {item.name}
+                    {!isMinimized && item.name}
                   </NavLink>
                 </li>
               ))}
@@ -69,35 +86,25 @@ const Sidebar = ({ onClose }) => {
                     href="/admin"
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="group flex gap-x-3 rounded-lg p-3 text-sm leading-6 font-semibold text-gray-700 dark:text-[#a3a3a3] hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition-colors"
+                    className={`group flex rounded-lg p-3 text-sm leading-6 font-semibold text-gray-700 dark:text-[#a3a3a3] hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition-colors ${isMinimized ? 'justify-center' : 'gap-x-3'}`}
+                    {...(isMinimized && {
+                      'data-tooltip-id': 'my-tooltip',
+                      'data-tooltip-content': 'Admin',
+                      'data-tooltip-place': 'right',
+                    })}
                   >
                     <UserCog className="h-6 w-6 shrink-0" aria-hidden="true" />
-                    Admin
+                    {!isMinimized && "Admin"}
                   </a>
                 </li>
               )}
             </ul>
           </li>
 
-          <li className="mt-auto">
-            <div className="card border-l-4 border-l-alert-500">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-alert-100 dark:bg-alert-900/30 rounded-lg flex items-center justify-center shrink-0">
-                  <AlertTriangle className="w-5 h-5 text-alert-600 dark:text-alert-400" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-1">
-                    Alerta Ativo
-                  </h4>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
-                    3 queimadas detectadas próximas a você
-                  </p>
-                </div>
-              </div>
-            </div>
-          </li>
+
         </ul>
       </nav>
+      <Tooltip id="my-tooltip" />
     </div>
   )
 }
