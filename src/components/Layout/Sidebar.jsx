@@ -1,11 +1,14 @@
 import { NavLink } from 'react-router-dom'
-import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X, Flame, FileText } from 'lucide-react'
+import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X, Flame, FileText, UserCog } from 'lucide-react'
 import GumaIcon from '../GumaIcon'
 import { useTheme } from '../../context/ThemeContext'
 import WildsLogo from '../WildsLogo'
+import { useAuth } from '../../context/AuthContext'
 
 const Sidebar = ({ onClose }) => {
   const { isDark } = useTheme()
+  const { user } = useAuth()
+
   const navigation = [
     { name: 'Wilds (Início)', href: '/', icon: Home },
     // { name: 'Fire Horizon', href: '/fire-horizon', icon: Flame },
@@ -60,6 +63,19 @@ const Sidebar = ({ onClose }) => {
                   </NavLink>
                 </li>
               ))}
+              {user && (
+                <li>
+                  <a
+                    href="/admin"
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group flex gap-x-3 rounded-lg p-3 text-sm leading-6 font-semibold text-gray-700 dark:text-[#a3a3a3] hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition-colors"
+                  >
+                    <UserCog className="h-6 w-6 shrink-0" aria-hidden="true" />
+                    Admin
+                  </a>
+                </li>
+              )}
             </ul>
           </li>
 
