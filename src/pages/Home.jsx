@@ -189,6 +189,9 @@ const Home = () => {
               Soluções digitais para o uso seguro de agrotóxicos e EPIs, unindo inovação, educação e sustentabilidade no campo
             </p>
 
+
+
+
             {/* Stats badges */}
             <div className="flex flex-wrap justify-center gap-6 mb-12">
               <div className="bg-green-100 dark:bg-green-900/30 px-6 py-3 rounded-xl border border-green-200 dark:border-green-800">
@@ -234,6 +237,90 @@ const Home = () => {
           </div>
 
         </section>
+
+{/* NEW EDUCATIONAL CONTENT SECTION */}
+        <section className="py-20 md:py-28 bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] mb-8">
+          <div className="container mx-auto px-4 sm:px-8 max-w-7xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Text Content */}
+              <div className="text-content order-2 lg:order-1">
+                <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-5 py-2 rounded-full mb-6">
+                  <BookOpen className="w-4 h-4 text-green-600 dark:text-green-400" />
+                  <span className="text-sm font-bold text-green-600 dark:text-green-400 uppercase tracking-wider">Educação para o Campo</span>
+                </div>
+
+                <h2 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
+                  <span className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                    Conhecimento que Transforma
+                  </span>
+                  <span className="block text-gray-900 dark:text-white mt-2">
+                    Sua Agricultura Familiar
+                  </span>
+                </h2>
+
+                <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                  Acesse guias completos, artigos e dicas práticas sobre o uso seguro de agrotóxicos, EPIs e as melhores práticas para uma agricultura sustentável.
+                </p>
+
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-start gap-3">
+                    <div className="bg-green-100 dark:bg-green-900/30 p-2 rounded-lg mt-1">
+                      <Shield className="w-5 h-5 text-green-600 dark:text-green-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-lg mb-1 text-gray-900 dark:text-gray-100">Proteção Individual</h4>
+                      <p className="text-gray-600 dark:text-gray-300">Como escolher e usar EPIs adequados para cada tarefa.</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-lg mt-1">
+                      <FlaskConical className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-lg mb-1 text-gray-900 dark:text-gray-100">Manejo Seguro</h4>
+                      <p className="text-gray-600 dark:text-gray-300">Técnicas corretas de aplicação, armazenamento e descarte de defensivos.</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="bg-amber-100 dark:bg-amber-900/30 p-2 rounded-lg mt-1">
+                      <Leaf className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-lg mb-1 text-gray-900 dark:text-gray-100">Sustentabilidade</h4>
+                      <p className="text-gray-600 dark:text-gray-300">Práticas que protegem sua saúde, o solo e o meio ambiente.</p>
+                    </div>
+                  </li>
+                </ul>
+
+                <Link
+                  to="/educacao"
+                  className="group inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white text-xl px-10 py-5 rounded-2xl font-bold shadow-2xl hover:shadow-green-600/50 transform hover:-translate-y-2 hover:scale-105 transition-all duration-300"
+                >
+                  <BookOpen className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                  <span>Explorar Conteúdo Educativo</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                </Link>
+              </div>
+
+              {/* Image Content */}
+              <div className="image-content order-1 lg:order-2">
+  <div className="relative h-[400px] w-[300px] sm:h-[450px] sm:w-[350px] mx-auto lg:h-[500px] lg:w-[400px]">
+    <div className="absolute inset-0 bg-gradient-to-br from-[#16a34a] to-[#4ade80] rounded-3xl transform rotate-3 opacity-100"></div>
+
+    <img
+      src="/mockup.png"
+      alt="Agricultor com celular"
+      className="absolute left-1/2 top-1/2 
+                 -translate-x-1/2 -translate-y-1/2
+                 w-full h-auto object-contain
+                 transform hover:scale-105 transition-transform duration-300"
+    />
+  </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* END NEW EDUCATIONAL CONTENT SECTION */}
 
   <section className="py-20 md:py-28 bg-gray-50 dark:bg-black">
           <div className="container mx-auto px-2 sm:px-8 max-w-7xl">
@@ -343,86 +430,6 @@ const Home = () => {
             </div>
           </div>
         </section>
-
-        {/* NEW EDUCATIONAL CONTENT SECTION */}
-        <section className="py-20 md:py-28 bg-white dark:bg-[#141414] rounded-xl shadow-sm border border-gray-200 dark:border-[#1f1f1f] mb-8">
-          <div className="container mx-auto px-4 sm:px-8 max-w-7xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Text Content */}
-              <div className="text-content order-2 lg:order-1">
-                <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-5 py-2 rounded-full mb-6">
-                  <BookOpen className="w-4 h-4 text-green-600 dark:text-green-400" />
-                  <span className="text-sm font-bold text-green-600 dark:text-green-400 uppercase tracking-wider">Educação para o Campo</span>
-                </div>
-
-                <h2 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
-                  <span className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                    Conhecimento que Transforma
-                  </span>
-                  <span className="block text-gray-900 dark:text-white mt-2">
-                    Sua Agricultura Familiar
-                  </span>
-                </h2>
-
-                <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                  Acesse guias completos, artigos e dicas práticas sobre o uso seguro de agrotóxicos, EPIs e as melhores práticas para uma agricultura sustentável.
-                </p>
-
-                <ul className="space-y-4 mb-8">
-                  <li className="flex items-start gap-3">
-                    <div className="bg-green-100 dark:bg-green-900/30 p-2 rounded-lg mt-1">
-                      <Shield className="w-5 h-5 text-green-600 dark:text-green-400" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1 text-gray-900 dark:text-gray-100">Proteção Individual</h4>
-                      <p className="text-gray-600 dark:text-gray-300">Como escolher e usar EPIs adequados para cada tarefa.</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-lg mt-1">
-                      <FlaskConical className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1 text-gray-900 dark:text-gray-100">Manejo Seguro</h4>
-                      <p className="text-gray-600 dark:text-gray-300">Técnicas corretas de aplicação, armazenamento e descarte de defensivos.</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="bg-amber-100 dark:bg-amber-900/30 p-2 rounded-lg mt-1">
-                      <Leaf className="w-5 h-5 text-amber-600 dark:text-amber-400" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1 text-gray-900 dark:text-gray-100">Sustentabilidade</h4>
-                      <p className="text-gray-600 dark:text-gray-300">Práticas que protegem sua saúde, o solo e o meio ambiente.</p>
-                    </div>
-                  </li>
-                </ul>
-
-                <Link
-                  to="/educacao"
-                  className="group inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white text-xl px-10 py-5 rounded-2xl font-bold shadow-2xl hover:shadow-green-600/50 transform hover:-translate-y-2 hover:scale-105 transition-all duration-300"
-                >
-                  <BookOpen className="w-6 h-6 group-hover:rotate-12 transition-transform" />
-                  <span>Explorar Conteúdo Educativo</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                </Link>
-              </div>
-
-              {/* Image Content */}
-              <div className="image-content order-1 lg:order-2">
-                <div className="relative h-[450px] w-[350px] mx-auto lg:h-[500px] lg:w-[400px]">
-                  <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-teal-400 rounded-3xl transform rotate-3 opacity-20"></div>
-                  <img
-                    src="/mockup.png"
-                    alt="Agricultor com celular"
-                    className="absolute -bottom-4 left-0 w-full h-auto object-contain transform hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        {/* END NEW EDUCATIONAL CONTENT SECTION */}
 
         {/* Benefits Section */}
         <section className="py-20 md:py-28 bg-gray-50 dark:bg-black">
