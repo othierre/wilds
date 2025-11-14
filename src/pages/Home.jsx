@@ -87,10 +87,10 @@ const Home = () => {
       icon: FlaskConical,
       title: 'Manejo Seguro',
       description: 'Técnicas corretas de aplicação, armazenamento e descarte de agrotóxicos',
-      color: 'from-orange-500 to-amber-600',
-      bgColor: 'from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20',
-      borderColor: 'border-orange-200 dark:border-orange-800',
-      iconBg: 'bg-gradient-to-br from-orange-500 to-amber-600'
+      color: 'from-purple-500 to-pink-600',
+      bgColor: 'from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20',
+      borderColor: 'border-purple-200 dark:border-purple-800',
+      iconBg: 'bg-gradient-to-br from-purple-500 to-pink-600'
     },
     {
       icon: Leaf,
@@ -105,10 +105,10 @@ const Home = () => {
       icon: SpireIcon,
       title: 'Guma IA',
       description: 'Assistente virtual inteligente para tirar dúvidas em tempo real sobre o campo',
-      color: 'from-purple-500 to-pink-600',
-      bgColor: 'from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20',
-      borderColor: 'border-purple-200 dark:border-purple-800',
-      iconBg: 'bg-gradient-to-br from-purple-500 to-pink-600'
+      color: 'from-orange-500 to-amber-600',
+      bgColor: 'from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20',
+      borderColor: 'border-orange-200 dark:border-orange-800',
+      iconBg: 'bg-gradient-to-br from-orange-500 to-amber-600'
     }
   ];
 
