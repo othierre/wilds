@@ -24,3 +24,11 @@ collections:
       - {label: "Author", name: "author", widget: "string", default: "Equipe Wilds"}
       - {label: "Featured Post", name: "featured", widget: "boolean", default: false}
       - {label: "Body", name: "body", widget: "markdown"}
+  - name: "notifications"
+    label: "Notificações"
+    folder: "content/notifications"
+    create: true
+    fields:
+      - {label: "Mensagem", name: "message", widget: "string"}
+      - {label: "Data de Publicação", name: "date", widget: "datetime"}
+      - {label: "Prioridade", name: "priority", widget: "select", options: ["Baixa", "Média", "Alta"], default: "Média"}

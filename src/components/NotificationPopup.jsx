@@ -1,22 +1,57 @@
 import React, { useState, useEffect } from 'react';
+import matter from 'gray-matter';
 
 const NotificationPopup = ({ isOpen, onClose, setUnreadCount }) => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const storedNotifications = JSON.parse(localStorage.getItem('notifications'));
-    if (storedNotifications && storedNotifications.length > 0) {
-      setNotifications(storedNotifications);
-    } else {
-      setNotifications([
-        {
-          id: Date.now(),
+    const loadNotifications = async () => {
+      const cmsNotifications = [];
+      const modules = import.meta.glob('/content/notifications/*.md', { as: 'raw' });
+
+      for (const path in modules) {
+        const content = await modules[path]();
+        const { data } = matter(content);
+        cmsNotifications.push({
+          id: path, // Use path as a unique ID for CMS notifications
+          message: data.message,
+          date: data.date,
+          priority: data.priority,
+          read: false, // Default to unread for CMS notifications
+          isCMS: true,
+        });
+      }
+
+      // Sort CMS notifications by date, newest first
+      cmsNotifications.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      const storedNotifications = JSON.parse(localStorage.getItem('notifications')) || [];
+
+      // Merge CMS notifications with stored notifications
+      // Prioritize stored 'read' status for CMS notifications if they exist in localStorage
+      const mergedNotifications = cmsNotifications.map(cmsNotif => {
+        const storedVersion = storedNotifications.find(sNotif => sNotif.id === cmsNotif.id);
+        return storedVersion ? { ...cmsNotif, read: storedVersion.read } : cmsNotif;
+      });
+
+      // Add any stored notifications that are not CMS notifications (e.g., the welcome message)
+      const nonCmsStoredNotifications = storedNotifications.filter(sNotif => !sNotif.isCMS);
+      const finalNotifications = [...mergedNotifications, ...nonCmsStoredNotifications];
+
+      // Ensure a welcome message if no other notifications exist
+      if (finalNotifications.length === 0) {
+        finalNotifications.push({
+          id: 'welcome',
           message: 'Bem-vindo(a) ao Wilds! Fique por dentro das últimas notícias e atualizações aqui.',
           read: false,
           timestamp: new Date().toISOString(),
-        },
-      ]);
-    }
+        });
+      }
+
+      setNotifications(finalNotifications);
+    };
+
+    loadNotifications();
   }, []);
 
   useEffect(() => {
@@ -73,7 +108,7 @@ const NotificationPopup = ({ isOpen, onClose, setUnreadCount }) => {
             >
               <p>{notif.message}</p>
               <p className="text-xs text-gray-400 dark:text-[#666]">
-                {new Date(notif.timestamp).toLocaleString()}
+                {new Date(notif.date || notif.timestamp).toLocaleString()}
               </p>
             </div>
           ))
