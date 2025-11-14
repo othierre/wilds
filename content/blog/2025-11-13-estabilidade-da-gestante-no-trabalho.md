@@ -10,7 +10,7 @@ category: Geral
 tags:
   - CLT
 author: Mirelle Marins
-featured: true
+featured: false
 ---
 A **estabilidade da gestante** é um direito garantido pela legislação trabalhista brasileira, cujo objetivo é proteger a trabalhadora durante a gravidez e após o parto, assegurando segurança econômica e social nesse período.
 ## O que é a Estabilidade da Gestante?
