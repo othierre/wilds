@@ -4,7 +4,7 @@ date: 2025-11-14T18:55:00.000-03:00
 description: ética ambiental destaca como desigualdade, poluição e falta de
   práticas sustentáveis afetam a saúde humana, mostrando que cuidar do meio
   ambiente é essencial para garantir bem-estar e justiça social.
-image: /uploads/ética-e-meio-ambiente/gere_uma_imagem_sobre_etica_sociedade_e_meio_ambiente_realista_3j0fqm3csqwne2x6amd4_2.png
+image: /uploads/gere_uma_imagem_sobre_etica_sociedade_e_meio_ambiente_realista_3j0fqm3csqwne2x6amd4_2.png
 category: Meio Ambiente
 tags:
   - Filosofia
