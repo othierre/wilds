@@ -7,7 +7,7 @@ description: Os agrotóxicos ajudam na produção agrícola, mas contaminam o so
   aumentando os riscos como câncer, problemas neurológicos e doenças nos órgãos.
   A prevenção depende de práticas agrícolas corretas, higiene dos alimentos e
   redução de poluentes.
-image: /uploads/os-agrotóxicos/gere_uma_imagem_sobre_os_agrotxicos_um_rapaz_usando_epi_9rdl5u3m612xncl51day_0.png
+image: /uploads/gere_uma_imagem_sobre_os_agrotxicos_um_rapaz_usando_epi_9rdl5u3m612xncl51day_0.png
 category: Meio Ambiente
 author: Gabriella Ribeiro, Jean Marins & Diego Ribeiro
 featured: true
