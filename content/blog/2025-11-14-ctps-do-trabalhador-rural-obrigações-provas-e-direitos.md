@@ -13,7 +13,7 @@ category: Geral
 tags:
   - clt
 author: Enzo Marins
-featured: true
+featured: false
 ---
 A **Carteira de Trabalho e Previdência Social (CTPS)** é um documento **obrigatório para todo trabalhador**, seja ele **urbano ou rural**. No caso do **trabalhador rural**, ela desempenha um papel ainda mais importante, pois funciona como **prova plena de vínculo empregatício** e garante acesso a diversos direitos trabalhistas e previdenciários.
 
