@@ -31,3 +31,15 @@ collections:
       - {label: "Mensagem", name: "message", widget: "string"}
       - {label: "Data de Publicação", name: "date", widget: "datetime"}
       - {label: "Prioridade", name: "priority", widget: "select", options: ["Baixa", "Média", "Alta"], default: "Média"}
+  - name: "aulas"
+    label: "Aulas"
+    folder: "content/aulas"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descrição", name: "description", widget: "text"}
+      - {label: "Duração", name: "duration", widget: "string", hint: "Formato: MM:SS"}
+      - {label: "ID do YouTube", name: "youtubeId", widget: "string", hint: "O ID do vídeo do YouTube (ex: dQw4w9WgXcQ)"}
+      - {label: "Categoria", name: "category", widget: "select", options: ["Agricultura Familiar", "Agrotóxicos e EPI", "Direitos Trabalhistas", "Meio Ambiente", "Geral"]}
+      - {label: "Data de Publicação", name: "date", widget: "datetime"}

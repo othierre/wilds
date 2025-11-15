@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X, Flame, FileText, UserCog, PanelLeftClose, PanelLeftOpen } from 'lucide-react'
+import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X, Flame, FileText, UserCog, PanelLeftClose, PanelLeftOpen, Lightbulb } from 'lucide-react'
 import GumaIcon from '../GumaIcon'
 import { useTheme } from '../../context/ThemeContext'
 import WildsLogo from '../WildsLogo'
@@ -15,7 +15,8 @@ const Sidebar = ({ onClose, isMinimized, toggleMinimized }) => {
     // { name: 'Fire Horizon', href: '/fire-horizon', icon: Flame },
     { name: 'Estatísticas', href: '/estatisticas', icon: BarChart3 },
     { name: 'Blog', href: '/blog', icon: FileText },
-    { name: 'Educação', href: '/educacao', icon: BookOpen },
+    { name: 'Aulas', href: '/aulas', icon: BookOpen }, // New Aulas navigation item
+    { name: 'Educação', href: '/educacao', icon: Lightbulb },
     { name: 'Perfil', href: '/perfil', icon: User },
     { name: 'Guma IA', href: '/guma', icon: GumaIcon },
     { name: 'Instalar App', href: '/instalar', icon: Download },
