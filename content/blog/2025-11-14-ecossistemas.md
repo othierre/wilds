@@ -10,7 +10,7 @@ description: As alterações no equilíbrio dos ecossistemas, causadas por açõ
 image: /uploads/gere_uma_imagem_pra_capa_de_um_artigo_sobre_ecossistema_av3pr12q5ri8scec434b_2.png
 category: Meio Ambiente
 author: " Alana & Paula "
-featured: true
+featured: false
 ---
 # Alterações do equilíbrio dos ecossistemas
 
