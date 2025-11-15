@@ -6,7 +6,7 @@ description: A agrofloresta é um sistema sustentável que combina árvores,
   regenera o solo, aumenta a biodiversidade, reduz o uso de agrotóxicos e
   melhora a produção de forma natural e duradoura. É uma alternativa mais
   ecológica e eficiente que a monocultura.
-image: /uploads/agrofloresta/captura-de-tela-2025-11-14-192639.png
+image: /uploads/gere_uma_imagem_pra_capa_de_um_artigo_sobre_agrofloresta_0p2vqx6mt4h7v2ivlj12_0.png
 category: Meio Ambiente
 author: Gleidson Silva, Gustavo Rodrigues & Natália Marins
 featured: false
