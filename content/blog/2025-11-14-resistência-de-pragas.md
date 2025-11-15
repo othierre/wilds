@@ -4,7 +4,7 @@ date: 2025-11-14T19:35:00.000-03:00
 description: A resistência de pragas ocorre quando insetos, fungos ou plantas
   daninhas deixam de responder aos agrotóxicos devido ao uso repetido, tornando
   os produtos menos eficazes e aumentando os danos e custos na lavoura.```
-image: /uploads/resistência-de-pragas/captura-de-tela-2025-11-14-192539.png
+image: /uploads/gere_uma_imagem_pra_capa_de_um_artigo_sobre_resistncia_de_pragas_agricultura_vbe9pbdnyvw5r7ylsy46_2.png
 category: Meio Ambiente
 author: Stephany & Larissa
 featured: true
