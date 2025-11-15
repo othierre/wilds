@@ -9,7 +9,7 @@ category: Geral
 tags:
   - CLT
 author: Débora Marins
-featured: true
+featured: false
 ---
 O **afastamento por doença** é um direito do trabalhador que fica impossibilitado de exercer suas funções por motivo de saúde, garantindo proteção financeira e tempo adequado para recuperação.
 
