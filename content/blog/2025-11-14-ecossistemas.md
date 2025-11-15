@@ -7,7 +7,7 @@ description: As alterações no equilíbrio dos ecossistemas, causadas por açõ
   ponto de vista ético, esse desequilíbrio revela uma crise de responsabilidade,
   indicando a necessidade de uma consciência ambiental que valorize o respeito,
   a sustentabilidade e o cuidado com todas as formas de vida.
-image: /uploads/ecossistemas/gere_uma_imagem_sobre_os_agrotxicos_um_rapaz_usando_epi_9rdl5u3m612xncl51day_0.png
+image: /uploads/gere_uma_imagem_pra_capa_de_um_artigo_sobre_ecossistema_av3pr12q5ri8scec434b_2.png
 category: Meio Ambiente
 author: " Alana & Paula "
 featured: true
