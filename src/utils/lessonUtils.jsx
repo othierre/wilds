@@ -1,5 +1,12 @@
 import matter from 'gray-matter';
 
+// Helper function to extract YouTube ID from URL
+function extractYoutubeId(url) {
+  const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|embed\/|v\/|)([\w-]{11})(?:\S+)?/;
+  const match = url.match(youtubeRegex);
+  return match ? match[1] : null;
+}
+
 export async function getLessons() {
   const lessons = [];
   const modules = import.meta.glob('../../content/aulas/*.md', { as: 'raw', eager: true });
@@ -9,9 +16,12 @@ export async function getLessons() {
     const { data } = matter(fileContent); // No content needed for lessons, just front matter
     const slug = path.split('/').pop().replace('.md', '');
 
+    const youtubeId = data.youtubeUrl ? extractYoutubeId(data.youtubeUrl) : null;
+
     lessons.push({
       slug,
       ...data,
+      youtubeId, // Add the extracted YouTube ID
     });
   }
 

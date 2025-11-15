@@ -41,7 +41,7 @@ const Aulas = () => {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Adicionar Nova Aula</h2>
           <p className="text-gray-700 dark:text-gray-300 mb-4">
             Para adicionar uma nova aula, por favor, acesse o painel administrativo do Netlify CMS em <a href="/admin" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">/admin</a>.
-            Lá você encontrará a coleção "Aulas" onde poderá inserir o título, descrição, duração e o ID do vídeo do YouTube manualmente.
+            Lá você encontrará a coleção "Aulas" onde poderá inserir o título, descrição, duração e a URL do vídeo do YouTube manualmente.
           </p>
           <div className="flex justify-end gap-3">
             <button
