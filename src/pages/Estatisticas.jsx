@@ -3,7 +3,7 @@ import {
   AreaChart, Area, BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer 
 } from 'recharts'
-import { TrendingUp, TrendingDown, Flame, MapPin, Wind, Droplets } from 'lucide-react'
+import { TrendingUp, TrendingDown, Flame, MapPin, Wind, Droplets, Users, FlaskConical, Gavel, Briefcase } from 'lucide-react'
 
 const Estatisticas = () => {
   const [period, setPeriod] = useState('week')
@@ -34,6 +34,44 @@ const Estatisticas = () => {
     { name: 'Pantanal', value: 89 },
     { name: 'Caatinga', value: 67 },
   ]
+
+  // Mock data para Agricultura Familiar
+  const familyFarmingEstablishmentsData = [
+    { name: 'Agricultura Familiar', value: 77, color: '#22c55e' },
+    { name: 'Outros Estabelecimentos', value: 23, color: '#f59e0b' },
+  ];
+
+  const foodProductionContributionData = [
+    { name: 'Feijão', value: 70 },
+    { name: 'Mandioca', value: 87 },
+    { name: 'Leite', value: 60 },
+    { name: 'Aves', value: 50 },
+  ];
+
+  // Mock data para Agrotóxicos e EPI
+  const pesticideUseByCropData = [
+    { name: 'Soja', value: 54, color: '#84cc16' },
+    { name: 'Milho', value: 18, color: '#f97316' },
+    { name: 'Algodão', value: 7, color: '#f59e0b' },
+    { name: 'Pastagem', value: 6, color: '#dc2626' },
+    { name: 'Cana-de-açúcar', value: 4, color: '#6366f1' },
+  ];
+
+  const ppeAdherenceData = [
+    { name: 'Usou EPI', value: 41, color: '#22c55e' },
+    { name: 'Não Usou EPI', value: 59, color: '#dc2626' },
+  ];
+
+  // Mock data para Direitos Trabalhistas Rurais
+  const slaveLaborRescuesData = [
+    { year: '2022', value: 2218 },
+    { year: '2023', value: 2663 },
+  ];
+
+  const agriculturalRescuesPercentageData = [
+    { name: 'Atividades Agropecuárias', value: 90, color: '#dc2626' },
+    { name: 'Outras Atividades', value: 10, color: '#6366f1' },
+  ];
 
   const stats = [
     {
@@ -68,6 +106,38 @@ const Estatisticas = () => {
       icon: Droplets,
       color: 'blue'
     },
+    {
+      label: 'Empregos Agricultura Familiar',
+      value: '10.1M',
+      change: '+X%', 
+      trend: 'up', 
+      icon: Users, 
+      color: 'green'
+    },
+    {
+      label: 'Agrotóxicos Consumidos (2021)',
+      value: '719.5k ton',
+      change: '+X%', 
+      trend: 'up', 
+      icon: FlaskConical, 
+      color: 'red'
+    },
+    {
+      label: 'Resgates Trabalho Escravo (2023)',
+      value: '2.6k',
+      change: '+X%', 
+      trend: 'up', 
+      icon: Gavel, 
+      color: 'red'
+    },
+    {
+      label: 'Informalidade Rural (2015)',
+      value: '88%',
+      change: '-X%', 
+      trend: 'down', 
+      icon: Briefcase, 
+      color: 'gray'
+    },
   ]
 
   const CustomTooltip = ({ active, payload, label }) => {
@@ -92,10 +162,10 @@ const Estatisticas = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-            Estatísticas
+            Estatísticas do Setor Rural
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Análise detalhada das queimadas no Brasil
+            Análise detalhada de dados relevantes para o setor rural brasileiro, incluindo agricultura familiar, uso de agrotóxicos e direitos trabalhistas.
           </p>
         </div>
 
@@ -173,19 +243,29 @@ const Estatisticas = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* Bar Chart - Área Afetada */}
+        {/* Pie Chart - Estabelecimentos de Agricultura Familiar */}
         <div className="card">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-            Área Afetada (hectares)
+            Estabelecimentos de Agricultura Familiar
           </h3>
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={weeklyData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.1} />
-              <XAxis dataKey="name" stroke="#6b7280" />
-              <YAxis stroke="#6b7280" />
+            <PieChart>
+              <Pie
+                data={familyFarmingEstablishmentsData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                outerRadius={100}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {familyFarmingEstablishmentsData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
               <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="area" fill="#f97316" name="Área (ha)" radius={[8, 8, 0, 0]} />
-            </BarChart>
+            </PieChart>
           </ResponsiveContainer>
         </div>
 
@@ -215,81 +295,41 @@ const Estatisticas = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* Line Chart - Emissões de CO₂ */}
+        {/* Bar Chart - Uso de Agrotóxicos por Cultura */}
         <div className="card">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-            Emissões de CO₂ (ton)
+            Uso de Agrotóxicos por Cultura (%)
           </h3>
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={weeklyData}>
+            <BarChart data={pesticideUseByCropData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.1} />
               <XAxis dataKey="name" stroke="#6b7280" />
               <YAxis stroke="#6b7280" />
               <Tooltip content={<CustomTooltip />} />
-              <Line 
-                type="monotone" 
-                dataKey="co2" 
-                stroke="#6366f1" 
-                strokeWidth={3}
-                name="CO₂"
-                dot={{ r: 4 }}
-                activeDot={{ r: 6 }}
-              />
-            </LineChart>
+              <Bar dataKey="value" fill="#84cc16" name="Porcentagem" radius={[8, 8, 0, 0]}>
+                {pesticideUseByCropData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Bar>
+            </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
 
-      {/* Biome Table */}
+      {/* Bar Chart - Resgates de Trabalho Análogo à Escravidão */}
       <div className="card">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-          Queimadas por Bioma
+          Resgates de Trabalho Análogo à Escravidão
         </h3>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-900 dark:text-gray-100">
-                  Bioma
-                </th>
-                <th className="text-right py-3 px-4 text-sm font-semibold text-gray-900 dark:text-gray-100">
-                  Queimadas
-                </th>
-                <th className="text-right py-3 px-4 text-sm font-semibold text-gray-900 dark:text-gray-100">
-                  Porcentagem
-                </th>
-                <th className="text-right py-3 px-4 text-sm font-semibold text-gray-900 dark:text-gray-100">
-                  Tendência
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {biomeData.map((biome, index) => {
-                const total = biomeData.reduce((sum, b) => sum + b.value, 0)
-                const percentage = ((biome.value / total) * 100).toFixed(1)
-                return (
-                  <tr key={index} className="border-b border-gray-200 dark:border-gray-700">
-                    <td className="py-3 px-4 text-sm text-gray-900 dark:text-gray-100">
-                      {biome.name}
-                    </td>
-                    <td className="py-3 px-4 text-sm text-right text-gray-900 dark:text-gray-100">
-                      {biome.value}
-                    </td>
-                    <td className="py-3 px-4 text-sm text-right text-gray-900 dark:text-gray-100">
-                      {percentage}%
-                    </td>
-                    <td className="py-3 px-4 text-sm text-right">
-                      <span className="text-red-600 dark:text-red-400 flex items-center justify-end gap-1">
-                        <TrendingUp className="w-4 h-4" />
-                        +{Math.floor(Math.random() * 20)}%
-                      </span>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={slaveLaborRescuesData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.1} />
+            <XAxis dataKey="year" stroke="#6b7280" />
+            <YAxis stroke="#6b7280" />
+            <Tooltip content={<CustomTooltip />} />
+            <Bar dataKey="value" fill="#dc2626" name="Resgates" radius={[8, 8, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </div>
   )
