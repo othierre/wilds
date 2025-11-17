@@ -27,7 +27,7 @@ category: Geral
 tags:
   - CLT
 author: "Pedro Henrique de Marins Silva "
-featured: false
+featured: true
 ---
 # Deveres do Empregado e do Empregador Rural: O Que Cada Um Precisa Cumprir
 
@@ -37,7 +37,7 @@ A seguir, veja os principais deveres do empregado e do empregador rural, explica
 
 - - -
 
-##  Deveres do Empregado Rural
+## Deveres do Empregado Rural
 
 O empregado rural possui responsabilidades importantes para que o trabalho seja realizado com eficiência e segurança. Entre os principais deveres estão:
 
@@ -63,7 +63,7 @@ Um ambiente harmonioso favorece o desempenho e evita conflitos.
 
 - - -
 
-##  Deveres do Empregador Rural
+## Deveres do Empregador Rural
 
 O empregador rural também possui obrigações legais e éticas. Cabe a ele garantir condições adequadas e respeitar os direitos trabalhistas.
 
@@ -89,7 +89,7 @@ Boa convivência gera confiança e melhora os resultados.
 
 - - -
 
-##  Por que os deveres são importantes?
+## Por que os deveres são importantes?
 
 Quando cada parte cumpre seu papel, o resultado é:
 
@@ -103,6 +103,6 @@ Empregado e empregador não são lados opostos — são parceiros que impulsiona
 
 - - -
 
-## 📌 Conclusão
+##  Conclusão
 
 Cumprir os deveres no meio rural é essencial para manter uma relação de trabalho equilibrada e legal. Com respeito, responsabilidade e organização, ambos constroem um cotidiano mais seguro, produtivo e justo.
