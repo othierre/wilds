@@ -1,6 +1,6 @@
 ---
 title: Horas de Trabalho Rural
-date: 2025-11-17T19:32:00.000-03:00
+date: 2025-11-17T20:02:00.000-03:00
 description: " Horas de Trabalho —   As horas de trabalho influenciam
   produtividade, saúde e qualidade de vida. No Brasil, a jornada padrão é de 8
   horas por dia ou 44 semanais Importância do Controle - Evita excesso de
@@ -11,11 +11,11 @@ description: " Horas de Trabalho —   As horas de trabalho influenciam
   semanais são obrigatórios para preservar a saúde física e mental.  Controlar
   horas de trabalho é fundamental para qualidade de vida, produtividade e
   bem-estar."
-image: https://www.krea.ai/api/img?f=webp&i=https%3A%2F%2Fgen.krea.ai%2Fimages%2F51ee1d0b-e79b-4331-aeb1-8fb59227e511.png&s=1024
+image: /uploads/gemini_generated_image_333yw8333yw8333y.png
 category: Geral
 tags:
   - CLT
-author: Mayara Maria
+author: Mayara Maria Pinto
 featured: true
 ---
 # Horas de Trabalho Rural: Por que Importam e Como Impactam a Vida no Campo
