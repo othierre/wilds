@@ -22,7 +22,7 @@ description: "No ambiente rural, a boa relação entre empregado e empregador é
   de vida e de trabalho. Empregado e empregador não são adversários: são
   parceiros essenciais para o desenvolvimento responsável e sustentável da
   atividade rural."
-image: https://www.krea.ai/api/img?f=webp&i=https%3A%2F%2Fs.krea.ai%2Fmoved%2Fimages%2F22d676f9-4f1f-4c9b-abb5-49f23a9167bf.png&s=1024
+image: /uploads/gemini_generated_image_of6wy0of6wy0of6w-1-.png
 category: Geral
 tags:
   - CLT
