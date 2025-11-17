@@ -1,5 +1,5 @@
 ---
-title: Horas de Trabalho
+title: Horas de Trabalho Rural
 date: 2025-11-17T19:32:00.000-03:00
 description: " Horas de Trabalho —   As horas de trabalho influenciam
   produtividade, saúde e qualidade de vida. No Brasil, a jornada padrão é de 8
