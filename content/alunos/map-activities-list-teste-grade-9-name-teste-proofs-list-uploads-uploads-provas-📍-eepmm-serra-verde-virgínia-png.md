@@ -1,5 +1,6 @@
 ---
 name: teste
+class: "1"
 grade: 9
 activities:
   - teste
