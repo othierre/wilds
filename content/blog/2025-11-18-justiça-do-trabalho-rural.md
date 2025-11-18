@@ -1,5 +1,5 @@
 ---
-title: Justiça do Trabalho Rural
+title: Justiça do Trabalho Rural - Contatos
 date: 2025-11-17T21:28:00.000-03:00
 description: ...
 image: https://img.freepik.com/fotos-gratis/vista-traseira-do-trabalhador-rural-no-campo_23-2148761777.jpg?semt=ais_incoming&w=740&q=80
