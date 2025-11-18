@@ -1,4 +1,7 @@
 // netlify/functions/update-student-percentage.js
+const { Octokit } = require("@octokit/rest"); // Requires @octokit/rest to be installed
+const matter = require('gray-matter'); // Requires gray-matter to be installed
+
 exports.handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {
     return {
@@ -20,23 +23,71 @@ exports.handler = async (event, context) => {
 
     console.log(`Received update for student ${studentId}: percentage = ${percentage}%`);
 
-    // --- IMPORTANT: Persistence to .md files in Git is complex ---
-    // To actually update the .md file in the Git repository, you would need:
-    // 1. A Git access token (e.g., GitHub Personal Access Token) stored securely as an environment variable.
-    // 2. A Git client library or direct API calls to GitHub/GitLab/Bitbucket.
-    // 3. Logic to:
-    //    a. Fetch the content of the student's .md file (e.g., from 'content/alunos/{studentId}.md').
-    //    b. Parse the markdown (e.g., using 'gray-matter' for frontmatter).
-    //    c. Update a specific field (e.g., 'checklist_percentage') in the frontmatter.
-    //    d. Commit the changes to a new branch or directly to main (not recommended for direct to main).
-    //    e. Push the commit.
-    // This would then trigger a new Netlify build.
-    // This is significantly more involved than a simple serverless function.
-    // For this task, we are only demonstrating the serverless function's ability to receive data.
+    // --- GitHub API Interaction ---
+    const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+    const REPO_OWNER = process.env.REPO_OWNER || 'your-github-username'; // Replace with your GitHub username
+    const REPO_NAME = process.env.REPO_NAME || 'your-repo-name';     // Replace with your repository name
+    const BRANCH = process.env.BRANCH || 'main';                     // Replace with your branch name (e.g., 'main' or 'master')
+
+    if (!GITHUB_TOKEN) {
+      console.error('GITHUB_TOKEN environment variable is not set.');
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ message: 'GitHub token not configured.' })
+      };
+    }
+
+    const octokit = new Octokit({ auth: GITHUB_TOKEN });
+    const filePath = `content/alunos/${studentId}.md`; // Assuming studentId matches the filename slug
+
+    let fileContent;
+    let sha;
+
+    try {
+      // 1. Get the file content
+      const { data } = await octokit.repos.getContent({
+        owner: REPO_OWNER,
+        repo: REPO_NAME,
+        path: filePath,
+        ref: BRANCH,
+      });
+      fileContent = Buffer.from(data.content, 'base64').toString('utf8');
+      sha = data.sha;
+    } catch (error) {
+      if (error.status === 404) {
+        console.warn(`File ${filePath} not found. Creating new file.`);
+        fileContent = `---\nchecklist_percentage: 0\n---\n# ${studentId}\n`; // Default content for new file
+        sha = undefined; // No SHA for new file
+      } else {
+        console.error(`Error fetching file ${filePath}:`, error);
+        return {
+          statusCode: 500,
+          body: JSON.stringify({ message: `Error fetching file ${filePath}.`, error: error.message })
+        };
+      }
+    }
+
+    // 2. Parse frontmatter and update percentage
+    const parsed = matter(fileContent);
+    parsed.data.checklist_percentage = percentage;
+    const updatedMarkdown = matter.stringify(parsed.content, parsed.data);
+
+    // 3. Commit and push the changes
+    await octokit.repos.createOrUpdateFileContents({
+      owner: REPO_OWNER,
+      repo: REPO_NAME,
+      path: filePath,
+      message: `Update checklist percentage for ${studentId} to ${percentage}%`,
+      content: Buffer.from(updatedMarkdown).toString('base64'),
+      sha: sha, // Required for updates, omitted for new files
+      branch: BRANCH,
+    });
+
+    console.log(`Successfully updated ${filePath} for student ${studentId}.`);
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: `Successfully received update for student ${studentId}.` })
+      body: JSON.stringify({ message: `Successfully updated ${filePath} for student ${studentId}.` })
     };
   } catch (error) {
     console.error('Error processing request:', error);
