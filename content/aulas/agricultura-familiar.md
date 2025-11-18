@@ -1,12 +1,12 @@
 ---
-title: Agricultura Familiar - 2
-description: "O vídeo “Agricultura familiar” mostra a história de Seu Laerte, um
-  agricultor familiar que vive no sítio Vala Preta, no estado do Rio de Janeiro.
-  Ele fala sobre como a vida no campo é parte de sua identidade: ele planta
-  alimentos como aipim, goiaba, jiló e outros, e descreve o trabalho diário —
-  capinar, cercar, cuidar dos animais — como algo que ama."
-duration: 05:39
-youtubeUrl: https://www.youtube.com/watch?v=0bL-DPSMhPw&t=106s
-category: Agricultura Familiar
-date: 2025-11-17T21:27:00.000-03:00
+title: A forma correta de usar os Equipamentos de Proteção Individual
+description: O vídeo explica como manusear defensivos agrícolas com segurança.
+  Mostra os diferentes EPIs necessários (como luvas, botas, máscara, óculos,
+  avental), como vestir e retirar esses equipamentos de forma correta e a
+  importância de limpar bem a pele após o uso. Também destaca que seguir essas
+  orientações é fundamental para proteger a saúde de quem aplica agroquímicos.
+duration: 03:08
+youtubeUrl: https://www.youtube.com/watch?v=OeCtamAHi4A
+category: Agrotóxicos e EPI
+date: 2025-11-17T21:33:00.000-03:00
 ---
