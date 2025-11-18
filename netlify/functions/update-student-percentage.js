@@ -1,6 +1,45 @@
 // netlify/functions/update-student-percentage.js
-const { Octokit } = require("@octokit/rest"); // Requires @octokit/rest to be installed
+
+/*
+ * To make this function fully operational:
+ *
+ * 1. Install Dependencies:
+ *    Navigate to the 'netlify/functions' directory in your terminal and run:
+ *    npm install @octokit/rest gray-matter
+ *    (Or add these to your project's root package.json and run npm install)
+ *
+ * 2. Configure Environment Variables in Netlify:
+ *    Go to your Netlify site settings -> "Build & deploy" -> "Environment variables".
+ *    Add the following variables:
+ *    - GITHUB_TOKEN: A Personal Access Token (PAT) from your GitHub account with 'repo' scope.
+ *                    (Be extremely careful with this token; do not expose it publicly.)
+ *    - REPO_OWNER: Your GitHub username (e.g., 'thier').
+ *    - REPO_NAME: The name of your repository (e.g., 'wildsai').
+ *    - BRANCH: The branch you want to commit to (e.g., 'main' or 'master').
+ *
+ * 3. Ensure studentId matches .md filenames:
+ *    The 'studentId' sent from the frontend must exactly match the slug used in your
+ *    'content/alunos/{studentId}.md' filenames.
+ *
+ * 4. Markdown Frontmatter:
+ *    Ensure your student .md files have a YAML frontmatter section where 'checklist_percentage'
+ *    can be added or updated. Example:
+ *    ---
+ *    title: João Silva
+ *    class: 1
+ *    checklist_percentage: 50
+ *    ---
+ */
 const matter = require('gray-matter'); // Requires gray-matter to be installed
+
+// Use dynamic import for @octokit/rest as it's an ES Module
+let Octokit;
+const loadOctokit = async () => {
+  if (!Octokit) {
+    const octokitModule = await import("@octokit/rest");
+    Octokit = octokitModule.Octokit;
+  }
+};
 
 exports.handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {
@@ -37,6 +76,7 @@ exports.handler = async (event, context) => {
       };
     }
 
+    await loadOctokit(); // Ensure Octokit is loaded
     const octokit = new Octokit({ auth: GITHUB_TOKEN });
     const filePath = `content/alunos/${studentId}.md`; // Assuming studentId matches the filename slug
 

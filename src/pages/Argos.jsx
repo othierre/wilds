@@ -104,6 +104,19 @@ const Argos = () => {
     return acc;
   }, {});
 
+  const [isSaving, setIsSaving] = useState(false);
+
+  const handleSaveAll = async () => {
+    setIsSaving(true);
+    const savePromises = students.map(async (student) => {
+      const percentage = calculateCompletionPercentage(student.checklist);
+      await sendPercentageUpdate(student.id, percentage);
+    });
+    await Promise.all(savePromises);
+    setIsSaving(false);
+    alert('Todas as porcentagens foram enviadas para atualização!');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] p-6">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -117,6 +130,13 @@ const Argos = () => {
               Gerencie o checklist individual de cada aluno e acompanhe o progresso.
             </p>
           </div>
+          <button
+            onClick={handleSaveAll}
+            disabled={isSaving}
+            className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {isSaving ? 'Salvando...' : 'Salvar Todas as Porcentagens'}
+          </button>
         </div>
 
         {/* Student Checklists - Organized by Class */}
