@@ -72,6 +72,17 @@ const PainelEepmm = () => {
     }));
   };
 
+  // Helper function to determine card background color based on grade
+  const getCardBackgroundColorClass = (grade) => {
+    if (grade >= 60) {
+      return 'bg-green-100 dark:bg-green-900/30';
+    } else if (grade >= 40 && grade <= 59) {
+      return 'bg-yellow-100 dark:bg-yellow-900/30';
+    } else {
+      return 'bg-red-100 dark:bg-red-900/30';
+    }
+  };
+
   // General Grade Data
   const totalGrade = studentsData.reduce((sum, student) => sum + student.grade, 0);
   const averageGrade = studentsData.length > 0 ? totalGrade / studentsData.length : 0;
@@ -239,60 +250,65 @@ const PainelEepmm = () => {
                     {expandedClasses[classNum] && (
                       <div className="p-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                          {classStudents.map(student => (
-                            <div
-                              key={student.id}
-                              className="bg-gray-50 dark:bg-[#0a0a0a] border border-gray-200 dark:border-[#1f1f1f] rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow"
-                              onClick={() => handleStudentClick(student)}
-                            >
-                              <div className="flex items-center mb-3">
-                                <User className="w-6 h-6 text-gray-500 mr-3" />
-                                <h4 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{student.name}</h4>
+                          {classStudents.map(student => {
+                            const cardBackgroundColorClass = getCardBackgroundColorClass(student.grade);
+                            return (
+                              <div
+                                key={student.id}
+                                className={`${cardBackgroundColorClass} border border-gray-200 dark:border-[#1f1f1f] rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow`}
+                                onClick={() => handleStudentClick(student)}
+                              >
+                                <div className="flex items-center mb-3">
+                                  <User className="w-6 h-6 text-gray-500 mr-3" />
+                                  <h4 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{student.name}</h4>
+                                </div>
+                                <p className="text-gray-600 dark:text-gray-400 mb-1">
+                                  <span className="font-medium">Nota:</span> {student.grade}%
+                                </p>
+                                <div className="mb-3">
+                                  <h5 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-1">Atividades:</h5>
+                                  {student.activities && student.activities.length > 0 ? (
+                                    <ul className="list-disc list-inside text-gray-600 dark:text-gray-400">
+                                      {student.activities.map((activity, index) => (
+                                        <li key={index}>{activity}</li>
+                                      ))}
+                                    </ul>
+                                  ) : (
+                                    <p className="text-gray-500 text-sm">Nenhuma atividade registrada.</p>
+                                  )}
+                                </div>
+                                <div className="mt-2">
+                                  <h5 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-2">Provas:</h5>
+                                  {student.proofs.length > 0 ? (
+                                    <div className="space-y-2">
+                                      {student.proofs.map((proof, index) => (
+                                        <div key={index} className="flex items-center gap-2">
+                                          {proof.type === 'image' && (
+                                            <img src={proof.url} alt={proof.name} className="w-16 h-16 object-cover rounded-md" />
+                                          )}
+                                          {proof.type === 'pdf' && (
+                                            <>
+                                              <span className="text-red-500">PDF Icon</span>
+                                              <a
+                                                href={proof.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-500 hover:underline text-sm"
+                                              >
+                                                {proof.name}
+                                              </a>
+                                            </>
+                                          )}
+                                        </div>
+                                      ))}
+                                    </div>
+                                  ) : (
+                                    <p className="text-gray-500 text-sm">Nenhuma prova anexada.</p>
+                                  )}
+                                </div>
                               </div>
-                              <p className="text-gray-600 dark:text-gray-400 mb-1">
-                                <span className="font-medium">Nota:</span> {student.grade}%
-                              </p>
-                              <div className="mb-3">
-                                <h5 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-1">Atividades:</h5>
-                                {student.activities && student.activities.length > 0 ? (
-                                  <ul className="list-disc list-inside text-gray-600 dark:text-gray-400">
-                                    {student.activities.map((activity, index) => (
-                                      <li key={index}>{activity}</li>
-                                    ))}
-                                  </ul>
-                                ) : (
-                                  <p className="text-gray-500 text-sm">Nenhuma atividade registrada.</p>
-                                )}
-                              </div>
-                              <div className="mt-2">
-                                <h5 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-2">Provas:</h5>
-                                {student.proofs.length > 0 ? (
-                                  <div className="space-y-2">
-                                    {student.proofs.map((proof, index) => (
-                                      <div key={index} className="flex items-center gap-2">
-                                        {proof.type === 'image' && (
-                                          <img src={proof.url} alt={proof.name} className="w-16 h-16 object-cover rounded-md" />
-                                        )}
-                                        {proof.type === 'pdf' && (
-                                          <span className="text-red-500">PDF Icon</span>
-                                        )}
-                                        <a
-                                          href={proof.url}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="text-blue-500 hover:underline text-sm"
-                                        >
-                                          {proof.name}
-                                        </a>
-                                      </div>
-                                    ))}
-                                  </div>
-                                ) : (
-                                  <p className="text-gray-500 text-sm">Nenhuma prova anexada.</p>
-                                )}
-                              </div>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       </div>
                     )}

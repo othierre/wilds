@@ -16,6 +16,19 @@ const StudentProfileModal = ({ student, studentsInSameClass, onClose }) => {
     ? `Abaixo da média da turma (${classAverage.toFixed(1)}%)`
     : `Na média da turma (${classAverage.toFixed(1)}%)`;
 
+  // Helper function to determine grade color
+  const getGradeColorClass = (grade) => {
+    if (grade >= 60) {
+      return 'text-green-400';
+    } else if (grade >= 40 && grade <= 59) {
+      return 'text-yellow-400';
+    } else {
+      return 'text-red-400';
+    }
+  };
+
+  const gradeColorClass = getGradeColorClass(student.grade);
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[1002] p-4">
       <div className="bg-white dark:bg-[#141414] rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
@@ -52,8 +65,8 @@ const StudentProfileModal = ({ student, studentsInSameClass, onClose }) => {
                 Sala: {student.class}º Ano
               </p>
               <p className="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center">
-                <Award className="w-5 h-5 mr-2 text-yellow-500" />
-                Nota: {student.grade}%
+                <Award className="w-5 h-5 mr-2 text-blue-500" />
+                <span className={gradeColorClass}>Nota: {student.grade}%</span>
               </p>
             </div>
           </div>
