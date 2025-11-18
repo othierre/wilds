@@ -1,9 +1,8 @@
 ---
 name: ANA LÍVIA MOREIRA
-grade: 83
+grade: 67
 class: '3'
 activities:
-  - Ajudou na decoração.
   - Fez Cartazes.
   - Fez a Busca por agrotóxicos.
   - Fez o post do Blog.
