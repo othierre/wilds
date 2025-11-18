@@ -1,6 +1,6 @@
 ---
 name: ANA JÚLIA DE MARINS
-grade: '83'
+grade: 0
 class: '1'
 activities: []
 proofs: []
