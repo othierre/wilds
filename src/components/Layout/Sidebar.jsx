@@ -1,14 +1,14 @@
 import { NavLink } from 'react-router-dom'
-import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X, Flame, FileText, UserCog, PanelLeftClose, PanelLeftOpen, Lightbulb } from 'lucide-react'
+import { Home, AlertTriangle, BarChart3, BookOpen, User, Download, X, Flame, FileText, UserCog, PanelLeftClose, PanelLeftOpen, Lightbulb, Shield } from 'lucide-react' // Added Shield icon
 import GumaIcon from '../GumaIcon'
 import { useTheme } from '../../context/ThemeContext'
 import WildsLogo from '../WildsLogo'
-import { useNetlifyAuth } from '../../context/NetlifyAuthContext'
+import { useAuth } from '../../context/AuthContext' // Changed from useNetlifyAuth to useAuth
 import { Tooltip } from 'react-tooltip'
 
 const Sidebar = ({ onClose, isMinimized, toggleMinimized }) => {
   const { isDark } = useTheme()
-  const { user } = useNetlifyAuth()
+  const { user } = useAuth() // Using useAuth for Firebase user
 
   const navigation = [
     { name: 'Wilds (Início)', href: '/', icon: Home },
@@ -21,6 +21,11 @@ const Sidebar = ({ onClose, isMinimized, toggleMinimized }) => {
     { name: 'Guma IA', href: '/guma', icon: GumaIcon },
     { name: 'Instalar App', href: '/instalar', icon: Download },
   ]
+
+  // Conditionally add Argos to navigation if user is the specific admin
+  if (user && user.email === 'thierryyuri123@gmail.com') {
+    navigation.push({ name: 'Argos', href: '/argos', icon: Shield });
+  }
 
   return (
     <div className={`flex h-full flex-col gap-y-5 overflow-y-auto bg-white dark:bg-[#141414] border-r border-gray-200 dark:border-[#1f1f1f] pb-24 ${isMinimized ? 'px-2' : 'px-6'}`}>

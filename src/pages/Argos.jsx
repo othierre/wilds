@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { User, ChevronDown, ChevronUp, CheckSquare, Square } from 'lucide-react';
 import { getStudents, updateStudent } from '../utils/studentUtils'; // Import the update function
+import { useAuth } from '../context/AuthContext'; // Import useAuth
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const CHECKLIST_QUESTIONS = [
   "Fez o post do Blog?",
@@ -12,6 +14,8 @@ const CHECKLIST_QUESTIONS = [
 ];
 
 const Argos = () => {
+  const { user, loading } = useAuth(); // Get user and loading state from AuthContext
+  const navigate = useNavigate(); // Initialize useNavigate
   const [students, setStudents] = useState([]); // Initialize with empty array
   const [expandedClasses, setExpandedClasses] = useState({
     '1': true,
@@ -19,6 +23,28 @@ const Argos = () => {
     '3': true
   });
   const [savingStates, setSavingStates] = useState({}); // New state for individual saving
+
+  useEffect(() => {
+    if (!loading) {
+      // If not loading and user is not the specific admin, redirect
+      if (!user || user.email !== 'thierryyuri123@gmail.com') {
+        navigate('/'); // Redirect to home page
+      }
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] flex items-center justify-center">
+        <p className="text-gray-900 dark:text-gray-100 text-xl">Carregando...</p>
+      </div>
+    );
+  }
+
+  // Only render the content if the user is authenticated and has the correct email
+  if (!user || user.email !== 'thierryyuri123@gmail.com') {
+    return null; // Or a more explicit "Access Denied" message if preferred
+  }
 
   const loadStudents = async () => { // Make loadStudents a standalone function
     const fetchedStudents = await getStudents();
