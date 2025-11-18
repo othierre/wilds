@@ -30,7 +30,9 @@
  *    checklist_percentage: 50
  *    ---
  */
-import Octokit from "@octokit/rest"; // Try importing the default export
+
+// ✅ CORREÇÃO: Usar named import em vez de default import
+import { Octokit } from "@octokit/rest";
 import matter from 'gray-matter';
 
 export async function handler(event, context) {
@@ -56,9 +58,9 @@ export async function handler(event, context) {
 
     // --- GitHub API Interaction ---
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-    const REPO_OWNER = process.env.REPO_OWNER || 'your-github-username'; // Replace with your GitHub username
-    const REPO_NAME = process.env.REPO_NAME || 'your-repo-name';     // Replace with your repository name
-    const BRANCH = process.env.BRANCH || 'main';                     // Replace with your branch name (e.g., 'main' or 'master')
+    const REPO_OWNER = process.env.REPO_OWNER || 'your-github-username';
+    const REPO_NAME = process.env.REPO_NAME || 'your-repo-name';
+    const BRANCH = process.env.BRANCH || 'main';
 
     if (!GITHUB_TOKEN) {
       console.error('GITHUB_TOKEN environment variable is not set.');
@@ -69,7 +71,7 @@ export async function handler(event, context) {
     }
 
     const octokit = new Octokit({ auth: GITHUB_TOKEN });
-    const filePath = `content/alunos/${studentId}.md`; // Assuming studentId matches the filename slug
+    const filePath = `content/alunos/${studentId}.md`;
 
     let fileContent;
     let sha;
@@ -87,8 +89,8 @@ export async function handler(event, context) {
     } catch (error) {
       if (error.status === 404) {
         console.warn(`File ${filePath} not found. Creating new file.`);
-        fileContent = `---\nchecklist_percentage: 0\n---\n# ${studentId}\n`; // Default content for new file
-        sha = undefined; // No SHA for new file
+        fileContent = `---\nchecklist_percentage: 0\n---\n# ${studentId}\n`;
+        sha = undefined;
       } else {
         console.error(`Error fetching file ${filePath}:`, error);
         return {
@@ -110,7 +112,7 @@ export async function handler(event, context) {
       path: filePath,
       message: `Update checklist percentage for ${studentId} to ${percentage}%`,
       content: Buffer.from(updatedMarkdown).toString('base64'),
-      sha: sha, // Required for updates, omitted for new files
+      sha: sha,
       branch: BRANCH,
     });
 
@@ -127,4 +129,4 @@ export async function handler(event, context) {
       body: JSON.stringify({ message: 'Internal Server Error', error: error.message })
     };
   }
-};
+}
