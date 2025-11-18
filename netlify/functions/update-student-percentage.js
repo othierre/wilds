@@ -30,7 +30,7 @@
  *    checklist_percentage: 50
  *    ---
  */
-import { Octokit } from "@octokit/rest";
+import Octokit from "@octokit/rest"; // Try importing the default export
 import matter from 'gray-matter';
 
 export async function handler(event, context) {
