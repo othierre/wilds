@@ -12,7 +12,7 @@ category: Geral
 tags:
   - CLT
 author: Gustavo Marins
-featured: true
+featured: false
 ---
 # Contratação no Contexto Rural
 
