@@ -1,8 +1,9 @@
 ---
 name: DANIEL MARINS SAMUEL
-grade: 0
+grade: 17
 class: '2'
-activities: []
+activities:
+  - Fez o post do Blog.
 proofs: []
 ---
 
