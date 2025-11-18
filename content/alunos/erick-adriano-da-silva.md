@@ -1,6 +1,6 @@
 ---
 name: ÉRICK ADRIANO DA SILVA
-grade: 100
+grade: 0
 class: '1'
 activities: []
 proofs: []
