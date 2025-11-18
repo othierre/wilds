@@ -92,12 +92,6 @@ const PainelEepmm = () => {
     { name: 'Outros', value: 100 - averageGrade, color: '#dc2626' }, // Assuming grades are out of 100
   ];
 
-  // Individual Grade Data (for Bar Chart)
-  const individualGradeData = studentsData.map(student => ({
-    name: student.name,
-    grade: student.grade,
-  }));
-
   // Data for Performance by Class (Average Grade)
   const performanceByClassData = Object.keys(studentsByClass).map(classNum => {
     const studentsInClass = studentsByClass[classNum];
@@ -124,7 +118,7 @@ const PainelEepmm = () => {
           <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">{label}</p>
           {payload.map((entry, index) => (
             <p key={index} className="text-xs text-gray-600 dark:text-gray-400">
-              <span style={{ color: entry.color }}>{entry.name === 'Nota Média' ? 'Nota' : entry.name}:</span> {entry.value}%
+              <span style={{ color: entry.color }}>{entry.name === 'Nota Média' || entry.name === 'Alunos' ? 'Valor' : entry.name}:</span> {entry.value}%
             </p>
           ))}
         </div>
@@ -149,7 +143,7 @@ const PainelEepmm = () => {
         </div>
 
         {/* Graphs Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Pie Chart - General Grade Rate */}
           <div className="bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#1f1f1f] rounded-lg p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
@@ -174,22 +168,6 @@ const PainelEepmm = () => {
                 <Tooltip content={<CustomTooltip />} />
                 <Legend />
               </PieChart>
-            </ResponsiveContainer>
-          </div>
-
-          {/* Bar Chart - Individual Grade Rate */}
-          <div className="bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#1f1f1f] rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-              Notas Individuais
-            </h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={individualGradeData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.1} />
-                <XAxis dataKey="name" stroke="#6b7280" />
-                <YAxis stroke="#6b7280" domain={[0, 100]} />
-                <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="averageGrade" fill="#6366f1" name="Nota" radius={[8, 8, 0, 0]} />
-              </BarChart>
             </ResponsiveContainer>
           </div>
 
@@ -269,13 +247,13 @@ const PainelEepmm = () => {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
             Perfis dos Alunos
           </h2>
-          
+
           {filteredStudents.length > 0 ? (
             <div className="space-y-4">
               {['1', '2', '3'].map(classNum => {
                 const classStudents = studentsByClass[classNum] || [];
                 if (classStudents.length === 0) return null;
-                
+
                 return (
                   <div key={classNum} className="bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#1f1f1f] rounded-lg overflow-hidden">
                     {/* Class Header - Dropdown Toggle */}
