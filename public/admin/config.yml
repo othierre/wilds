@@ -49,6 +49,7 @@ collections:
     slug: "{{slug}}"
     fields:
       - {label: "Nome do Aluno", name: "name", widget: "string"}
+      - {label: "Série", name: "class", widget: "select", options: ["1", "2", "3"], default: "1"}
       - {label: "Nota", name: "grade", widget: "number", min: 0, max: 100, step: 1}
       - {label: "Atividades", name: "activities", widget: "list", field: {label: "Atividade", name: "activity", widget: "string"}}
       - {label: "Provas", name: "proofs", widget: "list", field: {label: "Arquivo de Prova", name: "proof_file", widget: "file", media_folder: "uploads-provas", public_folder: "/uploads/uploads-provas"}}
