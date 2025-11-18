@@ -6,6 +6,9 @@ backend:
 media_folder: public/uploads
 public_folder: /uploads
 
+media_folder: public/uploads-provas
+public_folder: /uploads-provas
+
 collections:
   - name: "blog"
     label: "Blog Posts"
@@ -41,5 +44,14 @@ collections:
       - {label: "Descrição", name: "description", widget: "text"}
       - {label: "Duração", name: "duration", widget: "string", hint: "Formato: MM:SS"}
       - {label: "URL do YouTube", name: "youtubeUrl", widget: "string", hint: "Cole o link completo do vídeo do YouTube (ex: https://www.youtube.com/watch?v=VIDEO_ID)"}
-      - {label: "Categoria", name: "category", widget: "select", options: ["Agricultura Familiar", "Agrotóxicos e EPI", "Direitos Trabalhistas", "Meio Ambiente", "Geral"]}
       - {label: "Data de Publicação", name: "date", widget: "datetime"}
+  - name: "alunos"
+    label: "Alunos"
+    folder: "content/alunos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Nome do Aluno", name: "name", widget: "string"}
+      - {label: "Nota", name: "grade", widget: "number", min: 0, max: 100, step: 1}
+      - {label: "Atividades", name: "activities", widget: "list", field: {label: "Atividade", name: "activity", widget: "string"}}
+      - {label: "Provas", name: "proofs", widget: "list", field: {label: "Arquivo de Prova", name: "proof_file", widget: "file", media_folder: "/uploads-provas", public_folder: "/uploads-provas"}}
