@@ -1,16 +1,33 @@
 // src/utils/studentUtils.js
 
-// This function provides hardcoded student data for demonstration purposes.
-// In a production environment with Netlify CMS, this data would typically be
-// generated during a build process (e.g., by a static site generator)
-// from markdown files in 'content/alunos' and then imported or fetched.
+// This function attempts to fetch student data from a generated JSON file.
+// In a production environment with Netlify CMS, a build process would
+// read markdown files from 'content/alunos' and generate 'public/students.json'.
+// If the JSON file is not found (e.g., in development without a build step),
+// it falls back to hardcoded data for demonstration.
 
 export const getStudents = async () => {
+  try {
+    const response = await fetch('/students.json');
+    if (response.ok) {
+      const students = await response.json();
+      // Ensure 'activities' and 'proofs' are arrays, as they might be single strings or null from JSON
+      return students.map(student => ({
+        ...student,
+        activities: Array.isArray(student.activities) ? student.activities : (student.activities ? [student.activities] : []),
+        proofs: Array.isArray(student.proofs) ? student.proofs : (student.proofs ? [student.proofs] : []),
+      }));
+    }
+  } catch (error) {
+    console.warn("Could not fetch students.json, falling back to hardcoded data:", error);
+  }
+
+  // Fallback to hardcoded data if students.json is not available or fetch fails
   return [
     {
       id: 'joao-silva',
       name: 'João Silva',
-      class: '1', // Added class field
+      class: '1',
       grade: 85,
       activities: ['Post no Blog', 'Projeto de Agrofloresta'],
       proofs: [
@@ -21,7 +38,7 @@ export const getStudents = async () => {
     {
       id: 'maria-oliveira',
       name: 'Maria Oliveira',
-      class: '2', // Added class field
+      class: '2',
       grade: 92,
       activities: ['Análise de Qualidade do Solo', 'Apresentação sobre Sustentabilidade'],
       proofs: [
@@ -31,7 +48,7 @@ export const getStudents = async () => {
     {
       id: 'pedro-souza',
       name: 'Pedro Souza',
-      class: '1', // Added class field
+      class: '1',
       grade: 70,
       activities: ['Estudo sobre Agrotóxicos'],
       proofs: [
@@ -41,7 +58,7 @@ export const getStudents = async () => {
     {
       id: 'ana-costa',
       name: 'Ana Costa',
-      class: '3', // Added class field
+      class: '3',
       grade: 95,
       activities: ['Desenvolvimento Sustentável', 'Participação em Evento'],
       proofs: [
@@ -51,7 +68,7 @@ export const getStudents = async () => {
     {
       id: 'carlos-santos',
       name: 'Carlos Santos',
-      class: '2', // Added class field
+      class: '2',
       grade: 78,
       activities: ['Manejo de Pragas', 'Relatório de Campo'],
       proofs: [
