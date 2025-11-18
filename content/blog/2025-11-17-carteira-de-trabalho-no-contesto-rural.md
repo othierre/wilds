@@ -1,12 +1,12 @@
 ---
-title: Carteira de trabalho no contesto rural
+title: Carteira de Trabalho no Contexto Rural
 date: 2025-11-17T19:18:00.000-03:00
 description: A carteira de trabalho na área rural garante que o trabalhador
   tenha seus direitos assegurados, como salário, férias, FGTS e aposentadoria.
   Todo empregado do campo — seja permanente, temporário ou safrista — deve ter
   registro formal. Esse registro protege o trabalhador, facilita o acesso a
   benefícios e mantém o empregador dentro da lei.
-image: https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.jusbrasil.com.br%2Fartigos%2Ftrabalho-rural-anotado-na-carteira-de-trabalho%2F579105058&psig=AOvVaw2tRnM-mwYvTskNLZHciHcH&ust=1763505003426000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCPi1q52e-pADFQAAAAAdAAAAABAX
+image: /uploads/generated-image-november-17-2025-11_20pm.png
 category: Geral
 author: "João Pedro "
 featured: false
