@@ -5,8 +5,8 @@
  *
  * 1. Install Dependencies:
  *    Navigate to the 'netlify/functions' directory in your terminal and run:
- *    npm install @octokit/rest gray-matter
- *    (Or add these to your project's root package.json and run npm install)
+ *    npm install @octokit/core gray-matter
+ *    (Note: Changed from @octokit/rest to @octokit/core for better compatibility)
  *
  * 2. Configure Environment Variables in Netlify:
  *    Go to your Netlify site settings -> "Build & deploy" -> "Environment variables".
@@ -31,8 +31,8 @@
  *    ---
  */
 
-// ✅ CORREÇÃO: Usar named import em vez de default import
-import { Octokit } from "@octokit/rest";
+// ✅ Usando @octokit/core ao invés de @octokit/rest para evitar problemas de compatibilidade
+import { Octokit } from "@octokit/core";
 import matter from 'gray-matter';
 
 export async function handler(event, context) {
@@ -77,15 +77,16 @@ export async function handler(event, context) {
     let sha;
 
     try {
-      // 1. Get the file content
-      const { data } = await octokit.repos.getContent({
+      // 1. Get the file content usando a API REST diretamente
+      const response = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
         owner: REPO_OWNER,
         repo: REPO_NAME,
         path: filePath,
         ref: BRANCH,
       });
-      fileContent = Buffer.from(data.content, 'base64').toString('utf8');
-      sha = data.sha;
+      
+      fileContent = Buffer.from(response.data.content, 'base64').toString('utf8');
+      sha = response.data.sha;
     } catch (error) {
       if (error.status === 404) {
         console.warn(`File ${filePath} not found. Creating new file.`);
@@ -106,15 +107,21 @@ export async function handler(event, context) {
     const updatedMarkdown = matter.stringify(parsed.content, parsed.data);
 
     // 3. Commit and push the changes
-    await octokit.repos.createOrUpdateFileContents({
+    const updateParams = {
       owner: REPO_OWNER,
       repo: REPO_NAME,
       path: filePath,
       message: `Update checklist percentage for ${studentId} to ${percentage}%`,
       content: Buffer.from(updatedMarkdown).toString('base64'),
-      sha: sha,
       branch: BRANCH,
-    });
+    };
+
+    // Só adiciona o SHA se o arquivo já existe
+    if (sha) {
+      updateParams.sha = sha;
+    }
+
+    await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', updateParams);
 
     console.log(`Successfully updated ${filePath} for student ${studentId}.`);
 
