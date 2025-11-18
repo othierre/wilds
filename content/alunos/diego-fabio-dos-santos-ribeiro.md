@@ -1,6 +1,6 @@
 ---
 name: DIEGO FABIO DOS SANTOS RIBEIRO
-grade: 10
+grade: 100
 class: '2'
 activities: []
 proofs: []
