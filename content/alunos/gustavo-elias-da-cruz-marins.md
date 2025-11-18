@@ -1,8 +1,9 @@
 ---
 name: GUSTAVO ELIAS DA CRUZ MARINS
-grade: '33'
+grade: 17
 class: '3'
-activities: []
+activities:
+  - Fez o post do Blog.
 proofs: []
 ---
 
