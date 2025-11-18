@@ -43,7 +43,7 @@ export async function handler(event, context) {
   }
 
   try {
-    const { studentId, percentage } = JSON.parse(event.body);
+    const { studentId, percentage, completedActivities } = JSON.parse(event.body);
 
     if (!studentId || percentage === undefined) {
       return {
@@ -52,7 +52,7 @@ export async function handler(event, context) {
       };
     }
 
-    console.log(`Received update for student ${studentId}: percentage = ${percentage}%`);
+    console.log(`Received update for student ${studentId}: percentage = ${percentage}%, activities = ${JSON.stringify(completedActivities)}`);
 
     // --- GitHub API Interaction usando fetch nativo ---
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -110,19 +110,36 @@ export async function handler(event, context) {
         };
       }
 
-      // 2. Parse frontmatter and update percentage
+      // 2. Parse frontmatter and update percentage and activities
       const parsed = matter(fileContent);
-      const existingPercentage = parsed.data.grade; // Changed from checklist_percentage
+      const existingPercentage = parsed.data.grade;
+      const existingActivities = parsed.data.activities || [];
 
-      if (existingPercentage === percentage) {
-        console.log(`Percentage for ${studentId} is already ${percentage}%. No update needed.`);
+      let activitiesChanged = false;
+      let newActivities = [];
+
+      if (completedActivities && Array.isArray(completedActivities)) {
+        newActivities = completedActivities.map(activity => {
+          // Replace '?' with '.' and ensure it's a string
+          return activity.replace(/\?$/, '.').trim();
+        });
+
+        // Check if activities have actually changed
+        if (JSON.stringify(newActivities.sort()) !== JSON.stringify(existingActivities.sort())) {
+          activitiesChanged = true;
+          parsed.data.activities = newActivities;
+        }
+      }
+
+      if (existingPercentage === percentage && !activitiesChanged) {
+        console.log(`Percentage and activities for ${studentId} are already up to date. No update needed.`);
         return {
           statusCode: 200,
-          body: JSON.stringify({ message: `Percentage for ${studentId} is already ${percentage}%. No update needed.` })
+          body: JSON.stringify({ message: `Percentage and activities for ${studentId} are already up to date. No update needed.` })
         };
       }
 
-      parsed.data.grade = percentage; // Changed from checklist_percentage
+      parsed.data.grade = percentage;
       const updatedMarkdown = matter.stringify(parsed.content, parsed.data);
 
       // 3. Commit and push the changes
