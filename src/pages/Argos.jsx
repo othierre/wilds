@@ -43,9 +43,29 @@ const Argos = () => {
     return ((completedTasks / totalQuestions) * 100).toFixed(0);
   };
 
+  const sendPercentageUpdate = async (studentId, percentage) => {
+    try {
+      const response = await fetch('/.netlify/functions/update-student-percentage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ studentId, percentage }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Failed to send percentage update:', errorData);
+      } else {
+        console.log(`Percentage update sent for ${studentId}: ${percentage}%`);
+      }
+    } catch (error) {
+      console.error('Error sending percentage update:', error);
+    }
+  };
+
   const handleChecklistItemChange = (studentId, question, isChecked) => {
-    setStudents(prevStudents =>
-      prevStudents.map(student =>
+    setStudents(prevStudents => {
+      const updatedStudents = prevStudents.map(student =>
         student.id === studentId
           ? {
               ...student,
@@ -55,8 +75,17 @@ const Argos = () => {
               },
             }
           : student
-      )
-    );
+      );
+
+      // Calculate new percentage for the updated student and send to serverless function
+      const updatedStudent = updatedStudents.find(s => s.id === studentId);
+      if (updatedStudent) {
+        const newPercentage = calculateCompletionPercentage(updatedStudent.checklist);
+        sendPercentageUpdate(updatedStudent.id, newPercentage);
+      }
+
+      return updatedStudents;
+    });
   };
 
   const toggleClass = (classNum) => {
