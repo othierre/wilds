@@ -7,7 +7,7 @@ description: A Justiça do Trabalho garante que as relações entre empregado e
   abertura da ação, tentativa de acordo e decisão do juiz. Sua importância está
   em proteger trabalhadores, orientar empregadores e manter relações justas e
   organizadas no campo.
-image: https://www.diplomatique.org.br/wp-content/uploads/2017/05/793097358_8f0f9f2e2c_b.jpg
+image: /uploads/generated-image-november-17-2025-11_14pm.png
 category: Geral
 author: Ana Lívia Moreira
 featured: false

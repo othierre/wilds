@@ -16,7 +16,7 @@ category: Geral
 tags:
   - CLT
 author: Mayara Maria Pinto
-featured: true
+featured: false
 ---
 # Horas de Trabalho Rural: Por que Importam e Como Impactam a Vida no Campo
 
