@@ -27,7 +27,7 @@ category: Geral
 tags:
   - CLT
 author: "Pedro Henrique de Marins Silva "
-featured: true
+featured: false
 ---
 # Deveres do Empregado e do Empregador Rural: O Que Cada Um Precisa Cumprir
 
