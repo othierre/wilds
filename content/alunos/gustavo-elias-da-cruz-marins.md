@@ -1,7 +1,8 @@
 ---
 name: GUSTAVO ELIAS DA CRUZ MARINS
-grade: 100
+grade: '33'
 class: '3'
 activities: []
 proofs: []
 ---
+
