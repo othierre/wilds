@@ -1,8 +1,11 @@
 ---
 name: SAMARA RIBEIRO SIMPLÍCIO
-grade: 100
+grade: 50
 class: '3'
-activities: []
+activities:
+  - Fez Cartazes.
+  - Fez a Busca por agrotóxicos.
+  - Preencheu o Formulário online.
 proofs: []
 checklist_percentage: '0'
 ---

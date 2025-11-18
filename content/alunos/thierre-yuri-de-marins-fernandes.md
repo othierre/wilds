@@ -1,12 +1,13 @@
 ---
 name: THIERRE YURI DE MARINS FERNANDES
-class: "3"
-grade: 100
+class: '3'
+grade: 67
 activities:
-  - Criou a wilds.app.br
-  - Criou  o guma.ia.br
-  - Fez cartazes
-  - Apresentou o Projeto
+  - Fez Cartazes.
+  - Fez a Busca por agrotóxicos.
+  - Fez o post do Blog.
+  - Preencheu o Formulário online.
 proofs:
-  - https://github.com/othierre/wilds
+  - 'https://github.com/othierre/wilds'
 ---
+
