@@ -1,7 +1,8 @@
 ---
 name: JOSÉ VÍTOR MARIANO PINTO
-grade: 100
+grade: '17'
 class: '3'
 activities: []
 proofs: []
 ---
+
