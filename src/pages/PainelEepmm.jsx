@@ -5,6 +5,7 @@ import {
 } from 'recharts';
 import { Search, Filter, User, ChevronDown, ChevronUp } from 'lucide-react';
 import { getStudents } from '../utils/studentUtils'; // Import the utility function
+import StudentProfileModal from '../components/StudentProfileModal'; // Import the new modal component
 
 const PainelEepmm = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -15,6 +16,8 @@ const PainelEepmm = () => {
     '3': true
   });
   const [studentsData, setStudentsData] = useState([]); // State to hold student data
+  const [showStudentModal, setShowStudentModal] = useState(false); // State for modal visibility
+  const [selectedStudent, setSelectedStudent] = useState(null); // State for selected student
 
   useEffect(() => {
     const loadStudents = async () => {
@@ -23,6 +26,28 @@ const PainelEepmm = () => {
     };
     loadStudents();
   }, []); // Empty dependency array means this runs once on mount
+
+  // Effect to control body scroll when modal is open
+  useEffect(() => {
+    if (showStudentModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset'; // Clean up on unmount
+    };
+  }, [showStudentModal]);
+
+  const handleStudentClick = (student) => {
+    setSelectedStudent(student);
+    setShowStudentModal(true);
+  };
+
+  const handleCloseStudentModal = () => {
+    setShowStudentModal(false);
+    setSelectedStudent(null);
+  };
 
   const filteredStudents = studentsData.filter(student => {
     const matchesSearch = student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -215,7 +240,11 @@ const PainelEepmm = () => {
                       <div className="p-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                           {classStudents.map(student => (
-                            <div key={student.id} className="bg-gray-50 dark:bg-[#0a0a0a] border border-gray-200 dark:border-[#1f1f1f] rounded-lg p-4">
+                            <div
+                              key={student.id}
+                              className="bg-gray-50 dark:bg-[#0a0a0a] border border-gray-200 dark:border-[#1f1f1f] rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow"
+                              onClick={() => handleStudentClick(student)}
+                            >
                               <div className="flex items-center mb-3">
                                 <User className="w-6 h-6 text-gray-500 mr-3" />
                                 <h4 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{student.name}</h4>
@@ -278,6 +307,14 @@ const PainelEepmm = () => {
           )}
         </div>
       </div>
+
+      {showStudentModal && selectedStudent && (
+        <StudentProfileModal
+          student={selectedStudent}
+          studentsInSameClass={studentsData.filter(s => s.class === selectedStudent.class)}
+          onClose={handleCloseStudentModal}
+        />
+      )}
     </div>
   );
 };
