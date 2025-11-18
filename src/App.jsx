@@ -13,6 +13,7 @@ import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import Aulas from './pages/Aulas' // Import the new Aulas component
 import PainelEepmm from './pages/PainelEepmm' // Import the new PainelEepmm component
+import Argos from './pages/Argos' // Import the new Argos component
 import NotFound from './pages/NotFound'
 import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
@@ -52,6 +53,7 @@ function App() {
                   <Route path="/blog/:slug" element={<BlogPost />} />
                   <Route path="/aulas" element={<Aulas />} /> {/* New Aulas page route */}
                   <Route path="/painel-eepmm" element={<PainelEepmm />} /> {/* New Painel EEPMM page route */}
+                  <Route path="/argos" element={<Argos />} /> {/* New Argos page route */}
                   <Route path="/admin/*" element={null} /> {/* Exclude /admin from React Router */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
