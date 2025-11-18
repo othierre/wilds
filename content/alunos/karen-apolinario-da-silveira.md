@@ -1,6 +1,6 @@
 ---
 name: KAREN APOLINÁRIO DA SILVEIRA
-grade: 100
+grade: 0
 class: '1'
 activities: []
 proofs: []
