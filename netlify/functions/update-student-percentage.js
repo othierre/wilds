@@ -5,8 +5,8 @@
  *
  * 1. Install Dependencies:
  *    Navigate to the 'netlify/functions' directory in your terminal and run:
- *    npm install @octokit/core gray-matter
- *    (Note: Changed from @octokit/rest to @octokit/core for better compatibility)
+ *    npm install gray-matter
+ *    (Note: Usando fetch nativo do Node.js, não precisa de @octokit)
  *
  * 2. Configure Environment Variables in Netlify:
  *    Go to your Netlify site settings -> "Build & deploy" -> "Environment variables".
@@ -31,8 +31,6 @@
  *    ---
  */
 
-// ✅ Usando @octokit/core ao invés de @octokit/rest para evitar problemas de compatibilidade
-import { Octokit } from "@octokit/core";
 import matter from 'gray-matter';
 
 export async function handler(event, context) {
@@ -56,7 +54,7 @@ export async function handler(event, context) {
 
     console.log(`Received update for student ${studentId}: percentage = ${percentage}%`);
 
-    // --- GitHub API Interaction ---
+    // --- GitHub API Interaction usando fetch nativo ---
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
     const REPO_OWNER = process.env.REPO_OWNER || 'your-github-username';
     const REPO_NAME = process.env.REPO_NAME || 'your-repo-name';
@@ -70,35 +68,42 @@ export async function handler(event, context) {
       };
     }
 
-    const octokit = new Octokit({ auth: GITHUB_TOKEN });
     const filePath = `content/alunos/${studentId}.md`;
+    const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
+    
+    const headers = {
+      'Authorization': `Bearer ${GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'User-Agent': 'Netlify-Function'
+    };
 
     let fileContent;
     let sha;
 
     try {
-      // 1. Get the file content usando a API REST diretamente
-      const response = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
-        owner: REPO_OWNER,
-        repo: REPO_NAME,
-        path: filePath,
-        ref: BRANCH,
+      // 1. Get the file content
+      const getResponse = await fetch(`${apiUrl}?ref=${BRANCH}`, {
+        method: 'GET',
+        headers: headers
       });
-      
-      fileContent = Buffer.from(response.data.content, 'base64').toString('utf8');
-      sha = response.data.sha;
-    } catch (error) {
-      if (error.status === 404) {
+
+      if (getResponse.ok) {
+        const data = await getResponse.json();
+        fileContent = Buffer.from(data.content, 'base64').toString('utf8');
+        sha = data.sha;
+      } else if (getResponse.status === 404) {
         console.warn(`File ${filePath} not found. Creating new file.`);
         fileContent = `---\nchecklist_percentage: 0\n---\n# ${studentId}\n`;
         sha = undefined;
       } else {
-        console.error(`Error fetching file ${filePath}:`, error);
-        return {
-          statusCode: 500,
-          body: JSON.stringify({ message: `Error fetching file ${filePath}.`, error: error.message })
-        };
+        throw new Error(`GitHub API error: ${getResponse.status} ${getResponse.statusText}`);
       }
+    } catch (error) {
+      console.error(`Error fetching file ${filePath}:`, error);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ message: `Error fetching file ${filePath}.`, error: error.message })
+      };
     }
 
     // 2. Parse frontmatter and update percentage
@@ -107,21 +112,30 @@ export async function handler(event, context) {
     const updatedMarkdown = matter.stringify(parsed.content, parsed.data);
 
     // 3. Commit and push the changes
-    const updateParams = {
-      owner: REPO_OWNER,
-      repo: REPO_NAME,
-      path: filePath,
+    const updateBody = {
       message: `Update checklist percentage for ${studentId} to ${percentage}%`,
       content: Buffer.from(updatedMarkdown).toString('base64'),
-      branch: BRANCH,
+      branch: BRANCH
     };
 
     // Só adiciona o SHA se o arquivo já existe
     if (sha) {
-      updateParams.sha = sha;
+      updateBody.sha = sha;
     }
 
-    await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', updateParams);
+    const updateResponse = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updateBody)
+    });
+
+    if (!updateResponse.ok) {
+      const errorData = await updateResponse.json();
+      throw new Error(`Failed to update file: ${JSON.stringify(errorData)}`);
+    }
 
     console.log(`Successfully updated ${filePath} for student ${studentId}.`);
 
