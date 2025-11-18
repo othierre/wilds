@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@octokit/core": "^5.0.0",
+    "gray-matter": "^4.0.3"
+  }
+}
