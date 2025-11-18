@@ -98,6 +98,25 @@ const PainelEepmm = () => {
     grade: student.grade,
   }));
 
+  // Data for Performance by Class (Average Grade)
+  const performanceByClassData = Object.keys(studentsByClass).map(classNum => {
+    const studentsInClass = studentsByClass[classNum];
+    const totalGradeInClass = studentsInClass.reduce((sum, student) => sum + student.grade, 0);
+    const averageGradeInClass = studentsInClass.length > 0 ? totalGradeInClass / studentsInClass.length : 0;
+    return {
+      name: `${classNum}º Ano`,
+      averageGrade: parseFloat(averageGradeInClass.toFixed(2)),
+    };
+  }).sort((a, b) => parseInt(a.name) - parseInt(b.name)); // Sort by class number
+
+  // Data for Students per Class
+  const studentsPerClassData = Object.keys(studentsByClass).map(classNum => ({
+    name: `${classNum}º Ano`,
+    value: studentsByClass[classNum].length,
+  })).sort((a, b) => parseInt(a.name) - parseInt(b.name)); // Sort by class number
+
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']; // Colors for pie charts
+
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
@@ -129,35 +148,8 @@ const PainelEepmm = () => {
           </div>
         </div>
 
-        {/* Search and Filter */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div className="relative flex-grow">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-            <input
-              type="text"
-              placeholder="Buscar aluno ou atividade..."
-              className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#1f1f1f] rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <div className="relative">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-            <select
-              value={selectedClass}
-              onChange={(e) => setSelectedClass(e.target.value)}
-              className="w-full sm:w-auto pl-10 pr-8 py-2 bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#1f1f1f] rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none cursor-pointer"
-            >
-              <option value="all">Todas as Salas</option>
-              <option value="1">1º Ano</option>
-              <option value="2">2º Ano</option>
-              <option value="3">3º Ano</option>
-            </select>
-          </div>
-        </div>
-
         {/* Graphs Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
           {/* Pie Chart - General Grade Rate */}
           <div className="bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#1f1f1f] rounded-lg p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
@@ -196,9 +188,79 @@ const PainelEepmm = () => {
                 <XAxis dataKey="name" stroke="#6b7280" />
                 <YAxis stroke="#6b7280" domain={[0, 100]} />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="grade" fill="#6366f1" name="Nota" radius={[8, 8, 0, 0]} />
+                <Bar dataKey="averageGrade" fill="#6366f1" name="Nota" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
+          </div>
+
+          {/* Bar Chart - Performance by Class */}
+          <div className="bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#1f1f1f] rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+              Desempenho por Sala
+            </h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={performanceByClassData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.1} />
+                <XAxis dataKey="name" stroke="#6b7280" />
+                <YAxis stroke="#6b7280" domain={[0, 100]} />
+                <Tooltip content={<CustomTooltip />} />
+                <Bar dataKey="averageGrade" fill="#82ca9d" name="Nota Média" radius={[8, 8, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Pie Chart - Students per Class */}
+          <div className="bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#1f1f1f] rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+              Alunos por Sala
+            </h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={studentsPerClassData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                  outerRadius={100}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {studentsPerClassData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip content={<CustomTooltip />} />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Search and Filter */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="relative flex-grow">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="Buscar aluno ou atividade..."
+              className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#1f1f1f] rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <div className="relative">
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+            <select
+              value={selectedClass}
+              onChange={(e) => setSelectedClass(e.target.value)}
+              className="w-full sm:w-auto pl-10 pr-8 py-2 bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#1f1f1f] rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none cursor-pointer"
+            >
+              <option value="all">Todas as Salas</option>
+              <option value="1">1º Ano</option>
+              <option value="2">2º Ano</option>
+              <option value="3">3º Ano</option>
+            </select>
           </div>
         </div>
 
