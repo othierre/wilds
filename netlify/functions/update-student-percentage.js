@@ -30,18 +30,10 @@
  *    checklist_percentage: 50
  *    ---
  */
-const matter = require('gray-matter'); // Requires gray-matter to be installed
+import { Octokit } from "@octokit/rest";
+import matter from 'gray-matter';
 
-// Use dynamic import for @octokit/rest as it's an ES Module
-let Octokit;
-const loadOctokit = async () => {
-  if (!Octokit) {
-    const octokitModule = await import("@octokit/rest");
-    Octokit = octokitModule.Octokit;
-  }
-};
-
-exports.handler = async (event, context) => {
+export async function handler(event, context) {
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
@@ -76,7 +68,6 @@ exports.handler = async (event, context) => {
       };
     }
 
-    await loadOctokit(); // Ensure Octokit is loaded
     const octokit = new Octokit({ auth: GITHUB_TOKEN });
     const filePath = `content/alunos/${studentId}.md`; // Assuming studentId matches the filename slug
 
