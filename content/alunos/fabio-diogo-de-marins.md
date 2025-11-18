@@ -4,4 +4,6 @@ grade: 25
 class: '3'
 activities: []
 proofs: []
+checklist_percentage: '0'
 ---
+
