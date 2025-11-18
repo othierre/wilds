@@ -17,9 +17,9 @@ const Aulas = () => {
 
   // Placeholder for banner images - in a real app, these would come from a CMS or API
   const banners = [
-    { id: 1, image: 'https://via.placeholder.com/1200x400/FF5733/FFFFFF?text=Aulas+Wilds+-+Agricultura+Familiar', alt: 'Banner 1' },
-    { id: 2, image: 'https://via.placeholder.com/1200x400/33FF57/FFFFFF?text=Aulas+Wilds+-+Segurança+no+Campo', alt: 'Banner 2' },
-    { id: 3, image: 'https://via.placeholder.com/1200x400/3357FF/FFFFFF?text=Aulas+Wilds+-+Direitos+Rurais', alt: 'Banner 3' },
+    { id: 1, image: '/1.png', alt: 'Banner 1' },
+    { id: 2, image: '/2.png', alt: 'Banner 2' },
+    { id: 3, image: '/3.png', alt: 'Banner 3' },
   ];
 
   // Simple carousel state
