@@ -18,6 +18,7 @@ const Argos = () => {
     '2': true,
     '3': true
   });
+  const [savingStates, setSavingStates] = useState({}); // New state for individual saving
 
   useEffect(() => {
     const loadStudents = async () => {
@@ -55,11 +56,27 @@ const Argos = () => {
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Failed to send percentage update:', errorData);
+        return false; // Indicate failure
       } else {
         console.log(`Percentage update sent for ${studentId}: ${percentage}%`);
+        return true; // Indicate success
       }
     } catch (error) {
       console.error('Error sending percentage update:', error);
+      return false; // Indicate failure
+    }
+  };
+
+  const handleSaveStudent = async (studentId, studentChecklist) => {
+    setSavingStates(prev => ({ ...prev, [studentId]: true }));
+    const percentage = calculateCompletionPercentage(studentChecklist);
+    const success = await sendPercentageUpdate(studentId, percentage);
+    setSavingStates(prev => ({ ...prev, [studentId]: false }));
+
+    if (success) {
+      alert(`Progresso do aluno ${studentId} salvo com sucesso!`);
+    } else {
+      alert(`Falha ao salvar progresso do aluno ${studentId}. Verifique o console para mais detalhes.`);
     }
   };
 
@@ -76,14 +93,6 @@ const Argos = () => {
             }
           : student
       );
-
-      // Calculate new percentage for the updated student and send to serverless function
-      const updatedStudent = updatedStudents.find(s => s.id === studentId);
-      if (updatedStudent) {
-        const newPercentage = calculateCompletionPercentage(updatedStudent.checklist);
-        sendPercentageUpdate(updatedStudent.id, newPercentage);
-      }
-
       return updatedStudents;
     });
   };
@@ -104,19 +113,6 @@ const Argos = () => {
     return acc;
   }, {});
 
-  const [isSaving, setIsSaving] = useState(false);
-
-  const handleSaveAll = async () => {
-    setIsSaving(true);
-    const savePromises = students.map(async (student) => {
-      const percentage = calculateCompletionPercentage(student.checklist);
-      await sendPercentageUpdate(student.id, percentage);
-    });
-    await Promise.all(savePromises);
-    setIsSaving(false);
-    alert('Todas as porcentagens foram enviadas para atualização!');
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] p-6">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -130,13 +126,6 @@ const Argos = () => {
               Gerencie o checklist individual de cada aluno e acompanhe o progresso.
             </p>
           </div>
-          <button
-            onClick={handleSaveAll}
-            disabled={isSaving}
-            className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {isSaving ? 'Salvando...' : 'Salvar Todas as Porcentagens'}
-          </button>
         </div>
 
         {/* Student Checklists - Organized by Class */}
@@ -206,10 +195,17 @@ const Argos = () => {
                               </div>
                             ))}
                           </div>
-                          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-[#1f1f1f]">
+                          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-[#1f1f1f] flex justify-between items-center">
                             <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                               Progresso: {calculateCompletionPercentage(student.checklist)}%
                             </p>
+                            <button
+                              onClick={() => handleSaveStudent(student.id, student.checklist)}
+                              disabled={savingStates[student.id]}
+                              className="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+                            >
+                              {savingStates[student.id] ? 'Salvando...' : 'Salvar'}
+                            </button>
                           </div>
                         </div>
                       ))}

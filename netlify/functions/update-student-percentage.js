@@ -97,7 +97,7 @@ export async function handler(event, context) {
           sha = data.sha;
         } else if (getResponse.status === 404) {
           console.warn(`File ${filePath} not found. Creating new file.`);
-          fileContent = `---\nchecklist_percentage: 0\n---\n# ${studentId}\n`;
+          fileContent = `---\ngrade: 0\n---\n# ${studentId}\n`;
           sha = undefined;
         } else {
           throw new Error(`GitHub API error: ${getResponse.status} ${getResponse.statusText}`);
@@ -112,7 +112,17 @@ export async function handler(event, context) {
 
       // 2. Parse frontmatter and update percentage
       const parsed = matter(fileContent);
-      parsed.data.checklist_percentage = percentage;
+      const existingPercentage = parsed.data.grade; // Changed from checklist_percentage
+
+      if (existingPercentage === percentage) {
+        console.log(`Percentage for ${studentId} is already ${percentage}%. No update needed.`);
+        return {
+          statusCode: 200,
+          body: JSON.stringify({ message: `Percentage for ${studentId} is already ${percentage}%. No update needed.` })
+        };
+      }
+
+      parsed.data.grade = percentage; // Changed from checklist_percentage
       const updatedMarkdown = matter.stringify(parsed.content, parsed.data);
 
       // 3. Commit and push the changes
