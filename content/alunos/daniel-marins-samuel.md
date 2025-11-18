@@ -1,7 +1,8 @@
 ---
 name: DANIEL MARINS SAMUEL
-grade: 100
+grade: 0
 class: '2'
 activities: []
 proofs: []
 ---
+
