@@ -77,3 +77,25 @@ export const getStudents = async () => {
     },
   ];
 };
+
+export const updateStudent = async (studentId, percentage, completedActivities) => {
+  try {
+    const response = await fetch('/.netlify/functions/update-student-percentage', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ studentId, percentage, completedActivities }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to update student data');
+    }
+
+    return { success: true, message: 'Student data updated successfully!' };
+  } catch (error) {
+    console.error('Error updating student data:', error);
+    return { success: false, message: error.message || 'An unexpected error occurred.' };
+  }
+};
