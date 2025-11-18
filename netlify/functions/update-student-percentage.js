@@ -118,17 +118,33 @@ export async function handler(event, context) {
       let activitiesChanged = false;
       let newActivities = [];
 
-      if (completedActivities && Array.isArray(completedActivities)) {
+      // Check if completedActivities is an object (from frontend checkboxes)
+      if (completedActivities && typeof completedActivities === 'object' && !Array.isArray(completedActivities)) {
+        const activityNames = [
+          "Fez o post do Blog?",
+          "Fez Cartazes?",
+          "Preencheu o Formulário online?",
+          "Fez a Busca por agrotóxicos?",
+          "Ajudou na decoração?",
+          "Foi participativo?"
+        ];
+
+        for (const activityName of activityNames) {
+          if (completedActivities[activityName] === true) {
+            newActivities.push(activityName.replace(/\?$/, '.').trim());
+          }
+        }
+      } else if (completedActivities && Array.isArray(completedActivities)) {
+        // If it's already an array, use it directly (existing behavior)
         newActivities = completedActivities.map(activity => {
-          // Replace '?' with '.' and ensure it's a string
           return activity.replace(/\?$/, '.').trim();
         });
+      }
 
-        // Check if activities have actually changed
-        if (JSON.stringify(newActivities.sort()) !== JSON.stringify(existingActivities.sort())) {
-          activitiesChanged = true;
-          parsed.data.activities = newActivities;
-        }
+      // Check if activities have actually changed
+      if (JSON.stringify(newActivities.sort()) !== JSON.stringify(existingActivities.sort())) {
+        activitiesChanged = true;
+        parsed.data.activities = newActivities;
       }
 
       if (existingPercentage === percentage && !activitiesChanged) {

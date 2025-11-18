@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { User, ChevronDown, ChevronUp, CheckSquare, Square } from 'lucide-react';
-import { getStudents } from '../utils/studentUtils'; // Import the utility function
+import { getStudents, updateStudent } from '../utils/studentUtils'; // Import the update function
 
 const CHECKLIST_QUESTIONS = [
   "Fez o post do Blog?",
@@ -20,19 +20,20 @@ const Argos = () => {
   });
   const [savingStates, setSavingStates] = useState({}); // New state for individual saving
 
+  const loadStudents = async () => { // Make loadStudents a standalone function
+    const fetchedStudents = await getStudents();
+    // Initialize checklist for each student based on existing activities
+    const studentsWithChecklist = fetchedStudents.map(student => ({
+      ...student,
+      checklist: CHECKLIST_QUESTIONS.reduce((acc, question) => {
+        acc[question] = student.activities && student.activities.includes(question);
+        return acc;
+      }, {}),
+    }));
+    setStudents(studentsWithChecklist);
+  };
+
   useEffect(() => {
-    const loadStudents = async () => {
-      const fetchedStudents = await getStudents();
-      // Initialize checklist for each student
-      const studentsWithChecklist = fetchedStudents.map(student => ({
-        ...student,
-        checklist: CHECKLIST_QUESTIONS.reduce((acc, question) => {
-          acc[question] = false; // Default all checklist items to false
-          return acc;
-        }, {}),
-      }));
-      setStudents(studentsWithChecklist);
-    };
     loadStudents();
   }, []); // Empty dependency array means this runs once on mount
 
@@ -44,39 +45,28 @@ const Argos = () => {
     return ((completedTasks / totalQuestions) * 100).toFixed(0);
   };
 
-  const sendPercentageUpdate = async (studentId, percentage) => {
-    try {
-      const response = await fetch('/.netlify/functions/update-student-percentage', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ studentId, percentage }),
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Failed to send percentage update:', errorData);
-        return false; // Indicate failure
-      } else {
-        console.log(`Percentage update sent for ${studentId}: ${percentage}%`);
-        return true; // Indicate success
-      }
-    } catch (error) {
-      console.error('Error sending percentage update:', error);
-      return false; // Indicate failure
-    }
-  };
-
   const handleSaveStudent = async (studentId, studentChecklist) => {
     setSavingStates(prev => ({ ...prev, [studentId]: true }));
-    const percentage = calculateCompletionPercentage(studentChecklist);
-    const success = await sendPercentageUpdate(studentId, percentage);
-    setSavingStates(prev => ({ ...prev, [studentId]: false }));
+    const percentage = parseInt(calculateCompletionPercentage(studentChecklist)); // Ensure percentage is a number
 
-    if (success) {
-      alert(`Progresso do aluno ${studentId} salvo com sucesso!`);
-    } else {
-      alert(`Falha ao salvar progresso do aluno ${studentId}. Verifique o console para mais detalhes.`);
+    const completedActivities = {};
+    CHECKLIST_QUESTIONS.forEach(question => {
+      completedActivities[question] = studentChecklist[question] || false;
+    });
+
+    try {
+      const result = await updateStudent(studentId, percentage, completedActivities);
+      if (result.success) {
+        alert(`Progresso do aluno ${studentId} salvo com sucesso!`);
+        await loadStudents(); // Reload students to reflect changes
+      } else {
+        alert(`Falha ao salvar progresso do aluno ${studentId}. Erro: ${result.message}`);
+      }
+    } catch (error) {
+      alert(`Erro inesperado ao salvar progresso do aluno ${studentId}. Erro: ${error.message}`);
+      console.error('Error saving student progress:', error);
+    } finally {
+      setSavingStates(prev => ({ ...prev, [studentId]: false }));
     }
   };
 
