@@ -1,6 +1,6 @@
 ---
 name: ANTONIO JOSE RIBEIRO GONÇALVES
-grade: 100
+grade: 0
 class: '1'
 activities: []
 proofs: []
