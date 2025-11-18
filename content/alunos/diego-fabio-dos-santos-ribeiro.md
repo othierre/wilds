@@ -1,8 +1,9 @@
 ---
 name: DIEGO FABIO DOS SANTOS RIBEIRO
-grade: 100
+grade: 17
 class: '2'
-activities: []
+activities:
+  - Fez o post do Blog.
 proofs: []
 checklist_percentage: '0'
 ---
