@@ -44,7 +44,7 @@ const Header = ({ onMenuClick }) => {
   return (
     <header className="sticky top-0 z-[1001] pt-4">
       <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between px-4 rounded-3xl bg-white dark:bg-[#141414] shadow-lg border border-gray-200 dark:border-[#1f1f1f] backdrop-blur-sm bg-opacity-80 dark:bg-opacity-80">          <div className="flex items-center gap-4">
+        <div className="flex h-16 items-center justify-between px-4 rounded-3xl bg-white dark:bg-black shadow-lg border border-gray-200 dark:border-[#1f1f1f] backdrop-blur-sm bg-opacity-80 dark:bg-opacity-80">          <div className="flex items-center gap-4">
             <button
               type="button"
               className="lg:hidden p-2 rounded-lg text-gray-700 dark:text-[#e5e5e5] hover:bg-gray-100 dark:hover:bg-[#1a1a1a]"
