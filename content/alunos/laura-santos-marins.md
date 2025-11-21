@@ -1,6 +1,6 @@
 ---
 name: LAURA SANTOS MARINS
-grade: 100
+grade: 0
 class: '2'
 activities: []
 proofs: []
